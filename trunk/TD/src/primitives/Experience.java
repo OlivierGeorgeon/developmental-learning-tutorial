@@ -22,6 +22,15 @@ public class Experience {
 		return EXPERIENCES.get(index);
 	}
 	
+	public static Experience getOther(Experience experience){
+		Experience otherExperience = null;
+		for (Experience e : EXPERIENCES){
+			if (e!=experience)
+				otherExperience =  e;
+		}		
+		return otherExperience;
+	}
+	
 	private Experience(String label){
 		this.label = label;
 	}
