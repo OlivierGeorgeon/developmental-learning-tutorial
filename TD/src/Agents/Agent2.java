@@ -30,6 +30,9 @@ public class Agent2 implements Agent{
 				proposed = true;
 				System.out.println("propose " + this.experience.getLabel());
 			}
+			else{
+				this.experience = Experience.getOther(activatedInteraction.getPostInteraction().getExperience());						
+			}
 
 		if (!proposed &&  enactedInteraction.getValue() < 0)
 			this.experience = Experience.getNext();		
