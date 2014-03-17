@@ -1,8 +1,8 @@
 package Environments;
 
 import main.Main;
-import primitives.Experience;
-import primitives.Result;
+import coupling.Experience;
+import coupling.Result;
 
 public class Environment3 implements Environment {
 

@@ -1,9 +1,9 @@
 package Agents;
 
 import main.Main;
-import primitives.Experience;
-import primitives.Interaction;
-import primitives.Result;
+import coupling.Experience;
+import coupling.Interaction;
+import coupling.Result;
 
 public class Agent1 implements Agent{
 
