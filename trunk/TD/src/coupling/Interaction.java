@@ -1,14 +1,9 @@
 package coupling;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import coupling.Experience;
 import coupling.Result;
 
 public class Interaction {
-	private static Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 	
 	private String label;
 	private int value;
@@ -17,41 +12,8 @@ public class Interaction {
 	private Result result;
 	private Interaction preInteraction;
 	private Interaction postInteraction;
-	
-	public static Interaction createPrimitiveInteraction(Experience experience, Result result, int value){
-		Interaction interaction = create(experience.getLabel() + result.getLabel(), value); 
-		interaction.setExperience(experience);
-		interaction.setResult(result);
-		return interaction;
-	}
-	
-	public static Interaction createOrGetCompositeInteraction(Interaction preInteraction, Interaction postInteraction){
-		int value = preInteraction.getValue() + postInteraction.getValue();
-		Interaction interaction = create(preInteraction.getLabel() + postInteraction.getLabel(), value); 
-		interaction.setPreInteraction(preInteraction);
-		interaction.setPostInteraction(postInteraction);
-		return interaction;
-	}
-	
-	public static Interaction create(String label, int value){
-		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction(label, value));			
-		return INTERACTIONS.get(label);
-	}
-	
-	public static Interaction get(String label){
-		return INTERACTIONS.get(label);
-	}
-	
-	public static List<Interaction> getActivatedInteractions(Interaction interaction){
-		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
-		for (Interaction activatedInteraction : INTERACTIONS.values())
-			if (interaction==activatedInteraction.getPreIntearction())
-				activatedInteractions.add(activatedInteraction);
-		return activatedInteractions;
-	}
-	
-	private Interaction(String label, int value){
+		
+	Interaction(String label, int value){
 		this.label = label;
 		this.value = value;
 	}
@@ -90,6 +52,10 @@ public class Interaction {
 
 	public Interaction getPostInteraction() {
 		return postInteraction;
+	}
+	
+	public String toString(){
+		return this.experience.getLabel() + "," + this.result.getLabel() + "," + this.value;
 	}
 
 	public void setPostInteraction(Interaction postInteraction) {
