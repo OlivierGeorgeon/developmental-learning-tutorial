@@ -34,8 +34,8 @@ public class Agent2 implements Agent{
 				this.experience = Experience.getOther(activatedInteraction.getPostInteraction().getExperience());						
 			}
 
-		if (!proposed &&  enactedInteraction.getValue() < 0)
-			this.experience = Experience.getNext();		
+//		if (!proposed &&  enactedInteraction.getValue() < 0)
+//			this.experience = Experience.getNext();		
 		
 		return this.experience;
 	}

@@ -12,7 +12,7 @@ public class Agent1 implements Agent{
 	public Experience chooseExperience(Result result){
 		
 		if (Interaction.get(this.experience.getLabel() + result.getLabel()).getValue() < 0)
-			this.experience = Experience.getNext();		
+			this.experience = Experience.getOther(this.experience);		
 		return this.experience;
 	}
 }
