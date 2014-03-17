@@ -1,7 +1,7 @@
 package Environments;
 
-import primitives.Experience;
-import primitives.Result;
+import coupling.Experience;
+import coupling.Result;
 
 public interface Environment {
 

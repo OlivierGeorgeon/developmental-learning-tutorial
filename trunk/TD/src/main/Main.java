@@ -7,9 +7,9 @@ import Environments.Environment1;
 import Environments.Environment;
 import Environments.Environment2;
 import Environments.Environment3;
-import primitives.Experience;
-import primitives.Interaction;
-import primitives.Result;
+import coupling.Experience;
+import coupling.Interaction;
+import coupling.Result;
 
 public class Main {
 

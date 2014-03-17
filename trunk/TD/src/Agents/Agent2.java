@@ -3,9 +3,9 @@ package Agents;
 import java.util.List;
 
 import main.Main;
-import primitives.Experience;
-import primitives.Interaction;
-import primitives.Result;
+import coupling.Experience;
+import coupling.Interaction;
+import coupling.Result;
 
 public class Agent2 implements Agent{
 
