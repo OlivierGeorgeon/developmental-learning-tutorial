@@ -16,17 +16,19 @@ public class Experience {
 		return experience;
 	}
 	
-	public static Experience getNext(){
-		if (index < EXPERIENCES.size() - 1) index++;
-		else index = 0;
-		return EXPERIENCES.get(index);
-	}
-	
+//	public static Experience getNext(){
+//		if (index < EXPERIENCES.size() - 1) index++;
+//		else index = 0;
+//		return EXPERIENCES.get(index);
+//	}
+//	
 	public static Experience getOther(Experience experience){
 		Experience otherExperience = null;
 		for (Experience e : EXPERIENCES){
-			if (e!=experience)
+			if (e!=experience){
 				otherExperience =  e;
+				break;
+			}
 		}		
 		return otherExperience;
 	}
