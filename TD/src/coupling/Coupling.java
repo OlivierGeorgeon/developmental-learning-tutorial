@@ -4,6 +4,11 @@ import java.util.List;
 
 public interface Coupling {
 
+	public static final String LABEL_E1 = "e1";
+	public static final String LABEL_E2 = "e2";
+	public static final String LABEL_R1 = "r1";
+	public static final String LABEL_R2 = "r2";
+
 	public Experience createOrGetExperience(String label);
 
 	public Experience getOtherExperience(Experience experience);
