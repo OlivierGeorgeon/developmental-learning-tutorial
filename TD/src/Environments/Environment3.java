@@ -16,10 +16,10 @@ public class Environment3 implements Environment {
 	public Result giveResult(Experience experience){
 		
 		Result result;
-		if (experience_1!=experience)
-			result =  this.coupling.createOrGetResult(Coupling.LABEL_R2);
-		else
+		if (experience_1==experience)
 			result =  this.coupling.createOrGetResult(Coupling.LABEL_R1);
+		else
+			result =  this.coupling.createOrGetResult(Coupling.LABEL_R2);
 		experience_1 = experience;
 		
 		return result;
