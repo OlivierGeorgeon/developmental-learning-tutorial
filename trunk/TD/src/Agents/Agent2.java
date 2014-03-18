@@ -14,7 +14,7 @@ public class Agent2 implements Agent{
 	
 	public Agent2(Coupling coupling){
 		this.coupling = coupling;
-		this.experience = coupling.createOrGetExperience("e1");
+		this.experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 	}
 	
 	public Experience chooseExperience(Result result){

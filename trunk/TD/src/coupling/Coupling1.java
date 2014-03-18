@@ -6,13 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Coupling1 implements Coupling {
-
+	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
 	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 
+	public Coupling1(){
+		Experience e1 = createOrGetExperience(LABEL_E1);
+		Experience e2 = createOrGetExperience(LABEL_E2);
+		Result r1 = createOrGetResult(LABEL_R1);
+		Result r2 = createOrGetResult(LABEL_R2);
+		createPrimitiveInteraction(e1, r1, -1);
+		createPrimitiveInteraction(e1, r2, 1);
+		createPrimitiveInteraction(e2, r1, -1);
+		createPrimitiveInteraction(e2, r2, 1);
+	}
+	
 	@Override
 	public Experience createOrGetExperience(String label) {
 		if (!EXPERIENCES.containsKey(label))
