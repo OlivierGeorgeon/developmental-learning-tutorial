@@ -18,10 +18,10 @@ public class Coupling1 implements Coupling {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, -1);
-		createPrimitiveInteraction(e1, r2, 1);
-		createPrimitiveInteraction(e2, r1, -1);
-		createPrimitiveInteraction(e2, r2, 1);
+		createPrimitiveInteraction(e1, r1, 1);
+		createPrimitiveInteraction(e1, r2, -1);
+		createPrimitiveInteraction(e2, r1, 1);
+		createPrimitiveInteraction(e2, r2, -1);
 	}
 	
 	@Override

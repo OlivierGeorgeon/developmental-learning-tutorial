@@ -14,16 +14,16 @@ import coupling.Result;
 
 public class Main {
 	
-	private static Coupling coupling = new Coupling1();
-
 	public static void main(String[] args){
 		
-		//Agent agent = new Agent1(coupling);
-		Agent agent = new Agent2(coupling);
+		Coupling coupling = new Coupling1();
+
+		Agent agent = new Agent1(coupling);
+		//Agent agent = new Agent2(coupling);
 		
-		//Environment env = new Environment1(coupling);
-		//Environment env = new Environment2(coupling);
-		Environment environment = new Environment3(coupling);
+		//Environment environment = new Environment1(coupling);
+		Environment environment = new Environment2(coupling);
+		//Environment environment = new Environment3(coupling);
 		
 		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);
