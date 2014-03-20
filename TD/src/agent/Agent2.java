@@ -1,4 +1,4 @@
-package Agents;
+package agent;
 
 import java.util.List;
 import coupling.Coupling;

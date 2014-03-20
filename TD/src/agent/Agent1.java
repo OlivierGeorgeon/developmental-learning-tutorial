@@ -1,4 +1,4 @@
-package Agents;
+package agent;
 
 import coupling.Coupling;
 import coupling.Experience;
