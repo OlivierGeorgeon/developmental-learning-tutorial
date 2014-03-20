@@ -6,13 +6,13 @@ import coupling.Experience;
 import coupling.Interaction;
 import coupling.Result;
 
-public class Agent2 implements Agent{
+public class Agent3 implements Agent{
 
 	private Coupling coupling;
 	private Experience experience;
 	private Interaction preInteraction;
 	
-	public Agent2(Coupling coupling){
+	public Agent3(Coupling coupling){
 		this.coupling = coupling;
 		this.experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 	}

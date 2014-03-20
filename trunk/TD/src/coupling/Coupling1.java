@@ -18,10 +18,10 @@ public class Coupling1 implements Coupling {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, 1);
-		createPrimitiveInteraction(e1, r2, -1);
-		createPrimitiveInteraction(e2, r1, 1);
-		createPrimitiveInteraction(e2, r2, -1);
+		createPrimitiveInteraction(e1, r1, -1);
+		createPrimitiveInteraction(e1, r2, 1);
+		createPrimitiveInteraction(e2, r1, -1);
+		createPrimitiveInteraction(e2, r2, 1);
 	}
 	
 	@Override
@@ -51,22 +51,21 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Interaction createPrimitiveInteraction(Experience experience,
+	public void createPrimitiveInteraction(Experience experience,
 			Result result, int value) {
-		Interaction interaction = create(experience.getLabel() + result.getLabel(), value); 
+		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), value); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
-		return interaction;
 	}
 
 	@Override
-	public Interaction createOrGetCompositeInteraction(
+	public void createOrReinforceCompositeInteraction(
 			Interaction preInteraction, Interaction postInteraction) {
 		int value = preInteraction.getValue() + postInteraction.getValue();
-		Interaction interaction = create(preInteraction.getLabel() + postInteraction.getLabel(), value); 
+		Interaction interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), value); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
-		return interaction;
+		interaction.incrementWeight();
 	}
 
 	@Override
@@ -83,7 +82,7 @@ public class Coupling1 implements Coupling {
 		return activatedInteractions;
 	}
 
-	private Interaction create(String label, int value) {
+	private Interaction createOrGet(String label, int value) {
 		if (!INTERACTIONS.containsKey(label))
 			INTERACTIONS.put(label, new Interaction(label, value));			
 		return INTERACTIONS.get(label);
