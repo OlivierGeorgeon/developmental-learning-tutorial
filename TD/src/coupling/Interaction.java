@@ -1,12 +1,10 @@
 package coupling;
 
-import coupling.Experience;
-import coupling.Result;
-
 public class Interaction {
 	
 	private String label;
 	private int value;
+	private int weight = 0;
 	
 	private Experience experience;
 	private Result result;
@@ -60,6 +58,14 @@ public class Interaction {
 
 	public void setPostInteraction(Interaction postInteraction) {
 		this.postInteraction = postInteraction;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void incrementWeight() {
+		this.weight++;
 	}
 
 }

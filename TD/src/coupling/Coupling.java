@@ -15,9 +15,9 @@ public interface Coupling {
 
 	public Result createOrGetResult(String label);
 
-	public Interaction createPrimitiveInteraction(Experience experience, Result result, int value);
+	public void createPrimitiveInteraction(Experience experience, Result result, int value);
 	
-	public Interaction createOrGetCompositeInteraction(Interaction preInteraction, Interaction postInteraction);
+	public void createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction);
 	
 	public Interaction getInteraction(String label);
 	
