@@ -1,8 +1,8 @@
 package main;
 
-import Agents.Agent;
-import Agents.Agent1;
-import Agents.Agent2;
+import agent.Agent;
+import agent.Agent1;
+import agent.Agent2;
 import Environments.Environment1;
 import Environments.Environment;
 import Environments.Environment2;
