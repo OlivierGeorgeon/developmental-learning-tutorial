@@ -3,7 +3,7 @@ package coupling;
 public class Interaction {
 	
 	private String label;
-	private int value;
+	private int valence;
 	private int weight = 0;
 	
 	private Experience experience;
@@ -11,17 +11,17 @@ public class Interaction {
 	private Interaction preInteraction;
 	private Interaction postInteraction;
 		
-	Interaction(String label, int value){
+	Interaction(String label, int valence){
 		this.label = label;
-		this.value = value;
+		this.valence = valence;
 	}
 	
 	public String getLabel(){
 		return this.label;
 	}
 	
-	public int getValue(){
-		return this.value;
+	public int getValence(){
+		return this.valence;
 	}
 
 	public Experience getExperience() {
@@ -53,7 +53,10 @@ public class Interaction {
 	}
 	
 	public String toString(){
-		return this.experience.getLabel() + "," + this.result.getLabel() + "," + this.value;
+		if (this.preInteraction != null)
+			return this.preInteraction.getLabel() + "-" + this.postInteraction.getLabel() + "," + this.valence + "," + this.weight;
+		else
+			return this.experience.getLabel() + "," + this.result.getLabel() + "," + this.valence;
 	}
 
 	public void setPostInteraction(Interaction postInteraction) {

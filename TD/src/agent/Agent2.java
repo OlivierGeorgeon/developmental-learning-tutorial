@@ -28,7 +28,7 @@ public class Agent2 implements Agent{
 
 		List<Interaction> activatedInteractions = this.coupling.getActivatedInteractions(enactedInteraction);
 		for (Interaction activatedInteraction : activatedInteractions)
-			if (activatedInteraction.getPostInteraction().getValue() > 0){
+			if (activatedInteraction.getPostInteraction().getValence() > 0){
 				this.experience = activatedInteraction.getPostInteraction().getExperience();
 				System.out.println("propose " + this.experience.getLabel());
 			}
