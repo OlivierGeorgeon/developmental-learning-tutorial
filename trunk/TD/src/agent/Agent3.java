@@ -1,6 +1,9 @@
 package agent;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import agent.decider.Proposition;
 import coupling.Coupling;
 import coupling.Experience;
 import coupling.Interaction;
@@ -27,15 +30,27 @@ public class Agent3 implements Agent{
 		this.preInteraction = enactedInteraction;
 
 		List<Interaction> activatedInteractions = this.coupling.getActivatedInteractions(enactedInteraction);
-		for (Interaction activatedInteraction : activatedInteractions)
-			if (activatedInteraction.getPostInteraction().getValue() > 0){
-				this.experience = activatedInteraction.getPostInteraction().getExperience();
-				System.out.println("propose " + this.experience.getLabel());
-			}
-			else{
-				this.experience = this.coupling.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
-			}
-
+		List<Proposition> propositions = new ArrayList<Proposition>(); 
+		
+		for (Interaction activatedInteraction : activatedInteractions){
+			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+			int index = propositions.indexOf(proposition);
+			if (index < 0)
+				propositions.add(proposition);
+			else
+				propositions.get(index).addProclivity(activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+		}
+		
+		if (propositions.size() > 0){
+			Collections.sort(propositions);
+			Proposition selectedProposition = propositions.get(0);
+			System.out.println("propose " + selectedProposition.toString());
+			if (selectedProposition.getProclivity() > 0 || propositions.size() > 1)
+				this.experience = selectedProposition.getExperience();
+			else
+				this.experience = this.coupling.getOtherExperience(this.experience);
+		}			
+		
 		return this.experience;
 	}
 }

@@ -16,7 +16,7 @@ public class Agent1 implements Agent{
 	
 	public Experience chooseExperience(Result result){
 		
-		if (coupling.getInteraction(this.experience.getLabel() + result.getLabel()).getValue() < 0)
+		if (coupling.getInteraction(this.experience.getLabel() + result.getLabel()).getValence() < 0)
 			this.experience = coupling.getOtherExperience(this.experience);		
 		return this.experience;
 	}

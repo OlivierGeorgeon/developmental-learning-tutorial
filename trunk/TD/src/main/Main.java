@@ -3,6 +3,7 @@ package main;
 import agent.Agent;
 import agent.Agent1;
 import agent.Agent2;
+import agent.Agent3;
 import Environments.Environment1;
 import Environments.Environment;
 import Environments.Environment2;
@@ -20,7 +21,7 @@ public class Main {
 		Coupling coupling = new Coupling1();
 
 		//Agent agent = new Agent1(coupling);
-		Agent agent = new Agent2(coupling);
+		Agent agent = new Agent3(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
@@ -30,7 +31,7 @@ public class Main {
 		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);
 		
-		for(int i=0 ; i < 10 ; i++){
+		for(int i=0 ; i < 20 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
 			System.out.println(coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());

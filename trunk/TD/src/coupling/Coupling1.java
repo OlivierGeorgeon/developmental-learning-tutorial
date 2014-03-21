@@ -52,8 +52,8 @@ public class Coupling1 implements Coupling {
 
 	@Override
 	public void createPrimitiveInteraction(Experience experience,
-			Result result, int value) {
-		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), value); 
+			Result result, int valence) {
+		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 	}
@@ -61,11 +61,12 @@ public class Coupling1 implements Coupling {
 	@Override
 	public void createOrReinforceCompositeInteraction(
 			Interaction preInteraction, Interaction postInteraction) {
-		int value = preInteraction.getValue() + postInteraction.getValue();
-		Interaction interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), value); 
+		int valence = preInteraction.getValence() + postInteraction.getValence();
+		Interaction interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
 		interaction.incrementWeight();
+		System.out.println("learn " + interaction.toString());
 	}
 
 	@Override
@@ -82,9 +83,9 @@ public class Coupling1 implements Coupling {
 		return activatedInteractions;
 	}
 
-	private Interaction createOrGet(String label, int value) {
+	private Interaction createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction(label, value));			
+			INTERACTIONS.put(label, new Interaction(label, valence));			
 		return INTERACTIONS.get(label);
 	}
 
