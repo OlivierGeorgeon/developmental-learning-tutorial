@@ -8,11 +8,10 @@ import Environments.Environment0;
 import Environments.Environment;
 import Environments.Environment1;
 import Environments.Environment2;
-import Environments.Environment4;
+import Environments.Environment3;
 import coupling.Coupling;
 import coupling.Coupling1;
 import coupling.Coupling2;
-import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
 
@@ -32,7 +31,7 @@ public class Main {
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
 		//Environment environment = new Environment2(coupling);
-		Environment environment = new Environment4(coupling);
+		Environment environment = new Environment3(coupling);
 		
 		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);

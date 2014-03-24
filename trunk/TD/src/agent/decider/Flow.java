@@ -19,6 +19,7 @@ public class Flow {
 	
 	public Flow(Coupling coupling){
 		this.coupling = coupling;
+		this.experience = this.coupling.createOrGetExperience(Coupling.LABEL_E1);
 	}
 
 	public Interaction getEnactedInteraction() {
