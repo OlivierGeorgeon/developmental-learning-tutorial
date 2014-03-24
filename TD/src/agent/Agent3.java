@@ -3,6 +3,8 @@ package agent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import agent.decider.Flow;
 import agent.decider.Proposition;
 import coupling.Coupling;
 import coupling.Coupling3;
@@ -13,22 +15,21 @@ import coupling.Result;
 public class Agent3 implements Agent{
 
 	private Coupling3 coupling;
-	private Experience experience;
-	private Interaction preInteraction;
+	private Flow flow = new Flow();
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
+		this.flow.setExperience(coupling.createOrGetExperience(Coupling.LABEL_E1));
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		Interaction enactedInteraction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
+		Interaction enactedInteraction  = this.coupling.getInteraction(this.flow.getExperience().getLabel() + result.getLabel());
 		
-		if (preInteraction != null)
-			this.coupling.createOrReinforceCompositeInteraction(preInteraction, enactedInteraction);
+		if (this.flow.getEnactedInteraction() != null)
+			this.coupling.createOrReinforceCompositeInteraction(this.flow.getEnactedInteraction(), enactedInteraction);
 		
-		this.preInteraction = enactedInteraction;
+		this.flow.setEnactedInteraction(enactedInteraction);
 
 		List<Interaction> contextInteractions = new ArrayList<Interaction>();
 		contextInteractions.add(enactedInteraction);
@@ -50,12 +51,11 @@ public class Agent3 implements Agent{
 				System.out.println("propose " + proposition.toString());
 			Proposition selectedProposition = propositions.get(0);
 			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
-				this.experience = selectedProposition.getExperience();
+				this.flow.setExperience(selectedProposition.getExperience());
 			else
-				this.experience = this.coupling.getOtherExperience(selectedProposition.getExperience());
-				//this.experience = this.coupling.getOtherExperience(this.experience);
+				this.flow.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
 		}			
 		
-		return this.experience;
+		return this.flow.getExperience();
 	}
 }
