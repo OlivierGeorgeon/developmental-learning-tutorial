@@ -13,30 +13,25 @@ public class Episode {
 	
 	private Experience experience;
 
-	Interaction3 enactedInteraction;
-	
-	List<Interaction3> contextInteractions = new ArrayList<Interaction3>();
+	Episode contextEpisode;
+
+	List<Interaction3> enactedInteractions = new ArrayList<Interaction3>();
 	
 	public Episode(Coupling3 coupling){
 		this.coupling = coupling;
 		this.experience = this.coupling.createOrGetExperience(Coupling3.LABEL_E1);
 	}
 
-	public Episode(Episode flow){
-		this.coupling = flow.coupling;
-		this.experience = flow.experience;
+	public Episode(Episode episode){
+		this.coupling = episode.coupling;
+		this.experience = episode.experience;
+		
+		episode.setContextEpisode(null);
+		this.contextEpisode = episode;
 	}
-
-	public Interaction3 getEnactedInteraction() {
-		return enactedInteraction;
-	}
-
-	public List<Interaction3> getContextInteractions() {
-		return contextInteractions;
-	}
-
-	public void setContextInteractions(List<Interaction3> contextInteractions) {
-		this.contextInteractions = contextInteractions;
+	
+	public List<Interaction3> getEnactedInteractions() {
+		return enactedInteractions;
 	}
 
 	public Experience getExperience() {
@@ -47,13 +42,16 @@ public class Episode {
 		this.experience = experience;
 	}
 	
-	public void learn(Interaction3 enactedInteraction){
-		if (this.enactedInteraction != null)
-			this.coupling.createOrReinforceCompositeInteraction(this.enactedInteraction, enactedInteraction);	
-		this.enactedInteraction = enactedInteraction;
-		
-//		this.contextInteractions = new ArrayList<Interaction3>();
-//		this.contextInteractions.add(enactedInteraction);
+	public void store(Interaction3 enactedInteraction){
+		this.enactedInteractions = new ArrayList<Interaction3>();
+		this.enactedInteractions.add(enactedInteraction);
+
+		if (contextEpisode!= null )
+			for (Interaction3 contextInteraction : contextEpisode.getEnactedInteractions()){
+				Interaction3 interaction = this.coupling.createOrReinforceCompositeInteraction(contextInteraction, enactedInteraction);
+				if (contextInteraction.getPreInteraction() == null)
+					this.enactedInteractions.add(interaction);
+			}
 	}
 	
 	public List<Proposition> getPropositions(){
@@ -72,12 +70,18 @@ public class Episode {
 	private List<Interaction3> getActivatedInteractions() {
 		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
 		for (Interaction3 activatedInteraction : this.coupling.getInteractions())
-			if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
+			if (contextEpisode.getEnactedInteractions().contains(activatedInteraction.getPreInteraction())){
 				activatedInteractions.add(activatedInteraction);
+				System.out.println("activated " + activatedInteraction.toString());
+			}
 		return activatedInteractions;
 	}
 
-	public void setEnactedInteraction(Interaction3 enactedInteraction) {
-		this.enactedInteraction = enactedInteraction;
+	public Episode getContextEpisode() {
+		return contextEpisode;
+	}
+
+	public void setContextEpisode(Episode contextEpisode) {
+		this.contextEpisode = contextEpisode;
 	}
 }

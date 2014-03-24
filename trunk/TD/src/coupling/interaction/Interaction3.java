@@ -36,10 +36,7 @@ public class Interaction3 extends Interaction1 {
 	}
 	
 	public String toString(){
-		if (this.getPreInteraction() != null)
-			return this.preInteraction.getLabel() + "-" + this.postInteraction.getLabel() + "," + this.getValence() + "," + this.weight;
-		else
-			return this.getExperience().getLabel() + "," + this.getResult().getLabel() + "," + this.getValence();
+		return this.getLabel() + "," + this.getValence() + "," + this.weight;
 	}
 
 }

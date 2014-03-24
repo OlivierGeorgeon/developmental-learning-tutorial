@@ -31,8 +31,8 @@ public class Main {
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
-		Environment environment = new Environment2(coupling);
-		//Environment environment = new Environment3(coupling);
+		//Environment environment = new Environment2(coupling);
+		Environment environment = new Environment3(coupling);
 		
 		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);

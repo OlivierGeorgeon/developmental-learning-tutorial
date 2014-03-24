@@ -14,29 +14,21 @@ import coupling.interaction.Interaction3;
 public class Agent3 implements Agent{
 
 	private Coupling3 coupling;
-	private Episode flow;
+	private Episode episode;
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.flow = new Episode(this.coupling);
+		this.episode = new Episode(this.coupling);
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		Episode newFlow = new Episode(this.flow);
-		
-		Experience preExperience = this.flow.getExperience();
-		Interaction3 enactedInteraction = this.coupling.getInteraction(preExperience.getLabel() + result.getLabel());
-		this.flow.learn(enactedInteraction);		
+		Interaction3 enactedInteraction = this.coupling.getInteraction(this.episode.getExperience().getLabel() + result.getLabel());
+		this.episode.store(enactedInteraction);		
 
-		List<Interaction3> contextInteractions = new ArrayList<Interaction3>();
-		contextInteractions.add(enactedInteraction);
-
-		newFlow.setExperience(preExperience);
-		newFlow.setContextInteractions(contextInteractions);
-		newFlow.setEnactedInteraction(enactedInteraction);
+		this.episode = new Episode(this.episode);
 		
-		List<Proposition> propositions = newFlow.getPropositions();
+		List<Proposition> propositions = this.episode.getPropositions();
 		
 		if (propositions.size() > 0){
 			Collections.sort(propositions);
@@ -44,12 +36,11 @@ public class Agent3 implements Agent{
 				System.out.println("propose " + proposition.toString());
 			Proposition selectedProposition = propositions.get(0);
 			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
-				newFlow.setExperience(selectedProposition.getExperience());
+				this.episode.setExperience(selectedProposition.getExperience());
 			else
-				newFlow.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
+				this.episode.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
 		}			
 		
-		this.flow = newFlow;
-		return this.flow.getExperience();
+		return this.episode.getExperience();
 	}
 }
