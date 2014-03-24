@@ -19,8 +19,5 @@ public interface Coupling {
 	
 	public void createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction);
 	
-	public Interaction getInteraction(String label);
-	
-	public  List<Interaction> getActivatedInteractions(Interaction interaction);
-
+	public Interaction getInteraction(String label);	
 }

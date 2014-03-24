@@ -4,11 +4,11 @@ import coupling.Coupling;
 import coupling.Experience;
 import coupling.Result;
 
-public class Environment1 implements Environment {
+public class Environment0 implements Environment {
 	
 	private Coupling coupling;
 	
-	public Environment1(Coupling coupling){
+	public Environment0(Coupling coupling){
 		this.coupling = coupling;
 	}
 	
