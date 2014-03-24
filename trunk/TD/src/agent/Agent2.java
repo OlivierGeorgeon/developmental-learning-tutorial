@@ -5,13 +5,15 @@ import coupling.Coupling;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
+import coupling.interaction.Interaction;
 import coupling.interaction.Interaction1;
+import coupling.interaction.Interaction2;
 
 public class Agent2 implements Agent{
 
 	private Coupling2 coupling;
 	private Experience experience;
-	private Interaction1 preInteraction;
+	private Interaction2 preInteraction;
 	
 	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;
@@ -20,15 +22,15 @@ public class Agent2 implements Agent{
 	
 	public Experience chooseExperience(Result result){
 
-		Interaction1 enactedInteraction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
+		Interaction2 enactedInteraction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
 		
 		if (preInteraction != null)
-			this.coupling.createOrReinforceCompositeInteraction(preInteraction, enactedInteraction);
+			this.coupling.createCompositeInteraction(preInteraction, enactedInteraction);
 
 		this.preInteraction = enactedInteraction;
 
-		List<Interaction1> activatedInteractions = this.coupling.getActivatedInteractions(enactedInteraction);
-		for (Interaction1 activatedInteraction : activatedInteractions)
+		List<Interaction2> activatedInteractions = this.coupling.getActivatedInteractions(enactedInteraction);
+		for (Interaction2 activatedInteraction : activatedInteractions)
 			if (activatedInteraction.getPostInteraction().getValence() > 0){
 				this.experience = activatedInteraction.getPostInteraction().getExperience();
 				System.out.println("propose " + this.experience.getLabel());
