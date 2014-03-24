@@ -1,5 +1,6 @@
 package coupling;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface Coupling {
@@ -19,5 +20,7 @@ public interface Coupling {
 	
 	public void createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction);
 	
-	public Interaction getInteraction(String label);	
+	public Interaction getInteraction(String label);
+	
+	public Collection<Interaction> getInteractions();
 }
