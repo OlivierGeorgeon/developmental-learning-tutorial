@@ -2,17 +2,18 @@ package agent;
 
 import java.util.List;
 import coupling.Coupling;
+import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Interaction;
 import coupling.Result;
 
 public class Agent2 implements Agent{
 
-	private Coupling coupling;
+	private Coupling2 coupling;
 	private Experience experience;
 	private Interaction preInteraction;
 	
-	public Agent2(Coupling coupling){
+	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;
 		this.experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 	}

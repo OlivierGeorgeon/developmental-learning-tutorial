@@ -1,8 +1,7 @@
 package coupling;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Coupling1 implements Coupling {
@@ -74,15 +73,10 @@ public class Coupling1 implements Coupling {
 		return INTERACTIONS.get(label);
 	}
 
-	@Override
-	public List<Interaction> getActivatedInteractions(Interaction interaction) {
-		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
-		for (Interaction activatedInteraction : INTERACTIONS.values())
-			if (interaction==activatedInteraction.getPreIntearction())
-				activatedInteractions.add(activatedInteraction);
-		return activatedInteractions;
+	protected Collection<Interaction> getInteractions(){
+		return INTERACTIONS.values();
 	}
-
+	
 	private Interaction createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
 			INTERACTIONS.put(label, new Interaction(label, valence));			
