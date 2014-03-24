@@ -1,7 +1,6 @@
 package coupling;
 
 import java.util.Collection;
-import java.util.List;
 
 import coupling.interaction.Interaction;
 
