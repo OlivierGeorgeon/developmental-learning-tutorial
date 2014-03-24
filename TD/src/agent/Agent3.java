@@ -17,7 +17,6 @@ public class Agent3 implements Agent{
 	public Agent3(Coupling coupling){
 		this.coupling = coupling;
 		this.flow = new Flow(this.coupling);
-		this.flow.setExperience(this.coupling.createOrGetExperience(Coupling.LABEL_E1));
 	}
 	
 	public Experience chooseExperience(Result result){
