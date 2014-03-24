@@ -1,9 +1,7 @@
 package coupling;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import coupling.interaction.Interaction3;
 
@@ -74,21 +72,15 @@ public class Coupling3 implements Coupling {
 			INTERACTIONS.put(label, new Interaction3(label, valence));			
 		return INTERACTIONS.get(label);
 	}
-	public void createOrReinforceCompositeInteraction(
+	
+	public Interaction3 createOrReinforceCompositeInteraction(
 		Interaction3 preInteraction, Interaction3 postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction3 interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
+		Interaction3 interaction = createOrGet("(" + preInteraction.getLabel() + postInteraction.getLabel() + ")", valence); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
 		interaction.incrementWeight();
 		System.out.println("learn " + interaction.toString());
-	}
-
-	public List<Interaction3> getActivatedInteractions(Interaction3 interaction) {
-		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
-		for (Interaction3 activatedInteraction : getInteractions())
-			if (interaction==activatedInteraction.getPreInteraction())
-				activatedInteractions.add(activatedInteraction);
-		return activatedInteractions;
+		return interaction;
 	}
 }
