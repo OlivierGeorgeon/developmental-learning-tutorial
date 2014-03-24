@@ -4,12 +4,12 @@ import coupling.Coupling;
 import coupling.Experience;
 import coupling.Result;
 
-public class Environment3 implements Environment {
+public class Environment2 implements Environment {
 
 	private Coupling coupling;
 	private Experience experience_1;
 
-	public Environment3(Coupling coupling){
+	public Environment2(Coupling coupling){
 		this.coupling = coupling;
 	}
 	

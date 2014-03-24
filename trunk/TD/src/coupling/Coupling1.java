@@ -73,7 +73,7 @@ public class Coupling1 implements Coupling {
 		return INTERACTIONS.get(label);
 	}
 
-	protected Collection<Interaction> getInteractions(){
+	public Collection<Interaction> getInteractions(){
 		return INTERACTIONS.values();
 	}
 	
