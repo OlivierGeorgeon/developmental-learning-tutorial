@@ -7,7 +7,7 @@ import coupling.Coupling3;
 import coupling.Experience;
 import coupling.interaction.Interaction3;
 
-public class Flow {
+public class Episode {
 	
 	private Coupling3 coupling;
 	
@@ -17,12 +17,12 @@ public class Flow {
 	
 	List<Interaction3> contextInteractions = new ArrayList<Interaction3>();
 	
-	public Flow(Coupling3 coupling){
+	public Episode(Coupling3 coupling){
 		this.coupling = coupling;
 		this.experience = this.coupling.createOrGetExperience(Coupling3.LABEL_E1);
 	}
 
-	public Flow(Flow flow){
+	public Episode(Episode flow){
 		this.coupling = flow.coupling;
 		this.experience = flow.experience;
 	}
