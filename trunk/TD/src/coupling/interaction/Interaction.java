@@ -1,4 +1,7 @@
-package coupling;
+package coupling.interaction;
+
+import coupling.Experience;
+import coupling.Result;
 
 public class Interaction {
 	
@@ -11,7 +14,7 @@ public class Interaction {
 	private Interaction preInteraction;
 	private Interaction postInteraction;
 		
-	Interaction(String label, int valence){
+	public Interaction(String label, int valence){
 		this.label = label;
 		this.valence = valence;
 	}

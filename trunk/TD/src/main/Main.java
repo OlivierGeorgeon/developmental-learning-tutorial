@@ -1,17 +1,17 @@
 package main;
 
+import coupling.Coupling;
+import coupling.Coupling1;
+import coupling.Coupling2;
 import agent.Agent;
 import agent.Agent1;
 import agent.Agent2;
 import agent.Agent3;
-import Environments.Environment0;
 import Environments.Environment;
+import Environments.Environment0;
 import Environments.Environment1;
 import Environments.Environment2;
 import Environments.Environment3;
-import coupling.Coupling;
-import coupling.Coupling1;
-import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
 

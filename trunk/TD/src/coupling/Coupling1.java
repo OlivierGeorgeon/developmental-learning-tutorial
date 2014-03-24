@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import coupling.interaction.Interaction;
+
 public class Coupling1 implements Coupling {
 	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
