@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import agent.decider.Flow;
+import agent.decider.Episode;
 import agent.decider.Proposition;
 import coupling.Coupling3;
 import coupling.Experience;
@@ -14,16 +14,16 @@ import coupling.interaction.Interaction3;
 public class Agent3 implements Agent{
 
 	private Coupling3 coupling;
-	private Flow flow;
+	private Episode flow;
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.flow = new Flow(this.coupling);
+		this.flow = new Episode(this.coupling);
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		Flow newFlow = new Flow(this.flow);
+		Episode newFlow = new Episode(this.flow);
 		
 		Experience preExperience = this.flow.getExperience();
 		Interaction3 enactedInteraction = this.coupling.getInteraction(preExperience.getLabel() + result.getLabel());
