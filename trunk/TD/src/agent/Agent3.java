@@ -1,5 +1,6 @@
 package agent;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import agent.decider.Proposition;
 import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
+import coupling.interaction.Interaction3;
 
 public class Agent3 implements Agent{
 
@@ -21,9 +23,20 @@ public class Agent3 implements Agent{
 	
 	public Experience chooseExperience(Result result){
 
-		this.flow.learn(this.coupling.getInteraction(this.flow.getExperience().getLabel() + result.getLabel()));		
+		Flow newFlow = new Flow(this.flow);
+		
+		Experience preExperience = this.flow.getExperience();
+		Interaction3 enactedInteraction = this.coupling.getInteraction(preExperience.getLabel() + result.getLabel());
+		this.flow.learn(enactedInteraction);		
 
-		List<Proposition> propositions = this.flow.getPropositions();
+		List<Interaction3> contextInteractions = new ArrayList<Interaction3>();
+		contextInteractions.add(enactedInteraction);
+
+		newFlow.setExperience(preExperience);
+		newFlow.setContextInteractions(contextInteractions);
+		newFlow.setEnactedInteraction(enactedInteraction);
+		
+		List<Proposition> propositions = newFlow.getPropositions();
 		
 		if (propositions.size() > 0){
 			Collections.sort(propositions);
@@ -31,11 +44,12 @@ public class Agent3 implements Agent{
 				System.out.println("propose " + proposition.toString());
 			Proposition selectedProposition = propositions.get(0);
 			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
-				this.flow.setExperience(selectedProposition.getExperience());
+				newFlow.setExperience(selectedProposition.getExperience());
 			else
-				this.flow.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
+				newFlow.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
 		}			
 		
+		this.flow = newFlow;
 		return this.flow.getExperience();
 	}
 }
