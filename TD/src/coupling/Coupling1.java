@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import coupling.interaction.Interaction;
+import coupling.interaction.Interaction1;
 
 public class Coupling1 implements Coupling {
 	
@@ -12,7 +12,7 @@ public class Coupling1 implements Coupling {
 
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
-	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
+	private Map<String , Interaction1> INTERACTIONS = new HashMap<String , Interaction1>() ;
 
 	public Coupling1(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
@@ -54,16 +54,16 @@ public class Coupling1 implements Coupling {
 	@Override
 	public void createPrimitiveInteraction(Experience experience,
 			Result result, int valence) {
-		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+		Interaction1 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 	}
 
 	@Override
 	public void createOrReinforceCompositeInteraction(
-			Interaction preInteraction, Interaction postInteraction) {
+			Interaction1 preInteraction, Interaction1 postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
+		Interaction1 interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
 		interaction.incrementWeight();
@@ -71,17 +71,17 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Interaction getInteraction(String label) {
+	public Interaction1 getInteraction(String label) {
 		return INTERACTIONS.get(label);
 	}
 
-	public Collection<Interaction> getInteractions(){
+	public Collection<Interaction1> getInteractions(){
 		return INTERACTIONS.values();
 	}
 	
-	private Interaction createOrGet(String label, int valence) {
+	private Interaction1 createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction(label, valence));			
+			INTERACTIONS.put(label, new Interaction1(label, valence));			
 		return INTERACTIONS.get(label);
 	}
 
