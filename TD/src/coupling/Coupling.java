@@ -3,6 +3,8 @@ package coupling;
 import java.util.Collection;
 import java.util.List;
 
+import coupling.interaction.Interaction;
+
 public interface Coupling {
 
 	public static final String LABEL_E1 = "e1";

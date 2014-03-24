@@ -4,8 +4,8 @@ import java.util.List;
 import coupling.Coupling;
 import coupling.Coupling2;
 import coupling.Experience;
-import coupling.Interaction;
 import coupling.Result;
+import coupling.interaction.Interaction;
 
 public class Agent2 implements Agent{
 

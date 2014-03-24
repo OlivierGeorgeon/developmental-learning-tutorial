@@ -5,7 +5,7 @@ import java.util.List;
 
 import coupling.Coupling;
 import coupling.Experience;
-import coupling.Interaction;
+import coupling.interaction.Interaction;
 
 public class Flow {
 	

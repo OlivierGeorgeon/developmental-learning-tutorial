@@ -3,6 +3,8 @@ package coupling;
 import java.util.ArrayList;
 import java.util.List;
 
+import coupling.interaction.Interaction;
+
 public class Coupling2 extends Coupling1 {
 
 	public List<Interaction> getActivatedInteractions(Interaction interaction) {
