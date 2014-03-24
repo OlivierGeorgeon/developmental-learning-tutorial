@@ -3,19 +3,19 @@ package coupling.interaction;
 import coupling.Experience;
 import coupling.Result;
 
-public class Interaction {
+public class Interaction1 {
 	
 	private String label;
 	private Experience experience;
 	private Result result;
 	private int valence;
 	
-	private Interaction preInteraction;
-	private Interaction postInteraction;
+	private Interaction1 preInteraction;
+	private Interaction1 postInteraction;
 
 	private int weight = 0;
 
-	public Interaction(String label, int valence){
+	public Interaction1(String label, int valence){
 		this.label = label;
 		this.valence = valence;
 	}
@@ -44,15 +44,15 @@ public class Interaction {
 		this.result = result;
 	}
 
-	public Interaction getPreIntearction() {
+	public Interaction1 getPreIntearction() {
 		return preInteraction;
 	}
 
-	public void setPreInteraction(Interaction preInteraction) {
+	public void setPreInteraction(Interaction1 preInteraction) {
 		this.preInteraction = preInteraction;
 	}
 
-	public Interaction getPostInteraction() {
+	public Interaction1 getPostInteraction() {
 		return postInteraction;
 	}
 	
@@ -63,7 +63,7 @@ public class Interaction {
 			return this.experience.getLabel() + "," + this.result.getLabel() + "," + this.valence;
 	}
 
-	public void setPostInteraction(Interaction postInteraction) {
+	public void setPostInteraction(Interaction1 postInteraction) {
 		this.postInteraction = postInteraction;
 	}
 
