@@ -6,14 +6,15 @@ import coupling.Result;
 public class Interaction {
 	
 	private String label;
-	private int valence;
-	private int weight = 0;
-	
 	private Experience experience;
 	private Result result;
+	private int valence;
+	
 	private Interaction preInteraction;
 	private Interaction postInteraction;
-		
+
+	private int weight = 0;
+
 	public Interaction(String label, int valence){
 		this.label = label;
 		this.valence = valence;
