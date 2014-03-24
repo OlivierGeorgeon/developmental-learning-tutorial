@@ -22,6 +22,11 @@ public class Flow {
 		this.experience = this.coupling.createOrGetExperience(Coupling3.LABEL_E1);
 	}
 
+	public Flow(Flow flow){
+		this.coupling = flow.coupling;
+		this.experience = flow.experience;
+	}
+
 	public Interaction3 getEnactedInteraction() {
 		return enactedInteraction;
 	}
@@ -47,8 +52,8 @@ public class Flow {
 			this.coupling.createOrReinforceCompositeInteraction(this.enactedInteraction, enactedInteraction);	
 		this.enactedInteraction = enactedInteraction;
 		
-		this.contextInteractions = new ArrayList<Interaction3>();
-		this.contextInteractions.add(enactedInteraction);
+//		this.contextInteractions = new ArrayList<Interaction3>();
+//		this.contextInteractions.add(enactedInteraction);
 	}
 	
 	public List<Proposition> getPropositions(){
@@ -70,5 +75,9 @@ public class Flow {
 			if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
 				activatedInteractions.add(activatedInteraction);
 		return activatedInteractions;
+	}
+
+	public void setEnactedInteraction(Interaction3 enactedInteraction) {
+		this.enactedInteraction = enactedInteraction;
 	}
 }
