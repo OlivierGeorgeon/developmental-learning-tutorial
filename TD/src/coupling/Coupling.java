@@ -1,8 +1,6 @@
 package coupling;
 
-import java.util.Collection;
-
-import coupling.interaction.Interaction1;
+import coupling.interaction.Interaction;
 
 public interface Coupling {
 
@@ -19,9 +17,5 @@ public interface Coupling {
 
 	public void createPrimitiveInteraction(Experience experience, Result result, int valence);
 	
-	public void createOrReinforceCompositeInteraction(Interaction1 preInteraction, Interaction1 postInteraction);
-	
-	public Interaction1 getInteraction(String label);
-	
-	public Collection<Interaction1> getInteractions();
+	public Interaction getInteraction(String label);
 }

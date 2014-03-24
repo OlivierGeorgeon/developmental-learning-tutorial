@@ -1,21 +1,21 @@
 package coupling;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import coupling.interaction.Interaction3;
 
-import coupling.interaction.Interaction;
-import coupling.interaction.Interaction1;
+public class Coupling3 implements Coupling {
 
-public class Coupling1 implements Coupling {
-	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
-	private Map<String , Interaction1> INTERACTIONS = new HashMap<String , Interaction1>() ;
+	private Map<String , Interaction3> INTERACTIONS = new HashMap<String , Interaction3>() ;
 
-	public Coupling1(){
+	public Coupling3(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
@@ -55,24 +55,40 @@ public class Coupling1 implements Coupling {
 	@Override
 	public void createPrimitiveInteraction(Experience experience,
 			Result result, int valence) {
-		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 	}
 
 	@Override
-	public Interaction1 getInteraction(String label) {
+	public Interaction3 getInteraction(String label) {
 		return INTERACTIONS.get(label);
 	}
 
-	public Collection<Interaction1> getInteractions(){
+	public Collection<Interaction3> getInteractions(){
 		return INTERACTIONS.values();
 	}
 	
-	private Interaction createOrGet(String label, int valence) {
+	private Interaction3 createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction1(label, valence));			
+			INTERACTIONS.put(label, new Interaction3(label, valence));			
 		return INTERACTIONS.get(label);
 	}
+	public void createOrReinforceCompositeInteraction(
+		Interaction3 preInteraction, Interaction3 postInteraction) {
+		int valence = preInteraction.getValence() + postInteraction.getValence();
+		Interaction3 interaction = createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
+		interaction.setPreInteraction(preInteraction);
+		interaction.setPostInteraction(postInteraction);
+		interaction.incrementWeight();
+		System.out.println("learn " + interaction.toString());
+	}
 
+	public List<Interaction3> getActivatedInteractions(Interaction3 interaction) {
+		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
+		for (Interaction3 activatedInteraction : getInteractions())
+			if (interaction==activatedInteraction.getPreInteraction())
+				activatedInteractions.add(activatedInteraction);
+		return activatedInteractions;
+	}
 }

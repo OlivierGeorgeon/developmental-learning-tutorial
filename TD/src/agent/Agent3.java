@@ -5,16 +5,16 @@ import java.util.List;
 
 import agent.decider.Flow;
 import agent.decider.Proposition;
-import coupling.Coupling;
+import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
 
 public class Agent3 implements Agent{
 
-	private Coupling coupling;
+	private Coupling3 coupling;
 	private Flow flow;
 	
-	public Agent3(Coupling coupling){
+	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
 		this.flow = new Flow(this.coupling);
 	}

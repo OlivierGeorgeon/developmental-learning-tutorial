@@ -3,6 +3,7 @@ package main;
 import coupling.Coupling;
 import coupling.Coupling1;
 import coupling.Coupling2;
+import coupling.Coupling3;
 import agent.Agent;
 import agent.Agent1;
 import agent.Agent2;
@@ -25,13 +26,13 @@ public class Main {
 		//Coupling2 coupling = new Coupling2();
 		//Agent agent = new Agent2(coupling);
 
-		Coupling coupling = new Coupling1();
+		Coupling3 coupling = new Coupling3();
 		Agent agent = new Agent3(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
-		//Environment environment = new Environment2(coupling);
-		Environment environment = new Environment3(coupling);
+		Environment environment = new Environment2(coupling);
+		//Environment environment = new Environment3(coupling);
 		
 		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);
