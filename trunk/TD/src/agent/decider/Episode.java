@@ -6,22 +6,15 @@ import coupling.interaction.Interaction3;
 
 public interface Episode extends Cloneable{
 
-	public Experience getExperience();
+	public Episode createNext();
 
-	public void setExperience(Experience experience);
-	
-	public void store(Interaction3 enactedInteraction);
-	
+	//public void setContextInteractions(List<Interaction3> contextInteractions);
+
 	public List<Proposition> getPropositions();
 	
-	public Episode getContextEpisode();
-
-	public void setContextEpisode(Episode3 contextEpisode);
+	public void setExperience(Experience experience);
 	
-	public Episode createNext();
-	
-	public List<Interaction3> getEnactedInteractions();
+	public Experience getExperience();
 
-	public void setEnactedInteractions(List<Interaction3> enactedInteractions);
-
+	public Interaction3 store(Interaction3 enactedInteraction);
 }
