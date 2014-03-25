@@ -1,10 +1,9 @@
 package agent;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import agent.decider.Episode;
+import agent.decider.Episode3;
 import agent.decider.Proposition;
 import coupling.Coupling3;
 import coupling.Experience;
@@ -18,7 +17,7 @@ public class Agent3 implements Agent{
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.episode = new Episode(this.coupling);
+		this.episode = coupling.createEpisode();
 	}
 	
 	public Experience chooseExperience(Result result){
@@ -26,7 +25,7 @@ public class Agent3 implements Agent{
 		Interaction3 enactedInteraction = this.coupling.getInteraction(this.episode.getExperience().getLabel() + result.getLabel());
 		this.episode.store(enactedInteraction);		
 
-		this.episode = new Episode(this.episode);
+		this.episode = this.episode.createNext();
 		
 		List<Proposition> propositions = this.episode.getPropositions();
 		
@@ -43,4 +42,8 @@ public class Agent3 implements Agent{
 		
 		return this.episode.getExperience();
 	}
+	
+	protected Episode createEpisode(){
+		return new Episode3(this.coupling);
+	}	
 }

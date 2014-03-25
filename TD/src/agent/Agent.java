@@ -5,6 +5,6 @@ import coupling.Result;
 
 public interface Agent {
 
-	public Experience chooseExperience(Result result);
+	public abstract Experience chooseExperience(Result result);
 
 }
