@@ -3,6 +3,9 @@ package coupling;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import agent.decider.Episode;
+import agent.decider.Episode3;
 import coupling.interaction.Interaction3;
 
 public class Coupling3 implements Coupling {
@@ -12,7 +15,7 @@ public class Coupling3 implements Coupling {
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
 	private Map<String , Interaction3> INTERACTIONS = new HashMap<String , Interaction3>() ;
-
+	
 	public Coupling3(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
@@ -83,4 +86,8 @@ public class Coupling3 implements Coupling {
 		System.out.println("learn " + interaction.toString());
 		return interaction;
 	}
+	
+	public Episode createEpisode(){
+		return new Episode3(this);
+	}	
 }

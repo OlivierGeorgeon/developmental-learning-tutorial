@@ -7,24 +7,28 @@ import coupling.Result;
 public class Environment3 implements Environment {
 
 	private Coupling coupling;
-	private Experience experience_1;
-	private Experience experience_2;
+	private int clock = 0;
+
 
 	public Environment3(Coupling coupling){
 		this.coupling = coupling;
 	}
 	
 	public Result giveResult(Experience experience){
+
+		this.clock++;
 		
-		Result result;
-		if (experience_2!=experience &&
-			experience_1==experience)
-			result =  this.coupling.createOrGetResult(Coupling.LABEL_R2);
-		else
-			result =  this.coupling.createOrGetResult(Coupling.LABEL_R1);
-		experience_2 = experience_1;
-		experience_1 = experience;
-		
-		return result;
+		if (clock <= 10){
+			if (experience.equals(this.coupling.createOrGetExperience(Coupling.LABEL_E1)))
+				return this.coupling.createOrGetResult(Coupling.LABEL_R1);
+			else
+				return this.coupling.createOrGetResult(Coupling.LABEL_R2);
+		} 
+		else {
+			if (experience.equals(this.coupling.createOrGetExperience(Coupling.LABEL_E1)))
+				return this.coupling.createOrGetResult(Coupling.LABEL_R2);
+			else
+				return this.coupling.createOrGetResult(Coupling.LABEL_R1);
+		}
 	}
 }
