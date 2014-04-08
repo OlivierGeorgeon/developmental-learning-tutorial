@@ -29,25 +29,24 @@ public class Main {
 		//Coupling2 coupling = new Coupling2();
 		//Agent agent = new Agent2(coupling);
 
-		//Coupling3 coupling = new Coupling3();
-		//Agent agent = new Agent3(coupling);
+		Coupling3 coupling = new Coupling3();
+		Agent agent = new Agent3(coupling);
 		
-		Coupling4 coupling = new Coupling4();
-		Agent agent = new Agent4(coupling);
+		//Coupling4 coupling = new Coupling4();
+		//Agent agent = new Agent4(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
-		//Environment environment = new Environment2(coupling);
-		//Environment environment = new Environment3(coupling);
-		Environment environment = new Environment4(coupling);
+		Environment environment = new Environment3(coupling);
+		//Environment environment = new Environment4(coupling);
 		
-		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
-		Result result = coupling.createOrGetResult(Coupling.LABEL_R1);
+		Experience experience; //= coupling.createOrGetExperience(Coupling.LABEL_E1);
+		Result result = null; //= coupling.createOrGetResult(Coupling.LABEL_R2);
 		
-		for(int i=0 ; i < 40 ; i++){
+		for(int i=0 ; i < 20 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
-			System.out.println(coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
+			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
 		}
 	}
 }

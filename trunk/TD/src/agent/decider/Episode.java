@@ -1,20 +1,24 @@
 package agent.decider;
 
-import java.util.List;
 import coupling.Experience;
-import coupling.interaction.Interaction3;
+import coupling.Result;
 
-public interface Episode extends Cloneable{
+/**
+ * An episode of interaction with the environment.
+ * @author Olivier
+ */
+public interface Episode {
 
-	public Episode createNext();
+	/**
+	 * Record the result obtained by enacting this episode.
+	 * @param result The result of this episode of interaction.
+	 */
+	public void record(Result result);
 
-	//public void setContextInteractions(List<Interaction3> contextInteractions);
+	/**
+	 * Propose an experience to do next in the context of having enacted this episode.
+	 * @return The proposed experience.
+	 */
+	public Experience propose();
 
-	public List<Proposition> getPropositions();
-	
-	public void setExperience(Experience experience);
-	
-	public Experience getExperience();
-
-	public Interaction3 store(Interaction3 enactedInteraction);
 }

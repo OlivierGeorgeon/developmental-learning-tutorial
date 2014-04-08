@@ -2,6 +2,10 @@ package coupling;
 
 import coupling.interaction.Interaction;
 
+/**
+ * The possibilities of interaction between the agent and the environment.
+ * @author Olivier
+ */
 public interface Coupling {
 
 	public static final String LABEL_E1 = "e1";
@@ -11,11 +15,12 @@ public interface Coupling {
 
 	public Experience createOrGetExperience(String label);
 
-	public Experience getOtherExperience(Experience experience);
-
 	public Result createOrGetResult(String label);
+
+	public Experience getOtherExperience(Experience experience);
 
 	public void createPrimitiveInteraction(Experience experience, Result result, int valence);
 	
 	public Interaction getInteraction(String label);
+
 }

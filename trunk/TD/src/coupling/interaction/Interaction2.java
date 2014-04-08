@@ -27,8 +27,8 @@ public class Interaction2 extends Interaction1 {
 
 	public String toString(){
 		if (this.preInteraction != null)
-			return this.preInteraction.getLabel() + "-" + this.postInteraction.getLabel() + "," + this.getValence();
+			return this.preInteraction.getLabel() + this.postInteraction.getLabel() + "," + this.getValence();
 		else
-			return this.getExperience().getLabel() + "," + this.getResult().getLabel() + "," + this.getValence();
+			return this.getExperience().getLabel() + this.getResult().getLabel() + "," + this.getValence();
 	}
 }
