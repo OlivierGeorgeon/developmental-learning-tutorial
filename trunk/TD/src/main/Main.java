@@ -43,7 +43,7 @@ public class Main {
 		Experience experience; //= coupling.createOrGetExperience(Coupling.LABEL_E1);
 		Result result = null; //= coupling.createOrGetResult(Coupling.LABEL_R2);
 		
-		for(int i=0 ; i < 20 ; i++){
+		for(int i=0 ; i < 100 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
 			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());

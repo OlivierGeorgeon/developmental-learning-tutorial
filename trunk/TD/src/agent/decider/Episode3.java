@@ -39,17 +39,17 @@ public class Episode3 implements Episode{
 			for (Proposition proposition : propositions)
 				System.out.println("propose " + proposition.toString());
 			Proposition selectedProposition = propositions.get(0);
-			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
-				experience = selectedProposition.getExperience();
-			else
-				experience = this.coupling.getOtherExperience(selectedProposition.getExperience());
-		}			
+			experience = selectedProposition.getExperience();
+		}	
+		
+		System.out.println("selected " + experience.getLabel());
 
 		return experience;
 	}
 	
 	protected List<Proposition> getPropositions(){
-		List<Proposition> propositions = new ArrayList<Proposition>(); 
+		List<Proposition> propositions = this.getCoupling().getDefaultPropositions();//new ArrayList<Proposition>(); 
+				
 		for (Interaction3 activatedInteraction : getActivatedInteractions()){
 			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
 			int index = propositions.indexOf(proposition);
@@ -81,5 +81,9 @@ public class Episode3 implements Episode{
 				System.out.println("activated " + activatedInteraction.toString());
 			}
 		return activatedInteractions;
+	}
+	
+	protected void setInteraction(Interaction3 interaction){
+		this.interaction = interaction;
 	}
 }

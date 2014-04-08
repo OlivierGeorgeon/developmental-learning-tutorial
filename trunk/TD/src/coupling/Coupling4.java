@@ -4,9 +4,17 @@ import agent.decider.Episode4;
 import coupling.interaction.Interaction3;
 
 public class Coupling4 extends Coupling3 {
-
-	public Episode4 createEpisode(Experience experience) {
-		return new Episode4(this, experience);
+	
+	public Episode4 createEpisode(Episode4 contextEpisode) {
+		Experience experience; 
+		if (contextEpisode == null)
+			experience = this.createOrGetExperience(Coupling.LABEL_E1); 
+		else
+			experience = contextEpisode.propose();
+		
+		Episode4 episode = new Episode4(this, experience);
+		episode.setContextEpisode(contextEpisode);
+		return episode;
 	}
 
 	@Override
@@ -30,4 +38,23 @@ public class Coupling4 extends Coupling3 {
 				interaction.incrementWeight();
 			return interaction;
 		}
+	
+	public void store(Episode4 currentEpisode){
+		Episode4 contextEpisode = currentEpisode.getContextEpisode();
+		if (contextEpisode != null){
+			// learn [previous current]
+			Interaction3 superInteraction = this.createOrReinforceCompositeInteraction(contextEpisode.getInteraction(), currentEpisode.getInteraction());
+
+			if (contextEpisode.getContextEpisode()!= null ){
+				// learn [penultimate [previous current]]
+				this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getInteraction(), superInteraction);
+				// learn [[penultimate previous] current]
+				this.createOrReinforceCompositeInteraction(contextEpisode.getSuperInteraction(), currentEpisode.getInteraction());	
+			
+				if (contextEpisode.getContextEpisode().getSuperInteraction() != null)
+					this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getSuperInteraction(), superInteraction);			
+			}
+			currentEpisode.setSuperInteraction(superInteraction);
+		}
+	}
 }

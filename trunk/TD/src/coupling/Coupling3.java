@@ -1,9 +1,12 @@
 package coupling;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import agent.decider.Episode3;
+import agent.decider.Proposition;
 import coupling.interaction.Interaction3;
 
 public class Coupling3 implements Coupling {
@@ -102,4 +105,15 @@ public class Coupling3 implements Coupling {
 			INTERACTIONS.put(label, new Interaction3(label, valence));			
 		return INTERACTIONS.get(label);
 	}	
+	
+	public List<Proposition> getDefaultPropositions(){
+		List<Proposition> propositions = new ArrayList<Proposition>();
+		for (Experience experience : EXPERIENCES.values()){
+			if (experience.isPrimitive()){
+				Proposition proposition = new Proposition(experience, 0);
+				propositions.add(proposition);
+			}
+		}
+		return propositions;
+	}
 }
