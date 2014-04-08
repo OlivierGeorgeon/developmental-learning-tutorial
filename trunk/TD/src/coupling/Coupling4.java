@@ -45,14 +45,15 @@ public class Coupling4 extends Coupling3 {
 			// learn [previous current]
 			Interaction3 superInteraction = this.createOrReinforceCompositeInteraction(contextEpisode.getInteraction(), currentEpisode.getInteraction());
 
-			if (contextEpisode.getContextEpisode()!= null ){
+			if (currentEpisode.getExperience().isPrimitive() && 
+					contextEpisode.getExperience().isPrimitive() &&	contextEpisode.getContextEpisode()!= null ){
 				// learn [penultimate [previous current]]
 				this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getInteraction(), superInteraction);
 				// learn [[penultimate previous] current]
 				this.createOrReinforceCompositeInteraction(contextEpisode.getSuperInteraction(), currentEpisode.getInteraction());	
 			
-				if (contextEpisode.getContextEpisode().getSuperInteraction() != null)
-					this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getSuperInteraction(), superInteraction);			
+				//if (contextEpisode.getContextEpisode().getSuperInteraction() != null)
+				//	this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getSuperInteraction(), superInteraction);			
 			}
 			currentEpisode.setSuperInteraction(superInteraction);
 		}

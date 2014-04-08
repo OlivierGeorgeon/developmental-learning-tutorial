@@ -30,7 +30,7 @@ public class Episode4 extends Episode3{
 		}
 		else{
 			if (step == 0){
-				if (!enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPreInteraction().getExperience())){
+				if (!enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPreInteraction())){
 					this.getCoupling().createPrimitiveInteraction(this.getExperience(), result, enactedPrimitiveInteraction.getValence());
 					Interaction3 alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
 					//this.setInteraction(enactedPrimitiveInteraction);
@@ -90,7 +90,8 @@ public class Episode4 extends Episode3{
 	
 		for (Interaction3 activatedInteraction : this.getCoupling().getInteractions())
 			if (this.superInteraction!= null && this.superInteraction.equals(activatedInteraction.getPreInteraction()) ||
-				this.getInteraction()!= null && this.getInteraction().equals(activatedInteraction.getPreInteraction())){
+				this.getInteraction()!= null && this.getInteraction().equals(activatedInteraction.getPreInteraction()) ||
+				this.getInteraction().getPostInteraction() != null && this.getInteraction().getPostInteraction().equals(activatedInteraction.getPreInteraction())){
 				activatedInteractions.add(activatedInteraction);
 				System.out.println("activated " + activatedInteraction.toString());
 			}
