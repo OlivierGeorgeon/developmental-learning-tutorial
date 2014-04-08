@@ -26,14 +26,12 @@ public class Coupling1 implements Coupling {
 		createPrimitiveInteraction(e2, r2, 1);
 	}
 	
-	@Override
 	public Experience createOrGetExperience(String label) {
 		if (!EXPERIENCES.containsKey(label))
 			EXPERIENCES.put(label, new Experience(label));			
 		return EXPERIENCES.get(label);
 	}
 
-	@Override
 	public Experience getOtherExperience(Experience experience) {
 		Experience otherExperience = null;
 		for (Experience e : EXPERIENCES.values()){
@@ -45,14 +43,12 @@ public class Coupling1 implements Coupling {
 		return otherExperience;
 	}
 
-	@Override
 	public Result createOrGetResult(String label) {
 		if (!RESULTS.containsKey(label))
 			RESULTS.put(label, new Result(label));			
 		return RESULTS.get(label);
 	}
 
-	@Override
 	public void createPrimitiveInteraction(Experience experience,
 			Result result, int valence) {
 		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import agent.decider.Episode2;
+
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
 
@@ -33,6 +35,10 @@ public class Coupling2 implements Coupling {
 		if (!EXPERIENCES.containsKey(label))
 			EXPERIENCES.put(label, new Experience(label));			
 		return EXPERIENCES.get(label);
+	}
+
+	public Episode2 createEpisode(Experience experience) {
+		return new Episode2(this, experience);
 	}
 
 	@Override

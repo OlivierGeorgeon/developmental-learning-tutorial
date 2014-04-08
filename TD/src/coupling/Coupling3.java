@@ -3,8 +3,6 @@ package coupling;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import agent.decider.Episode;
 import agent.decider.Episode3;
 import coupling.interaction.Interaction3;
 
@@ -34,11 +32,22 @@ public class Coupling3 implements Coupling {
 		return EXPERIENCES.get(label);
 	}
 
+	public Episode3 createEpisode(Experience experience) {
+		return new Episode3(this, experience);
+	}
+
+	public Experience createOrGetCompositeExperience(Interaction3 compositeInteraction) {
+		String label = compositeInteraction.getLabel();
+		if (!EXPERIENCES.containsKey(label))
+			EXPERIENCES.put(label, new Experience(compositeInteraction));			
+		return EXPERIENCES.get(label);
+	}
+
 	@Override
 	public Experience getOtherExperience(Experience experience) {
 		Experience otherExperience = null;
 		for (Experience e : EXPERIENCES.values()){
-			if (e!=experience){
+			if (e!=experience && e.isPrimitive()){
 				otherExperience =  e;
 				break;
 			}
@@ -70,24 +79,27 @@ public class Coupling3 implements Coupling {
 		return INTERACTIONS.values();
 	}
 	
-	private Interaction3 createOrGet(String label, int valence) {
-		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction3(label, valence));			
-		return INTERACTIONS.get(label);
-	}
-	
 	public Interaction3 createOrReinforceCompositeInteraction(
 		Interaction3 preInteraction, Interaction3 postInteraction) {
-		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction3 interaction = createOrGet("(" + preInteraction.getLabel() + postInteraction.getLabel() + ")", valence); 
-		interaction.setPreInteraction(preInteraction);
-		interaction.setPostInteraction(postInteraction);
-		interaction.incrementWeight();
-		System.out.println("learn " + interaction.toString());
+		
+		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
+		Interaction3 interaction = getInteraction(label);
+		if (interaction == null){
+			int valence = preInteraction.getValence() + postInteraction.getValence();	
+			interaction = createOrGet(label, valence); 
+			interaction.setPreInteraction(preInteraction);
+			interaction.setPostInteraction(postInteraction);
+			interaction.incrementWeight();
+			System.out.println("learn " + interaction.toString());
+		}
+		else
+			interaction.incrementWeight();
 		return interaction;
 	}
 	
-	public Episode createEpisode(){
-		return new Episode3(this);
+	protected Interaction3 createOrGet(String label, int valence) {
+		if (!INTERACTIONS.containsKey(label))
+			INTERACTIONS.put(label, new Interaction3(label, valence));			
+		return INTERACTIONS.get(label);
 	}	
 }

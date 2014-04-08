@@ -7,22 +7,21 @@ public class Proposition implements Comparable<Proposition>{
 	private Experience experience;
 	private int proclivity;
 
-	public Proposition(Experience experience, int weight){
+	public Proposition(Experience experience, int proclivity){
 		this.experience = experience;
-		this.proclivity = weight;
+		this.proclivity = proclivity;
 	}
 
 	public int compareTo(Proposition proposition){
-		return new Integer(proposition.getProclivity()).compareTo(proclivity);
+		return new Integer(proposition.getProclivity()).compareTo(this.proclivity);
 	}
 
-	public boolean equals(Object otherProposition)
-	{
+	public boolean equals(Object otherProposition){
 		return ((Proposition)otherProposition).getExperience() == this.experience;
 	}
 	
 	public Experience getExperience() {
-		return experience;
+		return this.experience;
 	}
 
 	public void setExperience(Experience experience) {

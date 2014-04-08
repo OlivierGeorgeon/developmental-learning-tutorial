@@ -1,44 +1,37 @@
 package agent;
 
-import java.util.List;
+import agent.decider.Episode2;
 import coupling.Coupling;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction;
-import coupling.interaction.Interaction1;
-import coupling.interaction.Interaction2;
 
 public class Agent2 implements Agent{
 
 	private Coupling2 coupling;
-	private Experience experience;
-	private Interaction2 preInteraction;
+	private Episode2 contextEpisode;
+	private Episode2 currentEpisode;
 	
 	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;
-		this.experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
+		this.currentEpisode = this.coupling.createEpisode(coupling.createOrGetExperience(Coupling.LABEL_E1));
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		Interaction2 enactedInteraction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
+		if (result != null)
+			this.currentEpisode.record(result);
 		
-		if (preInteraction != null)
-			this.coupling.createCompositeInteraction(preInteraction, enactedInteraction);
+		if (this.contextEpisode != null )
+			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
 
-		this.preInteraction = enactedInteraction;
+		Experience experience = this.currentEpisode.propose(); 
+			
+		if (this.currentEpisode.getInteraction() != null)
+			this.contextEpisode = this.currentEpisode;
 
-		List<Interaction2> activatedInteractions = this.coupling.getActivatedInteractions(enactedInteraction);
-		for (Interaction2 activatedInteraction : activatedInteractions)
-			if (activatedInteraction.getPostInteraction().getValence() > 0){
-				this.experience = activatedInteraction.getPostInteraction().getExperience();
-				System.out.println("propose " + this.experience.getLabel());
-			}
-			else{
-				this.experience = this.coupling.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
-			}
-
-		return this.experience;
+		this.currentEpisode = this.coupling.createEpisode(experience);
+		
+		return experience;
 	}
 }

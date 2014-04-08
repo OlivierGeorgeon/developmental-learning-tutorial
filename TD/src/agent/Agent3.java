@@ -1,49 +1,38 @@
 package agent;
 
-import java.util.Collections;
-import java.util.List;
-import agent.decider.Episode;
 import agent.decider.Episode3;
-import agent.decider.Proposition;
+import coupling.Coupling;
 import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction3;
 
 public class Agent3 implements Agent{
 
 	private Coupling3 coupling;
-	private Episode episode;
+	private Episode3 contextEpisode;
+	private Episode3 currentEpisode;
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.episode = coupling.createEpisode();
+		this.currentEpisode = this.coupling.createEpisode(coupling.createOrGetExperience(Coupling.LABEL_E1));
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		Interaction3 enactedInteraction = this.coupling.getInteraction(this.episode.getExperience().getLabel() + result.getLabel());
-		this.episode.store(enactedInteraction);		
+		if (result != null)
+			this.currentEpisode.record(result);
 
-		this.episode = this.episode.createNext();
+		if (this.contextEpisode != null )
+			this.coupling.createOrReinforceCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
+			
+		Experience experience = this.currentEpisode.propose(); 
 		
-		List<Proposition> propositions = this.episode.getPropositions();
-		
-		if (propositions.size() > 0){
-			Collections.sort(propositions);
-			for (Proposition proposition : propositions)
-				System.out.println("propose " + proposition.toString());
-			Proposition selectedProposition = propositions.get(0);
-			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
-				this.episode.setExperience(selectedProposition.getExperience());
-			else
-				this.episode.setExperience(this.coupling.getOtherExperience(selectedProposition.getExperience()));
-		}			
-		
-		return this.episode.getExperience();
+		if (this.currentEpisode.getInteraction() != null)
+			this.contextEpisode = this.currentEpisode;
+
+		this.currentEpisode = this.coupling.createEpisode(experience);
+				
+		return experience;
 	}
 	
-	protected Episode createEpisode(){
-		return new Episode3(this.coupling);
-	}	
 }

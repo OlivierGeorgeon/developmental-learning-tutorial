@@ -1,38 +1,54 @@
 package agent.decider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
+import coupling.Coupling;
 import coupling.Coupling3;
 import coupling.Experience;
+import coupling.Result;
 import coupling.interaction.Interaction3;
 
 public class Episode3 implements Episode{
 	
 	private Coupling3 coupling;
-	
 	private Experience experience;
+	private Interaction3 interaction;
 
-	private Interaction3 contextInteraction;
-
-	private Interaction3 enactedInteraction;
-	
-	public Episode3(Coupling3 coupling){
+	public Episode3(Coupling3 coupling, Experience experience){
 		this.coupling = coupling;
-		this.experience = this.coupling.createOrGetExperience(Coupling3.LABEL_E1);
+		this.experience = experience;
+	}
+
+	public void record(Result result){
+		this.interaction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
 	}
 	
-	public Episode createNext(){
-		Episode3 nextEpisode = null;
-        
-		try { nextEpisode =  (Episode3)super.clone();
-        } catch (CloneNotSupportedException e) { System.out.println("Cloning not allowed."); }		
-       	
-        nextEpisode.contextInteraction = this.enactedInteraction;
-        return nextEpisode;
+	public Interaction3 getInteraction() {
+		return interaction;
+	}
+
+	public Experience propose(){
+
+		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
+
+		List<Proposition> propositions = this.getPropositions();
+
+		if (propositions.size() > 0){
+			Collections.sort(propositions);
+			for (Proposition proposition : propositions)
+				System.out.println("propose " + proposition.toString());
+			Proposition selectedProposition = propositions.get(0);
+			if (selectedProposition.getProclivity() >= 0 || propositions.size() > 1)
+				experience = selectedProposition.getExperience();
+			else
+				experience = this.coupling.getOtherExperience(selectedProposition.getExperience());
+		}			
+
+		return experience;
 	}
 	
-	public List<Proposition> getPropositions(){
+	protected List<Proposition> getPropositions(){
 		List<Proposition> propositions = new ArrayList<Proposition>(); 
 		for (Interaction3 activatedInteraction : getActivatedInteractions()){
 			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
@@ -53,34 +69,14 @@ public class Episode3 implements Episode{
 		return experience;
 	}
 
-	public Interaction3 store(Interaction3 enactedInteraction){
-		this.enactedInteraction = enactedInteraction;
-		Interaction3 episodeInteraction = null;
-		if (this.contextInteraction!= null)
-			episodeInteraction = this.coupling.createOrReinforceCompositeInteraction(this.contextInteraction, enactedInteraction);
-		return episodeInteraction;
-	}
-	
 	protected Coupling3 getCoupling(){
 		return this.coupling;
 	}
 	
-//	protected Interaction3 getEnactedInteraction() {
-//		return this.enactedInteraction;
-//	}
-
-//	protected void setEnactedInteractions(List<Interaction3> enactedInteractions) {
-//		this.enactedInteractions = enactedInteractions;
-//	}
-//
-	protected Interaction3 getContextInteraction() {
-		return this.contextInteraction;
-	}
-
 	protected List<Interaction3> getActivatedInteractions() {
 		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
 		for (Interaction3 activatedInteraction : this.coupling.getInteractions())
-			if (this.contextInteraction != null && this.contextInteraction.equals(activatedInteraction.getPreInteraction())){
+			if (this.interaction != null && this.interaction.equals(activatedInteraction.getPreInteraction())){
 				activatedInteractions.add(activatedInteraction);
 				System.out.println("activated " + activatedInteraction.toString());
 			}
