@@ -120,4 +120,9 @@ public class Coupling3 implements Coupling {
 		}
 		return propositions;
 	}
+	
+	public Experience getFirstExperience() {
+		return (Experience)EXPERIENCES.values().toArray()[0];
+	}
+
 }

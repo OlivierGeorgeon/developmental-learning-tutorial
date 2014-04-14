@@ -14,7 +14,7 @@ public class Agent2 implements Agent{
 	
 	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;
-		this.currentEpisode = this.coupling.createEpisode(coupling.createOrGetExperience(Coupling.LABEL_E1));
+		this.currentEpisode = this.coupling.createEpisode(coupling.getFirstExperience());
 	}
 	
 	public Experience chooseExperience(Result result){

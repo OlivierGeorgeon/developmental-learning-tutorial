@@ -3,7 +3,6 @@ package agent.decider;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import coupling.Coupling;
 import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
@@ -30,7 +29,7 @@ public class Episode3 implements Episode{
 
 	public Experience propose(){
 
-		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
+		Experience experience = coupling.getFirstExperience();
 
 		List<Proposition> propositions = this.getPropositions();
 

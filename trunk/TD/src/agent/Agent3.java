@@ -1,7 +1,6 @@
 package agent;
 
 import agent.decider.Episode3;
-import coupling.Coupling;
 import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
@@ -14,19 +13,22 @@ public class Agent3 implements Agent{
 	
 	public Agent3(Coupling3 coupling){
 		this.coupling = coupling;
-		this.currentEpisode = this.coupling.createEpisode(coupling.createOrGetExperience(Coupling.LABEL_E1));
+		this.currentEpisode = this.coupling.createEpisode(this.coupling.getFirstExperience());
 	}
 	
 	public Experience chooseExperience(Result result){
+
+		//if (this.currentEpisode == null)
+		//	this.currentEpisode = this.coupling.createEpisode(this.coupling.getFirstExperience());
 
 		if (result != null)
 			this.currentEpisode.record(result);
 
 		if (this.contextEpisode != null )
 			this.coupling.createOrReinforceCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
-			
-		Experience experience = this.currentEpisode.propose(); 
 		
+		Experience experience = this.currentEpisode.propose(); 
+	
 		if (this.currentEpisode.getInteraction() != null)
 			this.contextEpisode = this.currentEpisode;
 

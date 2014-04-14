@@ -44,8 +44,8 @@ public class Main {
 		//Environment environment = new Environment4(coupling);
 		Environment environment = new EnvironmentString(coupling);
 		
-		Experience experience; //= coupling.createOrGetExperience(Coupling.LABEL_E1);
-		Result result = null; //= coupling.createOrGetResult(Coupling.LABEL_R2);
+		Experience experience; 
+		Result result = null;
 		
 		for(int i=0 ; i < 150 ; i++){
 			experience = agent.chooseExperience(result);

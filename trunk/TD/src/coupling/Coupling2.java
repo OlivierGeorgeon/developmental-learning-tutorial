@@ -102,4 +102,8 @@ public class Coupling2 implements Coupling {
 				activatedInteractions.add(activatedInteraction);
 		return activatedInteractions;
 	}
+	
+	public Experience getFirstExperience() {
+		return (Experience)EXPERIENCES.values().toArray()[0];
+	}
 }

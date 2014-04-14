@@ -1,6 +1,7 @@
 package Environments;
 
 import coupling.Coupling;
+import coupling.CouplingString;
 import coupling.Experience;
 import coupling.Result;
 
@@ -30,11 +31,11 @@ public class EnvironmentString implements Environment{
 	public Result giveResult(Experience experience){
 		Result result = null;
 		
-		if (experience.equals(this.coupling.createOrGetExperience(this.coupling.LABEL_E1)))
+		if (experience.equals(this.coupling.createOrGetExperience(CouplingString.LABEL_STEP)))
 			result = step();
-		else if (experience.equals(this.coupling.createOrGetExperience(this.coupling.LABEL_E2)))
+		else if (experience.equals(this.coupling.createOrGetExperience(CouplingString.LABEL_FEEL)))
 			result = feel();
-		else if (experience.equals(this.coupling.createOrGetExperience(this.coupling.LABEL_E3)))
+		else if (experience.equals(this.coupling.createOrGetExperience(CouplingString.LABEL_SWAP)))
 			result = swap();
 		
 		printEnv();
@@ -46,11 +47,11 @@ public class EnvironmentString implements Environment{
 	 * @return true if the agent went up
 	 */
 	private Result step(){
-		Result result = this.coupling.createOrGetResult(this.coupling.LABEL_R2);
+		Result result = this.coupling.createOrGetResult(CouplingString.LABEL_FALSE);
 
 		if (position < WIDTH -1){
 			if (board[position] <= board[position + 1])
-				result = this.coupling.createOrGetResult(this.coupling.LABEL_R1);
+				result = this.coupling.createOrGetResult(CouplingString.LABEL_TRUE);
 			position++;
 		}else 
 			position = 0;
@@ -62,10 +63,10 @@ public class EnvironmentString implements Environment{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result feel(){
-		Result result = this.coupling.createOrGetResult(this.coupling.LABEL_R2);
+		Result result = this.coupling.createOrGetResult(CouplingString.LABEL_FALSE);
 		
 		if ((position < WIDTH -1) && (board[position] <= board[position +1]))
-				result = this.coupling.createOrGetResult(this.coupling.LABEL_R1);
+				result = this.coupling.createOrGetResult(CouplingString.LABEL_TRUE);
 
 		return result;		
 	}
@@ -75,13 +76,13 @@ public class EnvironmentString implements Environment{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result swap(){
-		Result result = this.coupling.createOrGetResult(this.coupling.LABEL_R2);
+		Result result = this.coupling.createOrGetResult(CouplingString.LABEL_FALSE);
 
 		int temp = board[position];
 		if ((position < WIDTH -1) && (board[position] > board[position +1])){
 				board[position] = board[position + 1];
 				board[position + 1] = temp;
-				result = this.coupling.createOrGetResult(this.coupling.LABEL_R1);
+				result = this.coupling.createOrGetResult(CouplingString.LABEL_TRUE);
 		}
 
 		return result;		

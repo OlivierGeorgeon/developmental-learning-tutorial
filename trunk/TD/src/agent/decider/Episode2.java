@@ -28,7 +28,7 @@ public class Episode2 implements Episode{
 	}
 
 	public Experience propose(){
-		Experience experience = coupling.createOrGetExperience(Coupling.LABEL_E1);
+		Experience experience = coupling.getFirstExperience();
 		for (Interaction2 activatedInteraction : this.getActivatedInteractions())
 			if (activatedInteraction.getPostInteraction().getValence() > 0){
 				experience = activatedInteraction.getPostInteraction().getExperience();
