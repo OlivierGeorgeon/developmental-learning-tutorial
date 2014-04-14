@@ -74,4 +74,8 @@ public class Coupling1 implements Coupling {
 			INTERACTIONS.put(label, new Interaction1(label, valence));			
 		return INTERACTIONS.get(label);
 	}
+
+	public Experience getFirstExperience() {
+		return (Experience)EXPERIENCES.values().toArray()[0];
+	}
 }

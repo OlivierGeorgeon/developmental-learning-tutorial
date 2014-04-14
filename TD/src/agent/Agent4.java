@@ -1,11 +1,9 @@
 package agent;
 
 import agent.decider.Episode4;
-import coupling.Coupling;
 import coupling.Coupling4;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction3;
 
 /**
  * Solution to Exercise 4.

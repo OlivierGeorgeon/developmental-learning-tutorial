@@ -8,7 +8,7 @@ public class Coupling4 extends Coupling3 {
 	public Episode4 createEpisode(Episode4 contextEpisode) {
 		Experience experience; 
 		if (contextEpisode == null)
-			experience = this.createOrGetExperience(LABEL_E1); 
+			experience = this.getFirstExperience(); 
 		else{
 			experience = contextEpisode.propose();
 			if (contextEpisode.getContextEpisode() != null)
