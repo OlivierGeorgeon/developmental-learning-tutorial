@@ -13,9 +13,9 @@ public class Environment0 implements Environment {
 	}
 	
 	public Result giveResult(Experience experience){
-		if (experience.equals(this.coupling.createOrGetExperience(Coupling.LABEL_E1)))
-			return this.coupling.createOrGetResult(Coupling.LABEL_R1);
+		if (experience.equals(this.coupling.createOrGetExperience(this.coupling.LABEL_E1)))
+			return this.coupling.createOrGetResult(this.coupling.LABEL_R1);
 		else
-			return this.coupling.createOrGetResult(Coupling.LABEL_R2);
+			return this.coupling.createOrGetResult(this.coupling.LABEL_R2);
 	}
 }

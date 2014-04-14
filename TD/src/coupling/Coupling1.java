@@ -16,6 +16,10 @@ public class Coupling1 implements Coupling {
 	private Map<String , Interaction1> INTERACTIONS = new HashMap<String , Interaction1>() ;
 
 	public Coupling1(){
+		init();
+	}
+	
+	protected void init(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
@@ -23,7 +27,7 @@ public class Coupling1 implements Coupling {
 		createPrimitiveInteraction(e1, r1, -1);
 		createPrimitiveInteraction(e1, r2, 1);
 		createPrimitiveInteraction(e2, r1, -1);
-		createPrimitiveInteraction(e2, r2, 1);
+		createPrimitiveInteraction(e2, r2, 1);		
 	}
 	
 	public Experience createOrGetExperience(String label) {

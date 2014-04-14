@@ -20,6 +20,10 @@ public class Coupling2 implements Coupling {
 	private Map<String , Interaction2> INTERACTIONS = new HashMap<String , Interaction2>() ;
 
 	public Coupling2(){
+		init();
+	}
+	
+	protected void init(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
