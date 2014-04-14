@@ -42,7 +42,7 @@ public class Episode3 implements Episode{
 			experience = selectedProposition.getExperience();
 		}	
 		
-		System.out.println("selected " + experience.getLabel());
+		System.out.println("select " + experience.getLabel());
 
 		return experience;
 	}

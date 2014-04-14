@@ -18,6 +18,10 @@ public class Coupling3 implements Coupling {
 	private Map<String , Interaction3> INTERACTIONS = new HashMap<String , Interaction3>() ;
 	
 	public Coupling3(){
+		init();
+	}
+	
+	protected void init(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
