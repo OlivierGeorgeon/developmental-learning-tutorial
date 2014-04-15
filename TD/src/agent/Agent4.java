@@ -6,8 +6,6 @@ import coupling.Experience;
 import coupling.Result;
 
 /**
- * Solution to Exercise 4.
- * Agent4 works similarly as Agent3. The difference resides in the class Episode4 which is instanciated by Coupling4. 
  * @author Olivier
  */
 public class Agent4 implements Agent{

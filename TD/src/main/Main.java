@@ -5,12 +5,14 @@ import coupling.Coupling1;
 import coupling.Coupling2;
 import coupling.Coupling3;
 import coupling.Coupling4;
+import coupling.Coupling5;
 import coupling.CouplingString;
 import agent.Agent;
 import agent.Agent1;
 import agent.Agent2;
 import agent.Agent3;
 import agent.Agent4;
+import agent.Agent5;
 import Environments.Environment;
 import Environments.Environment0;
 import Environments.Environment1;
@@ -34,9 +36,12 @@ public class Main {
 		//Coupling3 coupling = new Coupling3();
 		//Agent agent = new Agent3(coupling);
 		
-		Coupling4 coupling = new Coupling4();
+		//Coupling4 coupling = new Coupling4();
 		//CouplingString coupling = new CouplingString();
-		Agent agent = new Agent4(coupling);
+		//Agent agent = new Agent4(coupling);
+		
+		Coupling5 coupling = new Coupling5();
+		Agent agent = new Agent5(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
