@@ -1,5 +1,6 @@
 package agent.decider;
 
+import coupling.Coupling3;
 import coupling.Coupling4;
 import coupling.Experience;
 import coupling.Result;
@@ -12,7 +13,7 @@ public class Episode4 extends Episode3{
 	
 	private int step = 0;
 
-	public Episode4(Coupling4 coupling, Experience experience){
+	public Episode4(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
 	}
 
