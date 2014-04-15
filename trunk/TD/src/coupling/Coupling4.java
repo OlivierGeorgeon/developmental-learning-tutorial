@@ -1,22 +1,27 @@
 package coupling;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import agent.decider.Episode4;
+import agent.decider.Proposition;
 import coupling.interaction.Interaction3;
 
 public class Coupling4 extends Coupling3 {
-	
-	public Episode4 createEpisode(Episode4 contextEpisode) {
-		Experience experience; 
-		if (contextEpisode == null)
-			experience = this.getFirstExperience(); 
-		else{
-			experience = contextEpisode.propose();
-			if (contextEpisode.getContextEpisode() != null)
-				contextEpisode.getContextEpisode().setContextEpisode(null);
-		}
-		Episode4 episode = new Episode4(this, experience);
-		episode.setContextEpisode(contextEpisode);
-		return episode;
+
+	private Interaction3 interaction_1;
+	private Interaction3 interaction_2;
+	private Interaction3 superInteraction;
+
+	public Episode4 chooseEpisode(Interaction3 interaction) {
+		
+		Experience experience = propose(interaction);
+		
+		this.interaction_2 = this.interaction_1;
+		this.interaction_1 = interaction;
+
+		return new Episode4(this, experience);
 	}
 
 	@Override
@@ -39,25 +44,73 @@ public class Coupling4 extends Coupling3 {
 				interaction.incrementWeight();
 			return interaction;
 		}
-	
+
 	public void store(Episode4 currentEpisode){
-		Episode4 contextEpisode = currentEpisode.getContextEpisode();
-		if (contextEpisode != null){
+		if (this.interaction_1 != null){
 			// learn [previous current]
-			Interaction3 superInteraction = this.createOrReinforceCompositeInteraction(contextEpisode.getInteraction(), currentEpisode.getInteraction());
+			Interaction3 superInteraction_1 = this.superInteraction;
+			this.superInteraction = this.createOrReinforceCompositeInteraction(this.interaction_1, currentEpisode.getInteraction());
 
 			if (currentEpisode.getExperience().isPrimitive() && 
-				contextEpisode.getExperience().isPrimitive() &&	
-				contextEpisode.getContextEpisode()!= null ){
+				this.interaction_1.getExperience().isPrimitive() &&	
+				this.interaction_2 != null ){
 				// learn [penultimate [previous current]]
-				this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getInteraction(), superInteraction);
+				this.createOrReinforceCompositeInteraction(this.interaction_2, this.superInteraction);
 				// learn [[penultimate previous] current]
-				this.createOrReinforceCompositeInteraction(contextEpisode.getSuperInteraction(), currentEpisode.getInteraction());	
+				this.createOrReinforceCompositeInteraction(superInteraction_1, currentEpisode.getInteraction());	
 			
 				//if (contextEpisode.getContextEpisode().getSuperInteraction() != null)
 				//	this.createOrReinforceCompositeInteraction(contextEpisode.getContextEpisode().getSuperInteraction(), superInteraction);			
 			}
-			currentEpisode.setSuperInteraction(superInteraction);
 		}
 	}
+	
+	private Experience propose(Interaction3 episode){
+
+		Experience experience = this.getFirstExperience();
+
+		List<Proposition> propositions = this.getPropositions(episode);
+
+		if (propositions.size() > 0){
+			Collections.sort(propositions);
+			for (Proposition proposition : propositions)
+				System.out.println("propose " + proposition.toString());
+			Proposition selectedProposition = propositions.get(0);
+			experience = selectedProposition.getExperience();
+		}	
+		
+		System.out.println("select " + experience.getLabel());
+
+		return experience;
+	}
+	
+	protected List<Proposition> getPropositions(Interaction3 interaction){
+		List<Proposition> propositions = this.getDefaultPropositions(); 
+			
+		if (interaction != null){
+			for (Interaction3 activatedInteraction : getActivatedInteractions(interaction)){
+				Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+				int index = propositions.indexOf(proposition);
+				if (index < 0)
+					propositions.add(proposition);
+				else
+					propositions.get(index).addProclivity(activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+			}
+		}
+		return propositions;
+	}
+
+	private List<Interaction3> getActivatedInteractions(Interaction3 interaction) {
+		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
+	
+		for (Interaction3 activatedInteraction : this.getInteractions())
+			if (this.superInteraction != null && this.superInteraction.equals(activatedInteraction.getPreInteraction()) ||
+				interaction != null && interaction.equals(activatedInteraction.getPreInteraction()) ||
+				interaction.getPostInteraction() != null && interaction.getPostInteraction().equals(activatedInteraction.getPreInteraction())){
+				activatedInteractions.add(activatedInteraction);
+				System.out.println("activated " + activatedInteraction.toString());
+			}
+		return activatedInteractions;
+	}
+
 }

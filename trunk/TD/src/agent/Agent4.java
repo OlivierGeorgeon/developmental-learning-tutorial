@@ -13,25 +13,24 @@ import coupling.Result;
 public class Agent4 implements Agent{
 	
 	private Coupling4 coupling;
-	private Episode4 currentEpisode;
+	private Episode4 episode;
 	
 	public Agent4(Coupling4 coupling){
 		this.coupling = coupling;
-		Episode4 contextEpisode = null;
-		this.currentEpisode = coupling.createEpisode(contextEpisode);
+		this.episode = coupling.chooseEpisode(null);
 	}
 
 	public Experience chooseExperience(Result result){
 
 		if (result != null)
-			this.currentEpisode.record(result);
+			this.episode.record(result);
 		
-		if (this.currentEpisode.isTerminated()){
-			this.coupling.store(currentEpisode);			
-			this.currentEpisode = this.coupling.createEpisode(this.currentEpisode);
+		if (this.episode.isTerminated()){
+			this.coupling.store(episode);			
+			this.episode = this.coupling.chooseEpisode(this.episode.getInteraction());
 		}
 		
-		return this.currentEpisode.getPrimitiveExperience();
+		return this.episode.getPrimitiveExperience();
 	}
 
 }
