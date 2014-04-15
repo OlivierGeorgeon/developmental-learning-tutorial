@@ -7,8 +7,8 @@ import coupling.Experience;
 import coupling.Result;
 
 /**
- * Solution to Exercise 4.
- * Agent4 works similarly as Agent3. The difference resides in the class Episode4 which is instanciated by Coupling4. 
+ * Exploratory Agent 5.
+ * Agent5 has a class Decider5 that implements the agent's working memory and decisional mechanism. 
  * @author Olivier
  */
 public class Agent5 implements Agent{
@@ -18,7 +18,7 @@ public class Agent5 implements Agent{
 	
 	public Agent5(Coupling5 coupling){
 		this.decider = new Decider5(coupling);
-		this.episode = this.decider.step(null);
+		this.episode = new Episode4(coupling, coupling.getFirstExperience());
 	}
 
 	public Experience chooseExperience(Result result){
