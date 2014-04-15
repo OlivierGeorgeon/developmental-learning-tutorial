@@ -34,24 +34,23 @@ public class Main {
 		//Coupling3 coupling = new Coupling3();
 		//Agent agent = new Agent3(coupling);
 		
-		//Coupling4 coupling = new Coupling4();
-		CouplingString coupling = new CouplingString();
+		Coupling4 coupling = new Coupling4();
+		//CouplingString coupling = new CouplingString();
 		Agent agent = new Agent4(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
 		//Environment environment = new Environment3(coupling);
-		//Environment environment = new Environment4(coupling);
-		Environment environment = new EnvironmentString(coupling);
+		Environment environment = new Environment4(coupling);
+		//Environment environment = new EnvironmentString(coupling);
 		
 		Experience experience; 
 		Result result = null;
 		
-		for(int i=0 ; i < 150 ; i++){
+		for(int i=0 ; i < 50 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
-			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() 
-					+ result.getLabel()).toString());
+			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
 		}
 	}
 }

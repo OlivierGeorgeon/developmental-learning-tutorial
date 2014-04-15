@@ -1,7 +1,6 @@
 package agent;
 
 import agent.decider.Episode2;
-import coupling.Coupling;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
@@ -25,8 +24,8 @@ public class Agent2 implements Agent{
 		if (this.contextEpisode != null )
 			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
 
-		Experience experience = this.currentEpisode.propose(); 
-			
+		Experience experience = this.coupling.propose(this.currentEpisode); 
+				
 		if (this.currentEpisode.getInteraction() != null)
 			this.contextEpisode = this.currentEpisode;
 

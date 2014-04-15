@@ -20,10 +20,6 @@ public class Coupling2 implements Coupling {
 	private Map<String , Interaction2> INTERACTIONS = new HashMap<String , Interaction2>() ;
 
 	public Coupling2(){
-		init();
-	}
-	
-	protected void init(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
@@ -106,4 +102,27 @@ public class Coupling2 implements Coupling {
 	public Experience getFirstExperience() {
 		return (Experience)EXPERIENCES.values().toArray()[0];
 	}
+	
+	public Experience propose(Episode2 episode){
+		Experience experience = this.getFirstExperience();
+		for (Interaction2 activatedInteraction : this.getActivatedInteractions(episode))
+			if (activatedInteraction.getPostInteraction().getValence() > 0){
+				experience = activatedInteraction.getPostInteraction().getExperience();
+				System.out.println("propose " + experience.getLabel());
+			}
+			else{
+				experience = this.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
+			}
+		return experience;
+	}
+	
+	protected List<Interaction2> getActivatedInteractions(Episode2 episode) {
+		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
+		if (episode.getInteraction() != null)
+			for (Interaction2 activatedInteraction : this.getInteractions())
+				if (episode.getInteraction() == activatedInteraction.getPreInteraction())
+					activatedInteractions.add(activatedInteraction);
+		return activatedInteractions;
+	}
+
 }

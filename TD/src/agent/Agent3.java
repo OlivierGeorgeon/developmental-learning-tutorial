@@ -18,17 +18,14 @@ public class Agent3 implements Agent{
 	
 	public Experience chooseExperience(Result result){
 
-		//if (this.currentEpisode == null)
-		//	this.currentEpisode = this.coupling.createEpisode(this.coupling.getFirstExperience());
-
 		if (result != null)
 			this.currentEpisode.record(result);
 
 		if (this.contextEpisode != null )
 			this.coupling.createOrReinforceCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
 		
-		Experience experience = this.currentEpisode.propose(); 
-	
+		Experience experience = this.coupling.propose(this.currentEpisode); 
+			
 		if (this.currentEpisode.getInteraction() != null)
 			this.contextEpisode = this.currentEpisode;
 
