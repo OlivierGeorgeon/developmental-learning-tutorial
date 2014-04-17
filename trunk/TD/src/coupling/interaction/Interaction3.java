@@ -1,5 +1,8 @@
 package coupling.interaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Interaction3 extends Interaction1 {
 	
 	private Interaction3 preInteraction;
@@ -37,6 +40,20 @@ public class Interaction3 extends Interaction1 {
 	
 	public String toString(){
 		return this.getLabel() + "," + this.getValence() + "," + this.weight;
+	}
+	
+	public List<Interaction3> getSeries(){
+		List<Interaction3> series = new ArrayList<Interaction3>();
+				
+		if (this.getExperience().isPrimitive())	
+			series.add(this);
+		else{
+			//System.out.println("Interaction " + this.toString());
+			series.addAll(this.getPreInteraction().getSeries());
+			series.addAll(this.getPostInteraction().getSeries());
+		}
+		
+		return series;
 	}
 
 }

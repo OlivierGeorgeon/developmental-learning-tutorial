@@ -1,7 +1,6 @@
 package agent.decider;
 
 import coupling.Coupling3;
-import coupling.Coupling4;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction3;
@@ -52,7 +51,7 @@ public class Episode4 extends Episode3{
 		return this.terminated;
 	}
 
-	public Experience getPrimitiveExperience(){
+	public Experience nextPrimitiveExperience(){
 		Experience experience = this.getExperience();
 		
 		if (!experience.isPrimitive()){
@@ -65,5 +64,25 @@ public class Episode4 extends Episode3{
 		this.primitiveExperience = experience;
 			
 		return experience;
+	}
+	
+	protected void setPrimitiveExperience(Experience experience){
+		this.primitiveExperience = experience;
+	}
+	
+	protected Experience getPrimitiveExperience(){
+		return this.primitiveExperience;
+	}
+	
+	protected int getStep(){
+		return this.step;
+	}
+	
+	protected void setTerminated(){
+		this.terminated = true;
+	}
+	
+	protected void incStep(){
+		this.step++;
 	}
 }

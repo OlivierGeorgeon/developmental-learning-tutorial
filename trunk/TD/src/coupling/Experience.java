@@ -27,5 +27,4 @@ public class Experience {
 	public Interaction3 getInteraction(){
 		return this.interaction;
 	}
-
 }

@@ -19,6 +19,7 @@ import Environments.Environment1;
 import Environments.Environment2;
 import Environments.Environment3;
 import Environments.Environment4;
+import Environments.Environment5;
 import Environments.EnvironmentString;
 import coupling.Experience;
 import coupling.Result;
@@ -46,13 +47,14 @@ public class Main {
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
 		//Environment environment = new Environment3(coupling);
-		Environment environment = new Environment4(coupling);
+		//Environment environment = new Environment4(coupling);
+		Environment environment = new Environment5(coupling);
 		//Environment environment = new EnvironmentString(coupling);
 		
 		Experience experience; 
 		Result result = null;
 		
-		for(int i=0 ; i < 50 ; i++){
+		for(int i=0 ; i < 150 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
 			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
