@@ -28,7 +28,7 @@ public class Agent4 implements Agent{
 			this.episode = this.coupling.chooseEpisode(this.episode.getInteraction());
 		}
 		
-		return this.episode.getPrimitiveExperience();
+		return this.episode.nextPrimitiveExperience();
 	}
 
 }

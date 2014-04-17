@@ -2,6 +2,7 @@ package agent;
 
 import agent.decider.Decider5;
 import agent.decider.Episode4;
+import agent.decider.Episode5;
 import coupling.Coupling5;
 import coupling.Experience;
 import coupling.Result;
@@ -14,11 +15,11 @@ import coupling.Result;
 public class Agent5 implements Agent{
 	
 	private Decider5 decider;
-	private Episode4 episode;
+	private Episode5 episode;
 	
 	public Agent5(Coupling5 coupling){
 		this.decider = new Decider5(coupling);
-		this.episode = new Episode4(coupling, coupling.getFirstExperience());
+		this.episode = new Episode5(coupling, coupling.getFirstExperience());
 	}
 
 	public Experience chooseExperience(Result result){
@@ -30,7 +31,7 @@ public class Agent5 implements Agent{
 			this.episode = this.decider.step(this.episode);
 		}
 		
-		return this.episode.getPrimitiveExperience();
+		return this.episode.nextPrimitiveExperience();
 	}
 
 }
