@@ -25,8 +25,7 @@ public class Episode4 extends Episode3{
 		else{
 			if (step == 0){
 				if (!enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPreInteraction())){
-					this.getCoupling().createPrimitiveInteraction(this.getExperience(), result, enactedPrimitiveInteraction.getValence());
-					Interaction3 alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
+					Interaction3 alternateInteraction = this.getCoupling().createOrGetInteraction(this.getExperience(), result, enactedPrimitiveInteraction.getValence());
 					this.setInteraction(alternateInteraction);
 					System.out.println("alternate interaction " + alternateInteraction.getLabel());
 					this.terminated = true;
