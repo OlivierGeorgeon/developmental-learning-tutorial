@@ -67,6 +67,14 @@ public class Coupling3 implements Coupling {
 		interaction.setResult(result);
 	}
 
+	public Interaction3 createOrGetInteraction(Experience experience,
+			Result result, int valence) {
+		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+		interaction.setExperience(experience);
+		interaction.setResult(result);
+		return interaction;
+	}
+
 	@Override
 	public Interaction3 getInteraction(String label) {
 		return INTERACTIONS.get(label);

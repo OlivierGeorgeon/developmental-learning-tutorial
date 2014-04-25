@@ -2,12 +2,14 @@ package agent.decider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tracer.Trace;
 import coupling.Coupling3;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction3;
 
-public class Episode5 extends Episode4{
+public class Episode6 extends Episode4{
 
 	private List<Interaction3> series = new ArrayList<Interaction3>();
 	
@@ -15,7 +17,7 @@ public class Episode5 extends Episode4{
 	
 	private Interaction3 alternateInteraction;
 
-	public Episode5(Coupling3 coupling, Experience experience){
+	public Episode6(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
 		if (!experience.isPrimitive())
 			this.series = experience.getInteraction().getSeries();
@@ -23,8 +25,15 @@ public class Episode5 extends Episode4{
 
 	@Override
 	public void record(Result result){	
+		
 		this.alternateInteraction = null;
+		
 		Interaction3 enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
+
+		Trace.addEventElement("enacted_interaction", enactedPrimitiveInteraction.getLabel());
+		Trace.addEventElement("valence", enactedPrimitiveInteraction.getValence() + "");
+		Trace.addEventElement("level", this.series.size() + "");
+
 		valence += enactedPrimitiveInteraction.getValence();
 		
 		if (this.getExperience().isPrimitive()){
@@ -38,7 +47,7 @@ public class Episode5 extends Episode4{
 				if (!enactedPrimitiveInteraction.equals(intendedPrimitiveInteraction)){
 					// The alternate primitive interaction don't have a primitive experience, it cannot be enacted !!
 					this.alternateInteraction = this.getCoupling().createOrGetInteraction(this.getExperience(), result, this.valence);
-					System.out.println("alternate interaction " + alternateInteraction.getLabel());
+					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
 					if (this.getStep() >= 1)
@@ -53,7 +62,7 @@ public class Episode5 extends Episode4{
 				else{
 					this.getCoupling().createPrimitiveInteraction(this.getExperience(), result, this.valence);
 					this.alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
-					System.out.println("alternate interaction " + alternateInteraction.getLabel());
+					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
 					if (this.getStep() >= 1)

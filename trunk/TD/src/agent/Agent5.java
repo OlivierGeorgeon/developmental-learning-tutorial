@@ -1,15 +1,14 @@
 package agent;
 
 import agent.decider.Decider5;
-import agent.decider.Episode4;
 import agent.decider.Episode5;
 import coupling.Coupling5;
 import coupling.Experience;
 import coupling.Result;
 
 /**
- * Exploratory Agent 5.
- * Agent5 has a class Decider5 that implements the agent's working memory and decisional mechanism. 
+ * Agent 5.
+ * Agent5 handles episode5 which manages the enaction of long composite interactions. 
  * @author Olivier
  */
 public class Agent5 implements Agent{

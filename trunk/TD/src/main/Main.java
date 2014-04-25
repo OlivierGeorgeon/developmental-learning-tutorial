@@ -1,11 +1,13 @@
 package main;
 
+import tracer.Trace;
 import coupling.Coupling;
 import coupling.Coupling1;
 import coupling.Coupling2;
 import coupling.Coupling3;
 import coupling.Coupling4;
 import coupling.Coupling5;
+import coupling.Coupling6;
 import coupling.CouplingString;
 import agent.Agent;
 import agent.Agent1;
@@ -13,6 +15,7 @@ import agent.Agent2;
 import agent.Agent3;
 import agent.Agent4;
 import agent.Agent5;
+import agent.Agent6;
 import Environments.Environment;
 import Environments.Environment0;
 import Environments.Environment1;
@@ -41,8 +44,11 @@ public class Main {
 		//CouplingString coupling = new CouplingString();
 		//Agent agent = new Agent4(coupling);
 		
-		Coupling5 coupling = new Coupling5();
-		Agent agent = new Agent5(coupling);
+		//Coupling5 coupling = new Coupling5();
+		//Agent agent = new Agent5(coupling);
+		
+		Coupling6 coupling = new Coupling6();
+		Agent agent = new Agent6(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
