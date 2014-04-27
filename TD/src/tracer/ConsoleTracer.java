@@ -61,7 +61,7 @@ public class ConsoleTracer implements Tracer<Element> {
 	 * @param textContent The text content of the sub element.
 	 */
 	public void addSubelement(Element element, String name, String textContent){
-		System.out.println("    " + name + " " + textContent);
+		System.out.println("    " + textContent);
 	}
 
 	/**
