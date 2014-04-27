@@ -4,7 +4,7 @@ public class CouplingString extends Coupling4 {
 	
 	public static final String LABEL_STEP = ">";
 	public static final String LABEL_FEEL = "-";
-	public static final String LABEL_SWAP = "o";
+	public static final String LABEL_SWAP = "i";
 	public static final String LABEL_TRUE = "t";
 	public static final String LABEL_FALSE = "f";
 	

@@ -2,9 +2,12 @@ package agent.decider;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.w3c.dom.*;
 
 import tracer.Trace;
 import coupling.Coupling3;
+import coupling.Coupling6;
+import coupling.CouplingString;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction3;
@@ -31,8 +34,23 @@ public class Episode6 extends Episode4{
 		Interaction3 enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
 
 		Trace.addEventElement("enacted_interaction", enactedPrimitiveInteraction.getLabel());
+		Trace.addEventElement("primitive_enacted_schema", this.getPrimitiveExperience().getLabel());
+		if (result != null && result.getLabel().equals(Coupling6.LABEL_TRUE)){
+			Element e = Trace.addEventElement("effect");
+			Trace.addSubelement(e, "color", "FFFFFF");
+		}
+		else{
+			Element e = Trace.addEventElement("effect");
+			Trace.addSubelement(e, "color", "FF0000");
+		}
 		Trace.addEventElement("valence", enactedPrimitiveInteraction.getValence() + "");
+		Trace.addEventElement("satisfaction", enactedPrimitiveInteraction.getValence() + "");
 		Trace.addEventElement("level", this.series.size() + "");
+		if (this.series.size() > 1)
+			Trace.addEventElement("top_level", this.series.size() + "");
+		else
+			Trace.addEventElement("top_level", "1");
+		Trace.addEventElement("step", this.getStep() + "");
 
 		valence += enactedPrimitiveInteraction.getValence();
 		
@@ -50,8 +68,11 @@ public class Episode6 extends Episode4{
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
-					if (this.getStep() >= 1)
+					else if (this.getStep() == 1)
 						this.setInteraction(this.getCoupling().getInteraction("(" + this.series.get(0).getLabel() + enactedPrimitiveInteraction.getLabel() + ")"));
+					else
+						this.setInteraction(this.getCoupling().createOrReinforceCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						
 					this.setTerminated();
 				}
 				this.incStep();
@@ -65,8 +86,10 @@ public class Episode6 extends Episode4{
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
-					if (this.getStep() >= 1)
+					else if (this.getStep() == 1)
 						this.setInteraction(this.getCoupling().getInteraction("(" + this.series.get(0).getLabel() + enactedPrimitiveInteraction.getLabel() + ")"));
+					else // TODO construct longer alternate interactions
+						this.setInteraction(this.getCoupling().createOrReinforceCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 				}
 				this.setTerminated();
 			}			

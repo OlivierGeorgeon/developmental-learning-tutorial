@@ -44,11 +44,11 @@ public class Main {
 		//CouplingString coupling = new CouplingString();
 		//Agent agent = new Agent4(coupling);
 		
-		//Coupling5 coupling = new Coupling5();
-		//Agent agent = new Agent5(coupling);
+		Coupling5 coupling = new Coupling5();
+		Agent agent = new Agent5(coupling);
 		
-		Coupling6 coupling = new Coupling6();
-		Agent agent = new Agent6(coupling);
+		//Coupling6 coupling = new Coupling6();
+		//Agent agent = new Agent6(coupling);
 		
 		//Environment environment = new Environment1(coupling);
 		//Environment environment = new Environment2(coupling);
@@ -63,7 +63,8 @@ public class Main {
 		for(int i=0 ; i < 150 ; i++){
 			experience = agent.chooseExperience(result);
 			result = environment.giveResult(experience);
-			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
+			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() 
+					+ result.getLabel()).toString());
 		}
 	}
 }

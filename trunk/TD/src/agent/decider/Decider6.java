@@ -42,10 +42,11 @@ public class Decider6 {
 		if (!this.slot1.isEmpty()){
 			// learn the new super-interaction [last current]
 			superInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getInteraction());
+			Trace.addSubelement(e, "superInteraction" , superInteraction.toString());
 
 			if (episode.getAlternateInteraction() != null){
 				Interaction3 superAlternateInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getAlternateInteraction());
-				Trace.addSubelement(e, superAlternateInteraction.toString());
+				Trace.addSubelement(e, "superAlternateInteraction", superAlternateInteraction.toString());
 			}
 			if (!this.slot2.isEmpty()){
 				// So far, Limit the learning to three-step interactions
@@ -53,10 +54,10 @@ public class Decider6 {
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
 					Interaction3 superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction().getPreInteraction(), superInteraction);
-					Trace.addSubelement(e, superLeftInteraction.toString());
+					Trace.addSubelement(e, "superLeftInteraction" , superLeftInteraction.toString());
 					// learn [[previous last] current]
 					Interaction3 superRightInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
-					Trace.addSubelement(e, superRightInteraction.toString());
+					Trace.addSubelement(e, "superRightInteraction", superRightInteraction.toString());
 				//}
 			}
 		}
@@ -81,9 +82,9 @@ public class Decider6 {
 		
 		Collections.sort(propositions);
 
-		Element e = Trace.addEventElement("propose");
+		Element e = Trace.addEventElement("propositions");
 		for (Proposition proposition : propositions)
-			Trace.addSubelement(e, proposition.toString());
+			Trace.addSubelement(e, "proposition", proposition.toString());
 
 		if (propositions.size() > 0)
 			experience = propositions.get(0).getExperience();
@@ -96,14 +97,14 @@ public class Decider6 {
 	private List<Interaction3> getFlowInteractions() {
 		List<Interaction3> flowInteractions = new ArrayList<Interaction3>();
 
-		Element e = Trace.addEventElement("activate");
+		Element e = Trace.addEventElement("activations");
 		
 		for (Interaction3 flowInteraction : this.coupling.getInteractions())
 			if (slot2.activate(flowInteraction) ||
 				this.slot1.activate(flowInteraction) ||
 				this.slot1.getInteraction().getPostInteraction() != null && this.slot1.getInteraction().getPostInteraction().equals(flowInteraction.getPreInteraction())){
 				flowInteractions.add(flowInteraction);
-				Trace.addSubelement(e, flowInteraction.toString());
+				Trace.addSubelement(e, "activate", flowInteraction.toString());
 			}
 		return flowInteractions;
 	}

@@ -1,5 +1,7 @@
 package Environments;
 
+import org.w3c.dom.*;
+import tracer.Trace;
 import coupling.Coupling;
 import coupling.CouplingString;
 import coupling.Experience;
@@ -29,6 +31,8 @@ public class EnvironmentString implements Environment{
 	}
 	
 	public Result giveResult(Experience experience){
+		traceEnv();
+
 		Result result = null;
 		
 		if (experience.equals(this.coupling.createOrGetExperience(CouplingString.LABEL_STEP)))
@@ -38,7 +42,6 @@ public class EnvironmentString implements Environment{
 		else if (experience.equals(this.coupling.createOrGetExperience(CouplingString.LABEL_SWAP)))
 			result = swap();
 		
-		printEnv();
 		return result;
 	
 	}	
@@ -88,17 +91,21 @@ public class EnvironmentString implements Environment{
 		return result;		
 	}
 	
-	private void printEnv(){
+	private void traceEnv(){
+		
+		Element e = Trace.addEventElement("environment");
+
 		// print the board
+		String stringBoard = "";
 		for (int i = 0; i < WIDTH; i++)
-			System.out.print(board[i] + " ");
-		System.out.println();
+			stringBoard += this.board[i] + " ";
+		Trace.addSubelement(e,"board", stringBoard);
 
 		// print the agent
+		String stringAgent = "";
 		for (int i = 0; i < position; i++)
-			System.out.print("  ");
-		System.out.print("*");
-
-		System.out.println();
+			stringAgent +=".. ";
+		stringAgent += ">";
+		Trace.addSubelement(e,"agent", stringAgent);
 	}
 }
