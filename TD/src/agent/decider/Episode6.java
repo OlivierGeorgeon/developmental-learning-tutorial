@@ -7,7 +7,6 @@ import org.w3c.dom.*;
 import tracer.Trace;
 import coupling.Coupling3;
 import coupling.Coupling6;
-import coupling.CouplingString;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction3;
@@ -19,7 +18,7 @@ public class Episode6 extends Episode4{
 	private int valence;
 	
 	private Interaction3 alternateInteraction;
-
+	
 	public Episode6(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
 		if (!experience.isPrimitive())
@@ -68,10 +67,9 @@ public class Episode6 extends Episode4{
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
-					else if (this.getStep() == 1)
-						this.setInteraction(this.getCoupling().getInteraction("(" + this.series.get(0).getLabel() + enactedPrimitiveInteraction.getLabel() + ")"));
 					else
-						this.setInteraction(this.getCoupling().createOrReinforceCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						// TODO construct the whole composite enacted interaction
+						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 						
 					this.setTerminated();
 				}
@@ -86,10 +84,9 @@ public class Episode6 extends Episode4{
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
 						this.setInteraction(enactedPrimitiveInteraction);
-					else if (this.getStep() == 1)
-						this.setInteraction(this.getCoupling().getInteraction("(" + this.series.get(0).getLabel() + enactedPrimitiveInteraction.getLabel() + ")"));
-					else // TODO construct longer alternate interactions
-						this.setInteraction(this.getCoupling().createOrReinforceCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+					else 
+						// TODO construct the whole composite enacted interaction
+						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction(this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 				}
 				this.setTerminated();
 			}			

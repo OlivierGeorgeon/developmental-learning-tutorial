@@ -21,8 +21,8 @@ public class Coupling6 extends Coupling5 {
 	public static final String LABEL_FALSE = "f";
 	//private Map<String ,Phenomenon6> PHENOMENA = new HashMap<String ,Phenomenon6>();
 
-	@Override
-	public Interaction3 createOrReinforceCompositeInteraction(
+	
+	public Interaction3 createOrGetCompositeInteraction(
 			Interaction3 preInteraction, Interaction3 postInteraction) {
 			
 			String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
@@ -32,15 +32,12 @@ public class Coupling6 extends Coupling5 {
 				interaction = this.createOrGet(label, valence); 
 				interaction.setPreInteraction(preInteraction);
 				interaction.setPostInteraction(postInteraction);
-				interaction.incrementWeight();
 				interaction.setExperience(this.createOrGetCompositeExperience(interaction));
 				interaction.setResult(this.createOrGetResult(label));
 			}
-			else
-				interaction.incrementWeight();
 			return interaction;
 		}
-	
+
 	@Override
 	protected void init(){
 		Experience e1 = createOrGetExperience(LABEL_STEP);
@@ -55,9 +52,9 @@ public class Coupling6 extends Coupling5 {
 		createPrimitiveInteraction(e3, r1, 4);   // swap
 		createPrimitiveInteraction(e3, r2, -10); // not_swp
 		
-		Tracer<Element> tracer = new ConsoleTracer();
+		//Tracer<Element> tracer = new ConsoleTracer();
 		//Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","l-kHWqeLDlSZT-TdBrLSoXVeBRCRsw");
-		//Tracer<Element> tracer = new AbstractLiteTracer("http://macbook-pro-de-olivier-2.local/alite/php/stream/","BGKGGBbdjxbYzYAlvXrjbVMjOwyXEA");
+		Tracer<Element> tracer = new AbstractLiteTracer("http://macbook-pro-de-olivier-2.local/alite/php/stream/","BGKGGBbdjxbYzYAlvXrjbVMjOwyXEA");
 		
 		Trace.init(tracer);
 	}
