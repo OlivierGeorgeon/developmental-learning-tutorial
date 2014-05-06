@@ -85,23 +85,48 @@ public class Coupling3 implements Coupling {
 	}
 	
 	public Interaction3 createOrReinforceCompositeInteraction(
-		Interaction3 preInteraction, Interaction3 postInteraction) {
-		
-		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
-		Interaction3 interaction = getInteraction(label);
-		if (interaction == null){
-			int valence = preInteraction.getValence() + postInteraction.getValence();	
-			interaction = createOrGet(label, valence); 
-			interaction.setPreInteraction(preInteraction);
-			interaction.setPostInteraction(postInteraction);
+			Interaction3 preInteraction, Interaction3 postInteraction) {
+			
+			Interaction3 interaction = createOrGetCompositeInteraction(preInteraction, postInteraction);
 			interaction.incrementWeight();
-			System.out.println("learn " + interaction.toString());
+			return interaction;
 		}
-		else
-			interaction.incrementWeight();
-		return interaction;
-	}
+//	public Interaction3 createOrReinforceCompositeInteraction(
+//		Interaction3 preInteraction, Interaction3 postInteraction) {
+//		
+//		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
+//		Interaction3 interaction = getInteraction(label);
+//		if (interaction == null){
+//			int valence = preInteraction.getValence() + postInteraction.getValence();	
+//			interaction = createOrGet(label, valence); 
+//			interaction.setPreInteraction(preInteraction);
+//			interaction.setPostInteraction(postInteraction);
+//			interaction.incrementWeight();
+//			System.out.println("learn " + interaction.toString());
+//		}
+//		else
+//			interaction.incrementWeight();
+//		return interaction;
+//	}
 	
+	public Interaction3 createOrGetCompositeInteraction(
+			Interaction3 preInteraction, Interaction3 postInteraction) {
+			
+			String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
+			Interaction3 interaction = getInteraction(label);
+			if (interaction == null){
+				int valence = preInteraction.getValence() + postInteraction.getValence();	
+				interaction = createOrGet(label, valence); 
+				interaction.setPreInteraction(preInteraction);
+				interaction.setPostInteraction(postInteraction);
+				//interaction.incrementWeight();
+				System.out.println("learn " + interaction.toString());
+			}
+			else
+				interaction.incrementWeight();
+			return interaction;
+		}
+		
 	protected Interaction3 createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
 			INTERACTIONS.put(label, new Interaction3(label, valence));			

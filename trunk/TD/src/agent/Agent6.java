@@ -15,6 +15,7 @@ public class Agent6 implements Agent{
 	
 	private Decider6 decider;
 	private Episode6 episode;
+	private int clock;
 	
 	public Agent6(Coupling5 coupling){
 		this.decider = new Decider6(coupling);
@@ -24,6 +25,8 @@ public class Agent6 implements Agent{
 	public Experience chooseExperience(Result result){
 
 		Trace.startNewEvent();
+		Trace.addEventElement("clock", this.clock + "");
+		this.clock++;
 
 		if (result != null)
 			this.episode.record(result);

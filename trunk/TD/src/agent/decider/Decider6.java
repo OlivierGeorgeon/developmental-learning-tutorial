@@ -50,7 +50,7 @@ public class Decider6 {
 			}
 			if (!this.slot2.isEmpty()){
 				// So far, Limit the learning to three-step interactions
-				//if (episode.getExperience().isPrimitive() && 
+				//if (//episode.getExperience().isPrimitive() && 
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
 					Interaction3 superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction().getPreInteraction(), superInteraction);
