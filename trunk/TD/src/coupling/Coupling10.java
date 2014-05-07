@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
-import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;

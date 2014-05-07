@@ -20,14 +20,7 @@ public class Coupling2 implements Coupling {
 	private Map<String , Interaction2> INTERACTIONS = new HashMap<String , Interaction2>() ;
 
 	public Coupling2(){
-		Experience e1 = createOrGetExperience(LABEL_E1);
-		Experience e2 = createOrGetExperience(LABEL_E2);
-		Result r1 = createOrGetResult(LABEL_R1);
-		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, -1);
-		createPrimitiveInteraction(e1, r2, 1);
-		createPrimitiveInteraction(e2, r1, -1);
-		createPrimitiveInteraction(e2, r2, 1);
+		init();
 	}
 	
 	@Override
@@ -51,6 +44,18 @@ public class Coupling2 implements Coupling {
 			}
 		}		
 		return otherExperience;
+	}
+
+	public Interaction2 getOtherInteraction(Interaction2 interaction) {
+		Interaction2 otherInteraction = (Interaction2)INTERACTIONS.values().toArray()[0];
+		if (interaction != null)
+			for (Interaction2 e : INTERACTIONS.values()){
+				if (e.getExperience() != null && e.getExperience()!=interaction.getExperience()){
+					otherInteraction =  e;
+					break;
+				}
+			}		
+		return otherInteraction;
 	}
 
 	@Override
@@ -106,7 +111,7 @@ public class Coupling2 implements Coupling {
 	public Experience propose(Episode2 episode){
 		Experience experience = this.getFirstExperience();
 		for (Interaction2 activatedInteraction : this.getActivatedInteractions(episode))
-			if (activatedInteraction.getPostInteraction().getValence() > 0){
+			if (activatedInteraction.getPostInteraction().getValence() >= 0){
 				experience = activatedInteraction.getPostInteraction().getExperience();
 				System.out.println("propose " + experience.getLabel());
 			}
@@ -123,6 +128,17 @@ public class Coupling2 implements Coupling {
 				if (episode.getInteraction() == activatedInteraction.getPreInteraction())
 					activatedInteractions.add(activatedInteraction);
 		return activatedInteractions;
+	}
+	
+	protected void init(){
+		Experience e1 = createOrGetExperience(LABEL_E1);
+		Experience e2 = createOrGetExperience(LABEL_E2);
+		Result r1 = createOrGetResult(LABEL_R1);
+		Result r2 = createOrGetResult(LABEL_R2);
+		createPrimitiveInteraction(e1, r1, -1);
+		createPrimitiveInteraction(e1, r2, 1);
+		createPrimitiveInteraction(e2, r1, -1);
+		createPrimitiveInteraction(e2, r2, 1);
 	}
 
 }
