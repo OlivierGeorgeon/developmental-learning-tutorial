@@ -1,5 +1,8 @@
 package agent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import agent.decider.Episode20;
 import tracer.Trace;
 import coupling.Coupling20;
@@ -13,47 +16,51 @@ public class Agent20 implements Agent{
 	
 	private Coupling20 coupling;
 	private Episode20 contextEpisode;
-	private Episode20 currentEpisode;
-
-	
+	private Episode20 currentEpisode;	
 	private int state;
-	//private Experience experience;
 	
 	public Agent20(Coupling20 coupling){
 		this.coupling = coupling;
-		this.currentEpisode = this.coupling.createEpisode(coupling.getOtherInteraction(null));
 	}
 	
 	public Experience chooseExperience(Result result){
 
-		if (this.currentEpisode.getInteraction() != null && this.currentEpisode.getInteraction().getResult().equals(result))
-			Trace.addEventElement("status", "happy");
-		else
-			Trace.addEventElement("status", "sad");
-
+		if (this.currentEpisode != null && this.currentEpisode.getInteraction().getResult().equals(result)){			
+			Trace.addEventElement("mood", "CONTENT");
+			this.state++;
+		}
+		else{
+			Trace.addEventElement("mood", "FRUSTRATED");
+			this.state = 0;
+		}
 		if (result != null)
 			this.currentEpisode.record(result);
 
 		if (this.contextEpisode != null )
 			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
 
+		List<Interaction2> proposedInteractions = new ArrayList<Interaction2>();
+		if (this.currentEpisode != null)
+			proposedInteractions = this.coupling.proposeInteractions(this.currentEpisode.getInteraction()); 
 		
-		Interaction2 intendedInteraction = this.coupling.proposeInteraction(this.currentEpisode.getInteraction()); 
-		
-		if (this.currentEpisode.getInteraction() != null)
-			this.contextEpisode = this.currentEpisode;
-
-		if (this.state > BOREDOME_LEVEL){
-			Trace.addEventElement("status", "bored");
-			intendedInteraction = coupling.getOtherInteraction(intendedInteraction);		
-			this.state = 0;
+		Interaction2 intendedInteraction = this.coupling.getOtherInteraction(null);
+		if (this.state < BOREDOME_LEVEL){
+			if (proposedInteractions.size() > 0)
+				if (proposedInteractions.get(0).getValence() >= 0)
+					intendedInteraction = proposedInteractions.get(0);
+				else
+					intendedInteraction = this.coupling.getOtherInteraction(proposedInteractions.get(0));
 		}
-		
-		this.state++;
-		
-		//Interaction intendedInteraction = this.coupling.predict(this.experience);
-		//if (intendedInteraction != null)
-		//	this.expectedResult = intendedInteraction.getResult();
+		else{
+			Trace.addEventElement("mood", "BORED");
+			this.state = 0;
+			if (proposedInteractions.size() == 1)
+				intendedInteraction = this.coupling.getOtherInteraction(proposedInteractions.get(0));
+			else if (proposedInteractions.size() > 1)
+				intendedInteraction = proposedInteractions.get(1);
+		}
+					
+		this.contextEpisode = this.currentEpisode;
 
 		this.currentEpisode = this.coupling.createEpisode(intendedInteraction);
 		Trace.addEventElement("intend", intendedInteraction.toString());
