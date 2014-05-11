@@ -40,8 +40,8 @@ public class Main {
 		
 		//Coupling2 coupling = new Coupling2();
 		//Agent agent = new Agent2(coupling);
-		//Coupling20 coupling = new Coupling20();
-		//Agent agent = new Agent20(coupling);
+		Coupling20 coupling = new Coupling20();
+		Agent agent = new Agent20(coupling);
 
 		//Coupling3 coupling = new Coupling3();
 		//Agent agent = new Agent3(coupling);
@@ -53,16 +53,16 @@ public class Main {
 		//Coupling5 coupling = new Coupling5();
 		//Agent agent = new Agent5(coupling);
 		
-		Coupling6 coupling = new Coupling6();
-		Agent agent = new Agent6(coupling);
+		//Coupling6 coupling = new Coupling6();
+		//Agent agent = new Agent6(coupling);
 		
 		//Environment environment = new Environment0(coupling);
 		//Environment environment = new Environment1(coupling);
-		//Environment environment = new Environment2(coupling);
+		Environment environment = new Environment2(coupling);
 		//Environment environment = new Environment3(coupling);
 		//Environment environment = new Environment4(coupling);
 		//Environment environment = new Environment5(coupling);
-		Environment environment = new EnvironmentString(coupling);
+		//Environment environment = new EnvironmentString(coupling);
 		
 		Experience experience; 
 		Result result = null;

@@ -1,6 +1,8 @@
 package coupling.interaction;
 
-public class Interaction2 extends Interaction1 {
+import agent.decider.Proposition;
+
+public class Interaction2 extends Interaction1 implements Comparable<Interaction2>{
 	
 	private Interaction2 preInteraction;
 	private Interaction2 postInteraction;
@@ -23,6 +25,10 @@ public class Interaction2 extends Interaction1 {
 	
 	public void setPostInteraction(Interaction2 postInteraction) {
 		this.postInteraction = postInteraction;
+	}
+
+	public int compareTo(Interaction2 interaction){
+		return new Integer(interaction.getValence()).compareTo(this.getValence());
 	}
 
 	public String toString(){

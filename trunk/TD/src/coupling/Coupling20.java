@@ -1,11 +1,13 @@
 package coupling;
 
-import org.w3c.dom.Element;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.w3c.dom.Element;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
-import agent.decider.Episode2;
 import agent.decider.Episode20;
 import coupling.interaction.Interaction2;
 
@@ -31,17 +33,14 @@ public class Coupling20 extends Coupling2 {
 		return new Episode20(this, interaction);
 	}
 	
-	public Interaction2 proposeInteraction(Interaction2 contextInteraction){
-		Interaction2 interaction = this.getOtherInteraction(null);
-		for (Interaction2 activatedInteraction : this.getActivatedInteractions(contextInteraction))
-			if (activatedInteraction.getPostInteraction().getValence() >= 0){
-				interaction = activatedInteraction.getPostInteraction();
-				System.out.println("propose " + interaction.getLabel());
-			}
-			else{
-				interaction = this.getOtherInteraction(activatedInteraction.getPostInteraction());						
-			}
-		return interaction;
+	public List<Interaction2> proposeInteractions(Interaction2 contextInteraction){
+		List<Interaction2> interactions = new ArrayList<Interaction2>();
+		for (Interaction2 activatedInteraction : this.getActivatedInteractions(contextInteraction)){
+			interactions.add(activatedInteraction.getPostInteraction());
+			System.out.println("propose " + activatedInteraction.getPostInteraction().getLabel());
+		}
+		Collections.sort(interactions);
+		return interactions;
 	}
 
 }
