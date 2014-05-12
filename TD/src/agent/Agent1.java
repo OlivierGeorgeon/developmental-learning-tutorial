@@ -20,7 +20,7 @@ public class Agent1 implements Agent{
 			this.experience = this.coupling.getOtherExperience(null);
 		else{ 
 			int mood = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel()).getValence();
-			if (mood > 0)
+			if (mood >= 0)
 				Trace.addEventElement("mood", "PLEASED");
 			else{
 				Trace.addEventElement("mood", "PAINED");

@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
+import tracer.ConsoleTracer;
+import tracer.Trace;
+import tracer.Tracer;
+
 import Environments.Environment2;
 import agent.Agent2;
 import agent.decider.Episode2;
-
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction1;
 import coupling.interaction.Interaction2;
 
 /**
@@ -18,7 +22,7 @@ import coupling.interaction.Interaction2;
  * - Can instantiate an Episode2 .
  * @author Olivier
  */
-public class Coupling2<I extends Interaction2> extends Coupling1<I> {
+public class Coupling2 extends Coupling1 {
 	
 	protected void initCoupling(){
 		this.setAgent(new Agent2(this));
@@ -35,8 +39,8 @@ public class Coupling2<I extends Interaction2> extends Coupling1<I> {
 	}
 	
 	@Override
-	protected I createNewInteraction(String label, int valence){
-		return (I) new Interaction2(label, valence);
+	protected Interaction2 createNewInteraction(String label, int valence){
+		return new Interaction2(label, valence);
 	}
 
 	public Episode2 createEpisode(Interaction interaction) {

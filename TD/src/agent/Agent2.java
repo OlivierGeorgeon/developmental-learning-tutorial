@@ -30,9 +30,15 @@ public class Agent2 implements Agent{
 			this.coupling.createCompositeInteraction((Interaction2)this.contextEpisode.getInteraction(), (Interaction2)this.currentEpisode.getInteraction());
 
 		List<Interaction> proposedInteractions = new ArrayList<Interaction>();
-		if (this.currentEpisode != null)
+		if (this.currentEpisode != null){
+			if (this.currentEpisode.getInteraction().getValence() >= 0)
+				Trace.addEventElement("mood", "PLEASED");
+			else{
+				Trace.addEventElement("mood", "PAINED");
+			}
 			proposedInteractions = this.coupling.proposeInteractions(this.currentEpisode.getInteraction()); 
-
+		}
+			
 		Interaction intendedInteraction = this.coupling.getOtherInteraction(null);
 		if (proposedInteractions.size() > 0)
 			if (proposedInteractions.get(0).getValence() >= 0)

@@ -1,5 +1,10 @@
 package Existence;
 
+import org.w3c.dom.Element;
+
+import tracer.ConsoleTracer;
+import tracer.Trace;
+import tracer.Tracer;
 import coupling.Coupling1;
 import coupling.Obtention;
 import coupling.Coupling;
@@ -12,7 +17,9 @@ public class Existence1 implements Existence {
 	private Obtention obtention;
 
 	public Existence1(){
-		this.coupling = new Coupling1<Interaction1>();
+		this.setCoupling(new Coupling1());
+		Tracer<Element> tracer = new ConsoleTracer();
+		Trace.init(tracer);
 	}	
 	
 	@Override
@@ -22,6 +29,10 @@ public class Existence1 implements Existence {
 		this.obtention = this.coupling.giveObtention(intention);
 				
 		return print(intention, this.obtention);
+	}
+	
+	protected void setCoupling(Coupling coupling){
+		this.coupling = coupling;		
 	}
 	
 	protected String print(Intention intention, Obtention obtention){

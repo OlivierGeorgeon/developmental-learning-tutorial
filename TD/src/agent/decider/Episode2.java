@@ -1,7 +1,6 @@
 package agent.decider;
 
 import coupling.Coupling2;
-import coupling.Coupling20;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
