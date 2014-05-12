@@ -3,7 +3,7 @@ package agent;
 import java.util.ArrayList;
 import java.util.List;
 
-import agent.decider.Episode20;
+import agent.decider.Episode2;
 import tracer.Trace;
 import coupling.Coupling20;
 import coupling.Experience;
@@ -15,8 +15,8 @@ public class Agent20 implements Agent{
 	public static int BOREDOME_LEVEL = 5;
 	
 	private Coupling20 coupling;
-	private Episode20 contextEpisode;
-	private Episode20 currentEpisode;	
+	private Episode2 contextEpisode;
+	private Episode2 currentEpisode;	
 	private int state;
 	
 	public Agent20(Coupling20 coupling){

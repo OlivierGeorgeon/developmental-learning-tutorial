@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
-import agent.decider.Episode20;
+import agent.decider.Episode2;
 import coupling.interaction.Interaction2;
 
 public class Coupling20 extends Coupling2 {
@@ -29,8 +29,8 @@ public class Coupling20 extends Coupling2 {
 		Trace.init(tracer);
 	}
 	
-	public Episode20 createEpisode(Interaction2 interaction) {
-		return new Episode20(this, interaction);
+	public Episode2 createEpisode(Interaction2 interaction) {
+		return new Episode2(this, interaction);
 	}
 	
 	public List<Interaction2> proposeInteractions(Interaction2 contextInteraction){
