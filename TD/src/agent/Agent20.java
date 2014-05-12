@@ -37,11 +37,11 @@ public class Agent20 implements Agent{
 			this.currentEpisode.record(result);
 
 		if (this.contextEpisode != null )
-			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
+			this.coupling.createCompositeInteraction((Interaction2)this.contextEpisode.getInteraction(), (Interaction2)this.currentEpisode.getInteraction());
 
 		List<Interaction2> proposedInteractions = new ArrayList<Interaction2>();
 		if (this.currentEpisode != null)
-			proposedInteractions = this.coupling.proposeInteractions(this.currentEpisode.getInteraction()); 
+			proposedInteractions = this.coupling.proposeInteractions((Interaction2)this.currentEpisode.getInteraction()); 
 		
 		Interaction2 intendedInteraction = (Interaction2)this.coupling.getOtherInteraction(null);
 		if (this.state < BOREDOME_LEVEL){
