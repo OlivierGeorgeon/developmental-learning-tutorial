@@ -1,11 +1,12 @@
 package coupling;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import Environments.Environment2;
 import agent.Agent2;
-import agent.decider.Episode2;
+import agent.decider.Episode20;
 
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
@@ -32,8 +33,12 @@ public class Coupling2 extends Coupling1 {
 		createOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 	
-	public Episode2 createEpisode(Experience experience) {
-		return new Episode2(this, experience);
+	//public Episode2 createEpisode(Experience experience) {
+	//	return new Episode2(this, experience);
+	//}
+
+	public Episode20 createEpisode(Interaction interaction) {
+		return new Episode20(this, interaction);
 	}
 
 	public void createCompositeInteraction(
@@ -45,20 +50,30 @@ public class Coupling2 extends Coupling1 {
 		System.out.println("learn " + interaction.toString());
 	}
 
-	public Experience propose(Episode2 episode){
-		Experience experience = this.getOtherExperience(null);
-		for (Interaction2 activatedInteraction : this.getActivatedInteractions(episode))
-			if (activatedInteraction.getPostInteraction().getValence() >= 0){
-				experience = activatedInteraction.getPostInteraction().getExperience();
-				System.out.println("propose " + experience.getLabel());
-			}
-			else{
-				experience = this.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
-			}
-		return experience;
-	}
+//	public Experience propose(Episode2 episode){
+//		Experience experience = this.getOtherExperience(null);
+//		for (Interaction2 activatedInteraction : this.getActivatedInteractions(episode))
+//			if (activatedInteraction.getPostInteraction().getValence() >= 0){
+//				experience = activatedInteraction.getPostInteraction().getExperience();
+//				System.out.println("propose " + experience.getLabel());
+//			}
+//			else{
+//				experience = this.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
+//			}
+//		return experience;
+//	}
 	
-	public List<Interaction2> getActivatedInteractions(Interaction2 interaction) {
+	public List<Interaction> proposeInteractions(Interaction contextInteraction){
+		List<Interaction> interactions = new ArrayList<Interaction>();
+		for (Interaction2 activatedInteraction : this.getActivatedInteractions(contextInteraction)){
+			interactions.add(activatedInteraction.getPostInteraction());
+			System.out.println("propose " + activatedInteraction.getPostInteraction().getLabel());
+		}
+		Collections.sort(interactions);
+		return interactions;
+	}
+
+	public List<Interaction2> getActivatedInteractions(Interaction interaction) {
 		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
 		for (Interaction activatedInteraction : getInteractions())
 			if (interaction == ((Interaction2)activatedInteraction).getPreInteraction())
@@ -66,12 +81,12 @@ public class Coupling2 extends Coupling1 {
 		return activatedInteractions;
 	}
 	
-	protected List<Interaction2> getActivatedInteractions(Episode2 episode) {
-		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
-		if (episode.getInteraction() != null)
-			for (Interaction activatedInteraction : this.getInteractions())
-				if (episode.getInteraction() == ((Interaction2)activatedInteraction).getPreInteraction())
-					activatedInteractions.add(((Interaction2)activatedInteraction));
-		return activatedInteractions;
-	}
+//	protected List<Interaction2> getActivatedInteractions(Episode2 episode) {
+//		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
+//		if (episode.getInteraction() != null)
+//			for (Interaction activatedInteraction : this.getInteractions())
+//				if (episode.getInteraction() == ((Interaction2)activatedInteraction).getPreInteraction())
+//					activatedInteractions.add(((Interaction2)activatedInteraction));
+//		return activatedInteractions;
+//	}
 }

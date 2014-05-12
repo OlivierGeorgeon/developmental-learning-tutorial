@@ -3,7 +3,7 @@ package coupling.interaction;
 import coupling.Experience;
 import coupling.Result;
 
-public interface Interaction {
+public interface Interaction extends Comparable<Interaction>{
 
 	public String getLabel();
 	
