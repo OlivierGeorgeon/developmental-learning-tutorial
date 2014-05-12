@@ -3,13 +3,13 @@ package agent.decider;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction;
 
-public class Episode2<I extends Interaction2> implements Episode<Interaction2>{
+public class Episode2 implements Episode{
 
 	private Coupling2 coupling;
 	private Experience experience;
-	private I interaction;
+	private Interaction interaction;
 	
 	public Episode2(Coupling2 coupling, Experience experience){
 		this.coupling = coupling;
@@ -18,11 +18,11 @@ public class Episode2<I extends Interaction2> implements Episode<Interaction2>{
 
 	@Override
 	public void record(Result result){
-		this.interaction  = (I) this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
+		this.interaction  = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel());
 	}
 	
 	@Override
-	public Interaction2 getInteraction() {
-		return interaction;
+	public Interaction getInteraction() {
+		return this.interaction;
 	}
 }

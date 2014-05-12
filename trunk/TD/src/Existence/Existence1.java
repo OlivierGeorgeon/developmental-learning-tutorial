@@ -2,24 +2,23 @@ package Existence;
 
 import coupling.Obtention;
 import coupling.Coupling;
-import coupling.Coupling1;
 import coupling.Intention;
 
 public class Existence1 implements Existence {
 
 	private Coupling coupling;	
-	private Obtention situation;
+	private Obtention obtention;
 
-	public Existence1(){
-		this.coupling = new Coupling1();
+	public Existence1(Coupling coupling){
+		this.coupling = coupling;
 	}	
 	
 	@Override
 	public String step() {
 		
-		Intention intention = this.coupling.chooseIntention(this.situation);
-		this.situation = this.coupling.giveOptention(intention);
+		Intention intention = this.coupling.chooseIntention(this.obtention);
+		this.obtention = this.coupling.giveObtention(intention);
 				
-		return intention.getLabel() + this.situation.getLabel();
+		return intention.getLabel() + this.obtention.getLabel();
 	}
 }

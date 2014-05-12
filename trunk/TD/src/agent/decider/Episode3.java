@@ -5,7 +5,7 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction3;
 
-public class Episode3 implements Episode<Interaction3>{
+public class Episode3 implements Episode{
 	
 	private Coupling3 coupling;
 	private Experience experience;

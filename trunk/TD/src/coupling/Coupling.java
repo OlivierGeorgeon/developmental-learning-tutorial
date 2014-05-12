@@ -25,6 +25,6 @@ public interface Coupling {
 	
 	public Intention chooseIntention(Obtention situation);
 		
-	public Obtention giveOptention(Intention intention);	
+	public Obtention giveObtention(Intention intention);	
 	
 }

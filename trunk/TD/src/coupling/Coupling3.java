@@ -211,7 +211,7 @@ public class Coupling3 implements Coupling {
 	}
 
 	@Override
-	public Obtention giveOptention(Intention intention) {
+	public Obtention giveObtention(Intention intention) {
 		// TODO Auto-generated method stub
 		return null;
 	}

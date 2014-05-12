@@ -32,8 +32,8 @@ public class Coupling2 extends Coupling1 {
 		createOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 	
-	public Episode2<Interaction2> createEpisode(Experience experience) {
-		return new Episode2<Interaction2>(this, experience);
+	public Episode2 createEpisode(Experience experience) {
+		return new Episode2(this, experience);
 	}
 
 	public void createCompositeInteraction(

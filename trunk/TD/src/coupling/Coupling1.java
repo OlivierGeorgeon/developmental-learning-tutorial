@@ -123,7 +123,7 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Obtention giveOptention(Intention intention) {
+	public Obtention giveObtention(Intention intention) {
 		Result result = this.environment.giveResult(((Intention1)intention).getExperience());
 		return new Obtention1(result);
 	}
