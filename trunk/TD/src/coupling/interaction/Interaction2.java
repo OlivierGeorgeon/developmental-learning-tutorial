@@ -1,8 +1,13 @@
 package coupling.interaction;
 
-import agent.decider.Proposition;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Interaction2 extends Interaction1 implements Comparable<Interaction2>{
+/**
+ * An Interaction2 has a preInteraction and a postInteraction.
+ * @author Olivier
+ */
+public class Interaction2 extends Interaction1{
 	
 	private Interaction2 preInteraction;
 	private Interaction2 postInteraction;
@@ -27,8 +32,16 @@ public class Interaction2 extends Interaction1 implements Comparable<Interaction
 		this.postInteraction = postInteraction;
 	}
 
-	public int compareTo(Interaction2 interaction){
-		return new Integer(interaction.getValence()).compareTo(this.getValence());
+	public List<Interaction2> getSeries(){
+		List<Interaction2> series = new ArrayList<Interaction2>();
+				
+		if (this.getExperience().isPrimitive())	
+			series.add(this);
+		else{
+			series.addAll(this.getPreInteraction().getSeries());
+			series.addAll(this.getPostInteraction().getSeries());
+		}		
+		return series;
 	}
 
 	public String toString(){

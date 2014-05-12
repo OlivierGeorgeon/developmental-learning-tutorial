@@ -3,7 +3,7 @@ package coupling.interaction;
 import coupling.Experience;
 import coupling.Result;
 
-public class Interaction1 implements Interaction {
+public class Interaction1 implements Interaction, Comparable<Interaction1>{
 	
 	private String label;
 	private Experience experience;
@@ -21,6 +21,10 @@ public class Interaction1 implements Interaction {
 	
 	public int getValence(){
 		return this.valence;
+	}
+
+	public int compareTo(Interaction1 interaction){
+		return new Integer(interaction.getValence()).compareTo(this.getValence());
 	}
 
 	public Experience getExperience() {

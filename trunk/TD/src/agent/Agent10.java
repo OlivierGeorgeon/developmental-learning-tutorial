@@ -8,16 +8,16 @@ import coupling.interaction.Interaction;
 
 public class Agent10 implements Agent{
 
+	private Coupling10 coupling;
+
 	public static int BOREDOME_LEVEL = 5;
 	
-	private Coupling10 coupling;
-	private int state;
+	private int state = BOREDOME_LEVEL;
 	private Experience experience;
 	private Result expectedResult;
 	
 	public Agent10(Coupling10 coupling){
 		this.coupling = coupling;
-		this.experience = coupling.getFirstExperience();
 	}
 	
 	public Experience chooseExperience(Result result){
@@ -28,9 +28,9 @@ public class Agent10 implements Agent{
 			Trace.addEventElement("status", "sad");
 		
 		if (this.experience != null && result != null)
-			this.coupling.createPrimitiveInteraction(this.experience, result, 0);
+			this.coupling.createOrGetPrimitiveInteraction(this.experience, result, 0);
 
-		if (this.state > BOREDOME_LEVEL){
+		if (this.state >= BOREDOME_LEVEL){
 			Trace.addEventElement("status", "bored");
 			this.experience = coupling.getOtherExperience(this.experience);		
 			this.state = 0;

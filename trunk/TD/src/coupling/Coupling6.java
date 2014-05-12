@@ -45,12 +45,12 @@ public class Coupling6 extends Coupling5 {
 		Experience e3 = createOrGetExperience(LABEL_SWAP);
 		Result r1 = createOrGetResult(LABEL_TRUE);
 		Result r2 = createOrGetResult(LABEL_FALSE);
-		createPrimitiveInteraction(e1, r1, 4);   // step_up
-		createPrimitiveInteraction(e1, r2, -10); // step_down
-		createPrimitiveInteraction(e2, r1, -4);  // feel_up
-		createPrimitiveInteraction(e2, r2, -4);  // feel_down
-		createPrimitiveInteraction(e3, r1, 4);   // swap
-		createPrimitiveInteraction(e3, r2, -10); // not_swp
+		createOrGetPrimitiveInteraction(e1, r1, 4);   // step_up
+		createOrGetPrimitiveInteraction(e1, r2, -10); // step_down
+		createOrGetPrimitiveInteraction(e2, r1, -4);  // feel_up
+		createOrGetPrimitiveInteraction(e2, r2, -4);  // feel_down
+		createOrGetPrimitiveInteraction(e3, r1, 4);   // swap
+		createOrGetPrimitiveInteraction(e3, r2, -10); // not_swp
 		
 		//Tracer<Element> tracer = new ConsoleTracer();
 		Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","OgoKXiacniNKfSYySo-npitjFOXwRM");

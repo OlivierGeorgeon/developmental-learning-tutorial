@@ -7,7 +7,7 @@ public class Experience {
 	private String label;
 	private Interaction3 interaction;
 	
-	Experience(String label){
+	public Experience(String label){
 		this.label = label;
 	}
 	

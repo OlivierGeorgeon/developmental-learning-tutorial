@@ -53,7 +53,7 @@ public class Decider6 {
 				//if (//episode.getExperience().isPrimitive() && 
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
-					Interaction3 superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction().getPreInteraction(), superInteraction);
+					Interaction3 superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction((Interaction3)this.slot2.getInteraction().getPreInteraction(), superInteraction);
 					Trace.addSubelement(e, "superLeftInteraction" , superLeftInteraction.toString());
 					// learn [[previous last] current]
 					Interaction3 superRightInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	

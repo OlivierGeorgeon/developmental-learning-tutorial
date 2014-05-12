@@ -13,7 +13,6 @@ public class Agent2 implements Agent{
 	
 	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;
-		this.currentEpisode = this.coupling.createEpisode(coupling.getFirstExperience());
 	}
 	
 	public Experience chooseExperience(Result result){
@@ -24,7 +23,11 @@ public class Agent2 implements Agent{
 		if (this.contextEpisode != null )
 			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
 
-		Experience experience = this.coupling.propose(this.currentEpisode); 
+		Experience experience;
+		if (this.currentEpisode != null)
+			experience = this.coupling.getOtherExperience(null);
+		else			
+			experience = this.coupling.propose(this.currentEpisode); 
 				
 		if (this.currentEpisode.getInteraction() != null)
 			this.contextEpisode = this.currentEpisode;

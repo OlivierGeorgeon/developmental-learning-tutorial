@@ -20,10 +20,10 @@ public class Coupling20 extends Coupling2 {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, 0);
-		createPrimitiveInteraction(e1, r2, 0);
-		createPrimitiveInteraction(e2, r1, 0);
-		createPrimitiveInteraction(e2, r2, 0);
+		createOrGetPrimitiveInteraction(e1, r1, 0);
+		createOrGetPrimitiveInteraction(e1, r2, 0);
+		createOrGetPrimitiveInteraction(e2, r1, 0);
+		createOrGetPrimitiveInteraction(e2, r2, 0);
 
 		Tracer<Element> tracer = new ConsoleTracer();
 		Trace.init(tracer);
