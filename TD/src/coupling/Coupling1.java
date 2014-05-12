@@ -117,7 +117,7 @@ public class Coupling1 implements Coupling {
 		if (situation == null)
 			experience = this.agent.chooseExperience(null);
 		else
-			experience = this.agent.chooseExperience(((Situation1)situation).getResult());
+			experience = this.agent.chooseExperience(((Obtention1)situation).getResult());
 		
 		return new Intention1(experience);
 	}
@@ -125,7 +125,7 @@ public class Coupling1 implements Coupling {
 	@Override
 	public Obtention giveOptention(Intention intention) {
 		Result result = this.environment.giveResult(((Intention1)intention).getExperience());
-		return new Situation1(result);
+		return new Obtention1(result);
 	}
 	
 	protected void setAgent(Agent agent){

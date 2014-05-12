@@ -1,10 +1,10 @@
 package coupling;
 
-public class Situation1 implements Obtention {
+public class Obtention1 implements Obtention {
 	
 	private Result result;
 	
-	public Situation1(Result result){
+	public Obtention1(Result result){
 		this.result = result;
 	}
 	
