@@ -60,7 +60,6 @@ public class Coupling3 implements Coupling {
 		return RESULTS.get(label);
 	}
 
-	@Override
 	public Interaction createOrGetPrimitiveInteraction(Experience experience,
 			Result result, int valence) {
 		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
@@ -77,7 +76,6 @@ public class Coupling3 implements Coupling {
 		return interaction;
 	}
 
-	@Override
 	public Interaction3 getInteraction(String label) {
 		return INTERACTIONS.get(label);
 	}
