@@ -23,8 +23,8 @@ public interface Coupling {
 	
 	public Interaction getInteraction(String label);
 	
-	public Intention chooseIntention(Situation situation);
+	public Intention chooseIntention(Obtention situation);
 		
-	public Situation giveSituation(Intention intention);	
+	public Obtention giveOptention(Intention intention);	
 	
 }
