@@ -1,6 +1,6 @@
 package coupling;
 
-public interface Situation {
+public interface Obtention {
 	
 	public String getLabel();
 

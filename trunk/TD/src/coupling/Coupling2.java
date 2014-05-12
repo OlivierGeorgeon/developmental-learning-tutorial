@@ -2,6 +2,9 @@ package coupling;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Environments.Environment2;
+import agent.Agent2;
 import agent.decider.Episode2;
 
 import coupling.interaction.Interaction;
@@ -15,7 +18,10 @@ import coupling.interaction.Interaction2;
  */
 public class Coupling2 extends Coupling1 {
 	
-	protected void init(){
+	protected void initCoupling(){
+		this.setAgent(new Agent2(this));
+		this.setEnvironment(new Environment2(this));
+
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);

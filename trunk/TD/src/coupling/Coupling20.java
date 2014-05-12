@@ -15,7 +15,7 @@ public class Coupling20 extends Coupling2 {
 
 
 	@Override
-	protected void init(){
+	protected void initCoupling(){
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);

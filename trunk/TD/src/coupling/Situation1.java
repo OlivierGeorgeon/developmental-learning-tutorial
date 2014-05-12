@@ -1,6 +1,6 @@
 package coupling;
 
-public class Situation1 implements Situation {
+public class Situation1 implements Obtention {
 	
 	private Result result;
 	

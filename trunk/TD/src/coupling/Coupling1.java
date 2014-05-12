@@ -34,10 +34,16 @@ public class Coupling1 implements Coupling {
 	private Environment environment;
 
 	public Coupling1(){
-		init();
+		initCoupling();
+
+		Tracer<Element> tracer = new ConsoleTracer();
+		Trace.init(tracer);		
 	}
 	
-	protected void init(){		
+	protected void initCoupling(){		
+		this.agent = new Agent1(this);
+		this.environment = new Environment1(this);
+
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
@@ -46,13 +52,6 @@ public class Coupling1 implements Coupling {
 		createOrGetPrimitiveInteraction(e1, r2, -1);
 		createOrGetPrimitiveInteraction(e2, r1, 1);
 		createOrGetPrimitiveInteraction(e2, r2, -1);
-		
-		Tracer<Element> tracer = new ConsoleTracer();
-		Trace.init(tracer);		
-
-		this.agent = new Agent1(this);
-		this.environment = new Environment1(this);
-
 	}
 
 	public Experience createOrGetExperience(String label) {
@@ -113,7 +112,7 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Intention chooseIntention(Situation situation) {
+	public Intention chooseIntention(Obtention situation) {
 		Experience experience = null;
 		if (situation == null)
 			experience = this.agent.chooseExperience(null);
@@ -124,8 +123,24 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Situation giveSituation(Intention intention) {
+	public Obtention giveOptention(Intention intention) {
 		Result result = this.environment.giveResult(((Intention1)intention).getExperience());
 		return new Situation1(result);
+	}
+	
+	protected void setAgent(Agent agent){
+		this.agent = agent;
+	}
+	
+	protected Agent getAgent(){
+		return this.agent;
+	}
+
+	protected void setEnvironment(Environment environment){
+		this.environment = environment;
+	}
+	
+	protected Environment getEnvironment(){
+		return this.environment;
 	}
 }

@@ -205,13 +205,13 @@ public class Coupling3 implements Coupling {
 	}
 
 	@Override
-	public Intention chooseIntention(Situation situation) {
+	public Intention chooseIntention(Obtention situation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Situation giveSituation(Intention intention) {
+	public Obtention giveOptention(Intention intention) {
 		// TODO Auto-generated method stub
 		return null;
 	}
