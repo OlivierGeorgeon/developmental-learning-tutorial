@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tracer.Trace;
-import agent.decider.Episode20;
+import agent.decider.Episode2;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
@@ -14,8 +14,8 @@ import coupling.interaction.Interaction2;
 public class Agent2 implements Agent{
 
 	private Coupling2 coupling;
-	private Episode20 contextEpisode;
-	private Episode20 currentEpisode;
+	private Episode2 contextEpisode;
+	private Episode2 currentEpisode;
 	
 	public Agent2(Coupling2 coupling){
 		this.coupling = coupling;

@@ -7,12 +7,12 @@ import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
 
-public class Episode20 implements Episode{
+public class Episode2 implements Episode{
 
 	private Coupling2 coupling;
 	private Interaction interaction;
 	
-	public Episode20(Coupling2 coupling, Interaction interaction){
+	public Episode2(Coupling2 coupling, Interaction interaction){
 		this.coupling = coupling;
 		this.interaction = interaction;
 	}

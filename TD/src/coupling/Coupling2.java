@@ -6,7 +6,7 @@ import java.util.List;
 
 import Environments.Environment2;
 import agent.Agent2;
-import agent.decider.Episode20;
+import agent.decider.Episode2;
 
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
@@ -37,8 +37,8 @@ public class Coupling2 extends Coupling1 {
 	//	return new Episode2(this, experience);
 	//}
 
-	public Episode20 createEpisode(Interaction interaction) {
-		return new Episode20(this, interaction);
+	public Episode2 createEpisode(Interaction interaction) {
+		return new Episode2(this, interaction);
 	}
 
 	public void createCompositeInteraction(
