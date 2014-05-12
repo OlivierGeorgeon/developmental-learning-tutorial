@@ -115,7 +115,7 @@ public class Coupling1<I extends Interaction1> implements Coupling {
 	}
 
 	@Override
-	public Intention chooseIntention(Obtention situation) {
+	public Intention1 chooseIntention(Obtention situation) {
 		Experience experience = null;
 		if (situation == null)
 			experience = this.agent.chooseExperience(null);
@@ -126,7 +126,7 @@ public class Coupling1<I extends Interaction1> implements Coupling {
 	}
 
 	@Override
-	public Obtention giveObtention(Intention intention) {
+	public Obtention1 giveObtention(Intention intention) {
 		Result result = this.environment.giveResult(((Intention1)intention).getExperience());
 		return new Obtention1(result);
 	}
