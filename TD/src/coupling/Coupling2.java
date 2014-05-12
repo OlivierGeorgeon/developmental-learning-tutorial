@@ -9,6 +9,7 @@ import agent.Agent2;
 import agent.decider.Episode2;
 
 import coupling.interaction.Interaction;
+import coupling.interaction.Interaction1;
 import coupling.interaction.Interaction2;
 
 /**
@@ -17,7 +18,7 @@ import coupling.interaction.Interaction2;
  * - Can instantiate an Episode2 .
  * @author Olivier
  */
-public class Coupling2 extends Coupling1 {
+public class Coupling2<I extends Interaction2> extends Coupling1<I> {
 	
 	protected void initCoupling(){
 		this.setAgent(new Agent2(this));
@@ -33,9 +34,10 @@ public class Coupling2 extends Coupling1 {
 		createOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 	
-	//public Episode2 createEpisode(Experience experience) {
-	//	return new Episode2(this, experience);
-	//}
+	@Override
+	protected I createNewInteraction(String label, int valence){
+		return (I) new Interaction2(label, valence);
+	}
 
 	public Episode2 createEpisode(Interaction interaction) {
 		return new Episode2(this, interaction);

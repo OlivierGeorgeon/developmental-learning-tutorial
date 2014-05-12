@@ -5,7 +5,7 @@ import coupling.Coupling2;
 import Existence.Existence;
 import Existence.Existence0;
 import Existence.Existence01;
-import Existence.ExistenceGeneric;
+import Existence.Existence2;
 
 public class Main {
 	
@@ -13,7 +13,7 @@ public class Main {
 		
 		//Existence existence = new Existence0();
 		//Existence existence = new Existence01();
-		Existence existence = new ExistenceGeneric(new Coupling2());
+		Existence existence = new Existence2(new Coupling2());
 		
 		for(int i = 0 ; i < 50 ; i++){			
 			String trace = existence.step();

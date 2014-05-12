@@ -19,16 +19,16 @@ import coupling.interaction.Interaction1;
 
 /**
  * A Coupling1 manages an Agent1 with an Environment1  
- * which interact through Experiences, Results, and primitive Interactions.
+ * which interact through Experiences, Results, and primitive Interaction1s.
  * @author Olivier
  */
-public class Coupling1 implements Coupling {
+public class Coupling1<I extends Interaction1> implements Coupling {
 	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
-	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
+	private Map<String , I> INTERACTIONS = new HashMap<String , I>() ;
 	
 	private Agent agent;
 	private Environment environment;
@@ -96,19 +96,22 @@ public class Coupling1 implements Coupling {
 		return interaction;
 	}
 
-	@Override
 	public Interaction getInteraction(String label) {
 		return INTERACTIONS.get(label);
 	}
 
-	public Collection<Interaction> getInteractions(){
+	public Collection<I> getInteractions(){
 		return INTERACTIONS.values();
 	}
 	
-	public Interaction createOrGet(String label, int valence) {
+	public I createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction1(label, valence));			
+			INTERACTIONS.put(label, createNewInteraction(label, valence));			
 		return INTERACTIONS.get(label);
+	}
+	
+	protected I createNewInteraction(String label, int valence){
+		return (I) new Interaction1(label, valence);
 	}
 
 	@Override

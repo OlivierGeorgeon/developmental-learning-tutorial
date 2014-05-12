@@ -11,7 +11,7 @@ import tracer.Tracer;
 import agent.decider.Episode2;
 import coupling.interaction.Interaction2;
 
-public class Coupling20 extends Coupling2 {
+public class Coupling20 extends Coupling2<Interaction2> {
 
 
 	@Override

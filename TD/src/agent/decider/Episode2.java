@@ -19,7 +19,7 @@ public class Episode2 implements Episode{
 
 	public void record(Result result){
 		Experience experience = this.interaction.getExperience();
-		this.interaction = (Interaction2)this.coupling.createOrGetPrimitiveInteraction(experience, result, 0);
+		this.interaction = this.coupling.createOrGetPrimitiveInteraction(experience, result, 0);
 	}
 	
 	public Interaction getInteraction() {

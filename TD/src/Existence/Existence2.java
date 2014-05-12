@@ -4,12 +4,12 @@ import coupling.Obtention;
 import coupling.Coupling;
 import coupling.Intention;
 
-public class ExistenceGeneric implements Existence {
+public class Existence2 implements Existence {
 
 	private Coupling coupling;	
 	private Obtention obtention;
 
-	public ExistenceGeneric(Coupling coupling){
+	public Existence2(Coupling coupling){
 		this.coupling = coupling;
 	}	
 	

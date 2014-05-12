@@ -31,7 +31,7 @@ public class Agent2 implements Agent{
 
 		List<Interaction> proposedInteractions = new ArrayList<Interaction>();
 		if (this.currentEpisode != null)
-			proposedInteractions = this.coupling.proposeInteractions((Interaction2)this.currentEpisode.getInteraction()); 
+			proposedInteractions = this.coupling.proposeInteractions(this.currentEpisode.getInteraction()); 
 
 		Interaction intendedInteraction = this.coupling.getOtherInteraction(null);
 		if (proposedInteractions.size() > 0)
@@ -39,10 +39,8 @@ public class Agent2 implements Agent{
 				intendedInteraction = proposedInteractions.get(0);
 			else
 				intendedInteraction = (Interaction2)this.coupling.getOtherInteraction(proposedInteractions.get(0));
-
-		
-		if (this.currentEpisode.getInteraction() != null)
-			this.contextEpisode = this.currentEpisode;
+	
+		this.contextEpisode = this.currentEpisode;
 
 		this.currentEpisode = this.coupling.createEpisode(intendedInteraction);
 		Trace.addEventElement("intend", intendedInteraction.toString());
