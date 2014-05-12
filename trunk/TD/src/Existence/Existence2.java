@@ -6,7 +6,7 @@ import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
 import coupling.Coupling2;
-import coupling.Coupling20;
+import coupling.Coupling21;
 
 public class Existence2 extends Existence1 {
 
