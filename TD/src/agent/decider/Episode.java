@@ -7,7 +7,7 @@ import coupling.interaction.Interaction;
  * An episode of interaction with the environment.
  * @author Olivier
  */
-public interface Episode<I extends Interaction> {
+public interface Episode {
 
 	/**
 	 * Record the result obtained by enacting this episode.
@@ -15,6 +15,6 @@ public interface Episode<I extends Interaction> {
 	 */
 	public void record(Result result);
 
-	public I getInteraction();
+	public Interaction getInteraction();
 
 }

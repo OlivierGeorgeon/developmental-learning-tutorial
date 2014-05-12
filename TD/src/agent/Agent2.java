@@ -4,6 +4,7 @@ import agent.decider.Episode2;
 import coupling.Coupling2;
 import coupling.Experience;
 import coupling.Result;
+import coupling.interaction.Interaction2;
 
 public class Agent2 implements Agent{
 
@@ -21,7 +22,7 @@ public class Agent2 implements Agent{
 			this.currentEpisode.record(result);
 		
 		if (this.contextEpisode != null )
-			this.coupling.createCompositeInteraction(this.contextEpisode.getInteraction(), this.currentEpisode.getInteraction());
+			this.coupling.createCompositeInteraction((Interaction2)this.contextEpisode.getInteraction(), (Interaction2)this.currentEpisode.getInteraction());
 
 		Experience experience;
 		if (this.currentEpisode != null)
