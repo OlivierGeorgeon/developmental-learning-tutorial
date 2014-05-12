@@ -8,14 +8,21 @@ import org.w3c.dom.Element;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
+import Environments.Environment1;
+import Environments.Environment2;
+import agent.Agent2;
+import agent.Agent21;
 import agent.decider.Episode2;
 import coupling.interaction.Interaction2;
 
-public class Coupling20 extends Coupling2<Interaction2> {
+public class Coupling20 extends Coupling2 {
 
 
 	@Override
 	protected void initCoupling(){
+		this.setAgent(new Agent21(this));
+		this.setEnvironment(new Environment2(this));
+
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
@@ -25,8 +32,6 @@ public class Coupling20 extends Coupling2<Interaction2> {
 		createOrGetPrimitiveInteraction(e2, r1, 0);
 		createOrGetPrimitiveInteraction(e2, r2, 0);
 
-		Tracer<Element> tracer = new ConsoleTracer();
-		Trace.init(tracer);
 	}
 	
 	public Episode2 createEpisode(Interaction2 interaction) {

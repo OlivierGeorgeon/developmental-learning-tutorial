@@ -10,7 +10,7 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2;
 
-public class Agent20 implements Agent{
+public class Agent21 implements Agent{
 
 	public static int BOREDOME_LEVEL = 5;
 	
@@ -19,7 +19,7 @@ public class Agent20 implements Agent{
 	private Episode2 currentEpisode;	
 	private int state;
 	
-	public Agent20(Coupling20 coupling){
+	public Agent21(Coupling20 coupling){
 		this.coupling = coupling;
 	}
 	

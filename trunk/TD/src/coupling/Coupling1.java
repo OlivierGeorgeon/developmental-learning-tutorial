@@ -22,22 +22,19 @@ import coupling.interaction.Interaction1;
  * which interact through Experiences, Results, and primitive Interaction1s.
  * @author Olivier
  */
-public class Coupling1<I extends Interaction1> implements Coupling {
+public class Coupling1 implements Coupling {
 	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 
 	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 
-	private Map<String , I> INTERACTIONS = new HashMap<String , I>() ;
+	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 	
 	private Agent agent;
 	private Environment environment;
 
 	public Coupling1(){
 		initCoupling();
-
-		Tracer<Element> tracer = new ConsoleTracer();
-		Trace.init(tracer);		
 	}
 	
 	protected void initCoupling(){		
@@ -100,18 +97,18 @@ public class Coupling1<I extends Interaction1> implements Coupling {
 		return INTERACTIONS.get(label);
 	}
 
-	public Collection<I> getInteractions(){
+	public Collection<Interaction> getInteractions(){
 		return INTERACTIONS.values();
 	}
 	
-	public I createOrGet(String label, int valence) {
+	public Interaction createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
 			INTERACTIONS.put(label, createNewInteraction(label, valence));			
 		return INTERACTIONS.get(label);
 	}
 	
-	protected I createNewInteraction(String label, int valence){
-		return (I) new Interaction1(label, valence);
+	protected Interaction1 createNewInteraction(String label, int valence){
+		return new Interaction1(label, valence);
 	}
 
 	@Override
