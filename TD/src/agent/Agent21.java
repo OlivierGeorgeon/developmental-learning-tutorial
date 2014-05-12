@@ -5,7 +5,7 @@ import java.util.List;
 
 import agent.decider.Episode2;
 import tracer.Trace;
-import coupling.Coupling20;
+import coupling.Coupling21;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2;
@@ -14,12 +14,12 @@ public class Agent21 implements Agent{
 
 	public static int BOREDOME_LEVEL = 5;
 	
-	private Coupling20 coupling;
+	private Coupling21 coupling;
 	private Episode2 contextEpisode;
 	private Episode2 currentEpisode;	
 	private int state;
 	
-	public Agent21(Coupling20 coupling){
+	public Agent21(Coupling21 coupling){
 		this.coupling = coupling;
 	}
 	
