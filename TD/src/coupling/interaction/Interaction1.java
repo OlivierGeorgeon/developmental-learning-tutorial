@@ -43,4 +43,8 @@ public class Interaction1 implements Interaction{
 		this.result = result;
 	}
 
+	public String toString(){
+		return this.experience.getLabel() + this.result.getLabel() + "," + this.getValence();
+	}
+
 }
