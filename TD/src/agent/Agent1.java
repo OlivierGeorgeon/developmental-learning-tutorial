@@ -1,5 +1,6 @@
 package agent;
 
+import tracer.Trace;
 import coupling.Coupling;
 import coupling.Experience;
 import coupling.Result;
@@ -11,13 +12,25 @@ public class Agent1 implements Agent{
 	
 	public Agent1(Coupling coupling){
 		this.coupling = coupling;
-		this.experience = coupling.getFirstExperience();
 	}
 	
 	public Experience chooseExperience(Result result){
 		
-		if (coupling.getInteraction(this.experience.getLabel() + result.getLabel()).getValence() < 0)
-			this.experience = coupling.getOtherExperience(this.experience);		
+		if (this.experience == null)
+			this.experience = this.coupling.getOtherExperience(null);
+		else{ 
+			int mood = this.coupling.getInteraction(this.experience.getLabel() + result.getLabel()).getValence();
+			if (mood > 0)
+				Trace.addEventElement("mood", "PLEASED");
+			else{
+				Trace.addEventElement("mood", "PAINED");
+				this.experience = this.coupling.getOtherExperience(this.experience);
+			}
+		}
 		return this.experience;
+	}
+	
+	protected Coupling getCoupling(){
+		return this.coupling;
 	}
 }

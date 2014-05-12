@@ -5,7 +5,7 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2;
 
-public class Episode20 implements Episode{
+public class Episode20 implements Episode<Interaction2>{
 
 	private Coupling20 coupling;
 	private Interaction2 interaction;
@@ -17,8 +17,8 @@ public class Episode20 implements Episode{
 
 	public void record(Result result){
 		Experience experience = this.interaction.getExperience();
-		this.coupling.createPrimitiveInteraction(experience, result, 0);
-		this.interaction = this.coupling.getInteraction(experience.getLabel() + result.getLabel());
+		this.coupling.createOrGetPrimitiveInteraction(experience, result, 0);
+		this.interaction = (Interaction2)this.coupling.getInteraction(experience.getLabel() + result.getLabel());
 	}
 	
 	public Interaction2 getInteraction() {

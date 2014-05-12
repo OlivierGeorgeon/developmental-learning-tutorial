@@ -36,7 +36,7 @@ public class Episode4 extends Episode3{
 				if (enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPostInteraction()))
 					this.setInteraction(this.getExperience().getInteraction());
 				else{
-					this.getCoupling().createPrimitiveInteraction(this.getExperience(), result, this.getExperience().getInteraction().getPreInteraction().getValence() + enactedPrimitiveInteraction.getValence());
+					this.getCoupling().createOrGetPrimitiveInteraction(this.getExperience(), result, this.getExperience().getInteraction().getPreInteraction().getValence() + enactedPrimitiveInteraction.getValence());
 					Interaction3 alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
 					System.out.println("alternate interaction " + alternateInteraction.getLabel());
 					this.setInteraction(alternateInteraction);

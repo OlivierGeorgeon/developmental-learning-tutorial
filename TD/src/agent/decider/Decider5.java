@@ -44,7 +44,7 @@ public class Decider5 {
 				//if (episode.getExperience().isPrimitive() && 
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
-					this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction().getPreInteraction(), superInteraction);
+					this.coupling.createOrReinforceCompositeInteraction((Interaction3)this.slot2.getInteraction().getPreInteraction(), superInteraction);
 					// learn [[previous last] current]
 					this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
 				//}

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import agent.decider.Episode3;
 import agent.decider.Proposition;
+import coupling.interaction.Interaction;
 import coupling.interaction.Interaction3;
 
 public class Coupling3 implements Coupling {
@@ -60,11 +61,12 @@ public class Coupling3 implements Coupling {
 	}
 
 	@Override
-	public void createPrimitiveInteraction(Experience experience,
+	public Interaction createOrGetPrimitiveInteraction(Experience experience,
 			Result result, int valence) {
 		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
+		return interaction;
 	}
 
 	public Interaction3 createOrGetInteraction(Experience experience,
@@ -196,10 +198,22 @@ public class Coupling3 implements Coupling {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, -1);
-		createPrimitiveInteraction(e1, r2, 1);
-		createPrimitiveInteraction(e2, r1, -1);
-		createPrimitiveInteraction(e2, r2, 1);
+		createOrGetPrimitiveInteraction(e1, r1, -1);
+		createOrGetPrimitiveInteraction(e1, r2, 1);
+		createOrGetPrimitiveInteraction(e2, r1, -1);
+		createOrGetPrimitiveInteraction(e2, r2, 1);
+	}
+
+	@Override
+	public Intention chooseIntention(Situation situation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Situation giveSituation(Intention intention) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

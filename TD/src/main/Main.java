@@ -1,77 +1,21 @@
 package main;
 
-import coupling.Coupling;
-import coupling.Coupling1;
-import coupling.Coupling10;
-import coupling.Coupling2;
-import coupling.Coupling20;
-import coupling.Coupling3;
-import coupling.Coupling4;
-import coupling.Coupling5;
-import coupling.Coupling6;
-import agent.Agent;
-import agent.Agent1;
-import agent.Agent10;
-import agent.Agent2;
-import agent.Agent20;
-import agent.Agent3;
-import agent.Agent4;
-import agent.Agent5;
-import agent.Agent6;
-import Environments.Environment;
-import Environments.Environment0;
-import Environments.Environment1;
-import Environments.Environment2;
-import Environments.Environment3;
-import Environments.Environment4;
-import Environments.Environment5;
-import Environments.EnvironmentString;
-import coupling.Experience;
-import coupling.Result;
+import Existence.Existence;
+import Existence.Existence0;
+import Existence.Existence01;
+import Existence.Existence1;
 
 public class Main {
 	
 	public static void main(String[] args){
 		
-		//Coupling coupling = new Coupling1();
-		//Agent agent = new Agent1(coupling);
-		//Coupling10 coupling = new Coupling10();
-		//Agent agent = new Agent10(coupling);
+		//Existence existence = new Existence0();
+		//Existence existence = new Existence01();
+		Existence existence = new Existence1();
 		
-		//Coupling2 coupling = new Coupling2();
-		//Agent agent = new Agent2(coupling);
-		Coupling20 coupling = new Coupling20();
-		Agent agent = new Agent20(coupling);
-
-		//Coupling3 coupling = new Coupling3();
-		//Agent agent = new Agent3(coupling);
-		
-		//Coupling4 coupling = new Coupling4();
-		//CouplingString coupling = new CouplingString();
-		//Agent agent = new Agent4(coupling);
-		
-		//Coupling5 coupling = new Coupling5();
-		//Agent agent = new Agent5(coupling);
-		
-		//Coupling6 coupling = new Coupling6();
-		//Agent agent = new Agent6(coupling);
-		
-		//Environment environment = new Environment0(coupling);
-		//Environment environment = new Environment1(coupling);
-		Environment environment = new Environment2(coupling);
-		//Environment environment = new Environment3(coupling);
-		//Environment environment = new Environment4(coupling);
-		//Environment environment = new Environment5(coupling);
-		//Environment environment = new EnvironmentString(coupling);
-		
-		Experience experience; 
-		Result result = null;
-		
-		for(int i=0 ; i < 50 ; i++){
-			experience = agent.chooseExperience(result);
-			result = environment.giveResult(experience);
-			//System.out.println(i + ". " + experience.getLabel() + result.getLabel());
-			System.out.println(i + ". " + coupling.getInteraction(experience.getLabel() + result.getLabel()).toString());
+		for(int i = 0 ; i < 50 ; i++){			
+			String trace = existence.step();
+			System.out.println(i + ": " + trace);
 		}
 	}
 }

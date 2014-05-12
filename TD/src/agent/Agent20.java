@@ -43,19 +43,19 @@ public class Agent20 implements Agent{
 		if (this.currentEpisode != null)
 			proposedInteractions = this.coupling.proposeInteractions(this.currentEpisode.getInteraction()); 
 		
-		Interaction2 intendedInteraction = this.coupling.getOtherInteraction(null);
+		Interaction2 intendedInteraction = (Interaction2)this.coupling.getOtherInteraction(null);
 		if (this.state < BOREDOME_LEVEL){
 			if (proposedInteractions.size() > 0)
 				if (proposedInteractions.get(0).getValence() >= 0)
 					intendedInteraction = proposedInteractions.get(0);
 				else
-					intendedInteraction = this.coupling.getOtherInteraction(proposedInteractions.get(0));
+					intendedInteraction = (Interaction2)this.coupling.getOtherInteraction(proposedInteractions.get(0));
 		}
 		else{
 			Trace.addEventElement("mood", "BORED");
 			this.state = 0;
 			if (proposedInteractions.size() == 1)
-				intendedInteraction = this.coupling.getOtherInteraction(proposedInteractions.get(0));
+				intendedInteraction = (Interaction2)this.coupling.getOtherInteraction(proposedInteractions.get(0));
 			else if (proposedInteractions.size() > 1)
 				intendedInteraction = proposedInteractions.get(1);
 		}

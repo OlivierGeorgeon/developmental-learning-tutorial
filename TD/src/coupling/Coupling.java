@@ -15,14 +15,16 @@ public interface Coupling {
 
 	public Experience createOrGetExperience(String label);
 
-	public Result createOrGetResult(String label);
-
 	public Experience getOtherExperience(Experience experience);
 
-	public void createPrimitiveInteraction(Experience experience, Result result, int valence);
+	public Result createOrGetResult(String label);
+
+	public Interaction createOrGetPrimitiveInteraction(Experience experience, Result result, int valence);
 	
 	public Interaction getInteraction(String label);
 	
-	public Experience getFirstExperience();
-
+	public Intention chooseIntention(Situation situation);
+		
+	public Situation giveSituation(Intention intention);	
+	
 }
