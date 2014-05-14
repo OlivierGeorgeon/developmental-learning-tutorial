@@ -1,16 +1,16 @@
 package agent;
 
 import tracer.Trace;
-import coupling.Coupling;
+import coupling.Existence3;
 import coupling.Experience;
 import coupling.Result;
 
 public class Agent1 implements Agent{
 
-	private Coupling coupling;
+	private Existence3 coupling;
 	private Experience experience;
 	
-	public Agent1(Coupling coupling){
+	public Agent1(Existence3 coupling){
 		this.coupling = coupling;
 	}
 	
@@ -30,7 +30,7 @@ public class Agent1 implements Agent{
 		return this.experience;
 	}
 	
-	protected Coupling getCoupling(){
+	protected Existence3 getCoupling(){
 		return this.coupling;
 	}
 }

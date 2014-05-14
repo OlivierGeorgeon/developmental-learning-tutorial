@@ -2,34 +2,39 @@ package Existence;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import org.w3c.dom.Element;
-
-import tracer.ConsoleTracer;
 import tracer.Trace;
-import tracer.Tracer;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction1;
 
+/**
+ * An Existence0 simulates a "flow of consciousness" made of a succession of Experiences and Results.   
+ * The Existence0 is SELF-SATISFIED when the Result corresponds to the Result it expected, and FRUSTRATED otherwise.
+ * Additionally, the Existence0 is BORED when it has been happy for too long, which causes it to try another Experience.  
+ * An Existence0 is still a single entity rather than being split into an explicit Agent and Environment.
+ * An Existence0 demonstrates a rudimentary decisional mechanism but no learning.  
+ * 
+ * Existence0 illustrates the primacy of existence as a "monist" entity that precedes the dualism agent/environment.
+ * 
+ * @author Olivier
+ */
 public class Existence0 implements Existence {
 	
-	public static final String LABEL_E1 = "e1"; 
-	public static final String LABEL_E2 = "e2"; 
-	public static final String LABEL_R1 = "r1";
-	public static final String LABEL_R2 = "r2";
+	protected final String LABEL_E1 = "e1"; 
+	protected final String LABEL_E2 = "e2"; 
+	protected final String LABEL_R1 = "r1";
+	protected final String LABEL_R2 = "r2";
 
-	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
-	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
-	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
+	protected Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
+	protected Map<String ,Result> RESULTS = new HashMap<String ,Result>();
+	protected Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 
-	public static int BOREDOME_LEVEL = 5;
-	
-	private int state = BOREDOME_LEVEL;
-	private Experience experience;
-	private Result result;
-	private Result expectedResult;
+	protected final int BOREDOME_LEVEL = 5;
+	protected int selfSatsfactionCounter = BOREDOME_LEVEL;
+	protected Experience experience;
+	protected Result result;
+	protected Result expectedResult;
 	
 	public Existence0(){
 		initExistence();
@@ -38,8 +43,6 @@ public class Existence0 implements Existence {
 	protected void initExistence(){
 		createOrGetExperience(LABEL_E1);
 		createOrGetExperience(LABEL_E2);
-		Tracer<Element> tracer = new ConsoleTracer();
-		Trace.init(tracer);		
 	}
 
 	@Override
@@ -54,20 +57,20 @@ public class Existence0 implements Existence {
 	protected Experience chooseExperience(Result result){
 
 		if (this.expectedResult != null && this.expectedResult.equals(result))
-			Trace.addEventElement("mood", "HAPPY");
+			Trace.addEventElement("mood", "SELF-SATISFIED");
 		else
-			Trace.addEventElement("mood", "SAD");
+			Trace.addEventElement("mood", "FRUSTRATED");
 		
 		if (this.experience != null && result != null)
 			createPrimitiveInteraction(this.experience, result, 0);
 
-		if (this.state >= BOREDOME_LEVEL){
+		if (this.selfSatsfactionCounter >= BOREDOME_LEVEL){
 			Trace.addEventElement("mood", "BORED");
 			this.experience = getOtherExperience(this.experience);		
-			this.state = 0;
+			this.selfSatsfactionCounter = 0;
 		}
 		
-		this.state++;
+		this.selfSatsfactionCounter++;
 		
 		Interaction intendedInteraction = predict(this.experience);
 		if (intendedInteraction != null)
@@ -131,21 +134,5 @@ public class Existence0 implements Existence {
 		if (!RESULTS.containsKey(label))
 			RESULTS.put(label, new Result(label));			
 		return RESULTS.get(label);
-	}
-	
-	protected Experience getExperience(){
-		return this.experience;
-	}
-	
-	protected void setExperience(Experience experience){
-		this.experience = experience;
-	}
-
-	protected Result getResult(){
-		return this.result;
-	}
-	
-	protected void setResult(Result result){
-		this.result = result;
-	}
+	}	
 }

@@ -2,7 +2,7 @@ package Environments;
 
 import org.w3c.dom.*;
 import tracer.Trace;
-import coupling.Coupling;
+import coupling.Existence3;
 import coupling.Coupling6;
 import coupling.Experience;
 import coupling.Result;
@@ -13,7 +13,7 @@ import coupling.Result;
  */
 public class EnvironmentString implements Environment{
 	
-	private Coupling coupling;
+	private Existence3 coupling;
 	
 	private static final int WIDTH = 20;	
 	private int position = 0;
@@ -27,7 +27,7 @@ public class EnvironmentString implements Environment{
 	 * @return The boolean feedback resulting from the schema enaction.
 	 */
 
-	public EnvironmentString(Coupling coupling){
+	public EnvironmentString(Existence3 coupling){
 		this.coupling = coupling;
 	}
 	

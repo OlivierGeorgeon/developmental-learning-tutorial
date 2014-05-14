@@ -13,6 +13,6 @@ public interface Agent {
 	 * @param result The result of the previous experience.
 	 * @return The next experience to perform in the environment.
 	 */
-	public abstract Experience chooseExperience(Result result);
+	public Experience chooseExperience(Result result);
 
 }

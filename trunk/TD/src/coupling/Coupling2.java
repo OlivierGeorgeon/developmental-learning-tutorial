@@ -6,12 +6,9 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import tracer.ConsoleTracer;
-import tracer.Trace;
-import tracer.Tracer;
-
 import Environments.Environment2;
 import agent.Agent2;
+import agent.decider.Decider2;
 import agent.decider.Episode2;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
@@ -24,8 +21,9 @@ import coupling.interaction.Interaction2;
  */
 public class Coupling2 extends Coupling1 {
 	
+	@Override
 	protected void initCoupling(){
-		this.setAgent(new Agent2(this));
+		this.setDecider(new Decider2(this));
 		this.setEnvironment(new Environment2(this));
 
 		Experience e1 = createOrGetExperience(LABEL_E1);
@@ -56,19 +54,6 @@ public class Coupling2 extends Coupling1 {
 		System.out.println("learn " + interaction.toString());
 	}
 
-//	public Experience propose(Episode2 episode){
-//		Experience experience = this.getOtherExperience(null);
-//		for (Interaction2 activatedInteraction : this.getActivatedInteractions(episode))
-//			if (activatedInteraction.getPostInteraction().getValence() >= 0){
-//				experience = activatedInteraction.getPostInteraction().getExperience();
-//				System.out.println("propose " + experience.getLabel());
-//			}
-//			else{
-//				experience = this.getOtherExperience(activatedInteraction.getPostInteraction().getExperience());						
-//			}
-//		return experience;
-//	}
-	
 	public List<Interaction> proposeInteractions(Interaction contextInteraction){
 		List<Interaction> interactions = new ArrayList<Interaction>();
 		for (Interaction2 activatedInteraction : this.getActivatedInteractions(contextInteraction)){
@@ -85,14 +70,5 @@ public class Coupling2 extends Coupling1 {
 			if (interaction == ((Interaction2)activatedInteraction).getPreInteraction())
 				activatedInteractions.add((Interaction2)activatedInteraction);
 		return activatedInteractions;
-	}
-	
-//	protected List<Interaction2> getActivatedInteractions(Episode2 episode) {
-//		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
-//		if (episode.getInteraction() != null)
-//			for (Interaction activatedInteraction : this.getInteractions())
-//				if (episode.getInteraction() == ((Interaction2)activatedInteraction).getPreInteraction())
-//					activatedInteractions.add(((Interaction2)activatedInteraction));
-//		return activatedInteractions;
-//	}
+	}	
 }

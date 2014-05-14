@@ -2,6 +2,12 @@ package tracer;
 
 import org.w3c.dom.*;
 
+/**
+ * The Class Trace provides static methods that can be called from anywhere in the project to record elements of trace.   
+ * A new Event is created by the method startNewEvent(). Events have incremental time codes.
+ * The other methods add new elements and sub-elements to the current Event.
+ * @author Olivier
+ */
 public class Trace {
 	
 	private static Tracer<Element> tracer;
