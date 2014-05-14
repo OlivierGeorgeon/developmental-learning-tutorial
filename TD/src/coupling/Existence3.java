@@ -6,7 +6,7 @@ import coupling.interaction.Interaction;
  * The possibilities of interaction between the agent and the environment.
  * @author Olivier
  */
-public interface Coupling {
+public interface Existence3 {
 
 	public static final String LABEL_E1 = "e1"; 
 	public static final String LABEL_E2 = "e2"; 
@@ -23,8 +23,8 @@ public interface Coupling {
 	
 	public Interaction getInteraction(String label);
 	
-	public Intention chooseIntention(Obtention situation);
+	public Intention decideIntention(Obtention obtention);
 		
-	public Obtention giveObtention(Intention intention);	
+	public Obtention produceObtention(Intention intention);	
 	
 }

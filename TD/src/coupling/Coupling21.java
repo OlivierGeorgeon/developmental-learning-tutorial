@@ -12,6 +12,7 @@ import Environments.Environment1;
 import Environments.Environment2;
 import agent.Agent2;
 import agent.Agent21;
+import agent.decider.Decider21;
 import agent.decider.Episode2;
 import coupling.interaction.Interaction2;
 
@@ -20,7 +21,7 @@ public class Coupling21 extends Coupling2 {
 
 	@Override
 	protected void initCoupling(){
-		this.setAgent(new Agent21(this));
+		this.setDecider(new Decider21(this));
 		this.setEnvironment(new Environment2(this));
 
 		Experience e1 = createOrGetExperience(LABEL_E1);

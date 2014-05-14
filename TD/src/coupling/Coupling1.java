@@ -14,6 +14,8 @@ import Environments.Environment;
 import Environments.Environment1;
 import agent.Agent;
 import agent.Agent1;
+import agent.decider.Decider;
+import agent.decider.Decider1;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction1;
 
@@ -22,7 +24,7 @@ import coupling.interaction.Interaction1;
  * which interact through Experiences, Results, and primitive Interaction1s.
  * @author Olivier
  */
-public class Coupling1 implements Coupling {
+public class Coupling1 implements Existence3 {
 	
 	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 
@@ -30,7 +32,7 @@ public class Coupling1 implements Coupling {
 
 	private Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 	
-	private Agent agent;
+	private Decider decider;
 	private Environment environment;
 
 	public Coupling1(){
@@ -38,7 +40,7 @@ public class Coupling1 implements Coupling {
 	}
 	
 	protected void initCoupling(){		
-		this.agent = new Agent1(this);
+		this.decider = new Decider1(this);
 		this.environment = new Environment1(this);
 
 		Experience e1 = createOrGetExperience(LABEL_E1);
@@ -112,28 +114,22 @@ public class Coupling1 implements Coupling {
 	}
 
 	@Override
-	public Intention1 chooseIntention(Obtention situation) {
-		Experience experience = null;
-		if (situation == null)
-			experience = this.agent.chooseExperience(null);
-		else
-			experience = this.agent.chooseExperience(((Obtention1)situation).getResult());
-		
-		return new Intention1(experience);
+	public Intention decideIntention(Obtention obtention) {
+		return this.decider.chooseIntention(obtention);
 	}
 
 	@Override
-	public Obtention1 giveObtention(Intention intention) {
-		Result result = this.environment.giveResult(((Intention1)intention).getExperience());
+	public Obtention produceObtention(Intention intention) {
+		Result result = this.environment.provideObtention(((Intention1)intention).getExperience());
 		return new Obtention1(result);
 	}
 	
-	protected void setAgent(Agent agent){
-		this.agent = agent;
+	protected void setDecider(Decider agent){
+		this.decider = agent;
 	}
 	
-	protected Agent getAgent(){
-		return this.agent;
+	protected Decider getDecider(){
+		return this.decider;
 	}
 
 	protected void setEnvironment(Environment environment){
@@ -142,5 +138,9 @@ public class Coupling1 implements Coupling {
 	
 	protected Environment getEnvironment(){
 		return this.environment;
+	}
+	
+	protected Collection<Experience> getExperiences(){
+		return this.EXPERIENCES.values();
 	}
 }

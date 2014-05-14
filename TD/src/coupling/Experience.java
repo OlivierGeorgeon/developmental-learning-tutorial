@@ -11,17 +11,16 @@ public class Experience {
 		this.label = label;
 	}
 	
-	Experience(Interaction3 interaction){
-		this.label = interaction.getLabel();
-		this.interaction = interaction;
-	}
-	
 	public String getLabel(){
 		return this.label;
 	}
 	
 	public boolean isPrimitive(){
 		return (this.interaction == null);
+	}
+	
+	public void setInteraction(Interaction3 interaction){
+		this.interaction = interaction;
 	}
 	
 	public Interaction3 getInteraction(){

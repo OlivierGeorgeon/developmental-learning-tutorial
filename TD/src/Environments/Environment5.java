@@ -1,6 +1,6 @@
 package Environments;
 
-import coupling.Coupling;
+import coupling.Existence3;
 import coupling.Experience;
 import coupling.Result;
 
@@ -12,23 +12,23 @@ import coupling.Result;
  */
 public class Environment5 implements Environment {
 
-	private Coupling coupling;
+	private Existence3 coupling;
 	private Experience experience_1;
 	private Experience experience_2;
 	private Experience experience_3;
 
-	public Environment5(Coupling coupling){
+	public Environment5(Existence3 coupling){
 		this.coupling = coupling;
 	}
 	
 	public Result giveResult(Experience experience){
 		
-		Result result = this.coupling.createOrGetResult(Coupling.LABEL_R1);
+		Result result = this.coupling.createOrGetResult(Existence3.LABEL_R1);
 
 		if (experience_3 != experience &&
 			experience_2 == experience &&
 			experience_1 == experience)
-			result =  this.coupling.createOrGetResult(Coupling.LABEL_R2);
+			result =  this.coupling.createOrGetResult(Existence3.LABEL_R2);
 		
 		experience_3 = experience_2;
 		experience_2 = experience_1;

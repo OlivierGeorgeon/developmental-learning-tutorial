@@ -1,21 +1,44 @@
 package Environments;
 
-import coupling.Coupling;
+import Existence.Existence1;
 import coupling.Experience;
+import coupling.Intention;
+import coupling.Intention1;
+import coupling.Obtention;
+import coupling.Obtention1;
 import coupling.Result;
 
+/**
+ * A Reality1 is a sort of Reality that expects an Intention of type Intention1 
+ * which specifies an intended Experiment.
+ * It returns an Obtention of type Obtention1 which provides a Result.
+ * E1 results in R2. E2 results in R1.
+ * @author Olivier
+ */
 public class Environment1 implements Environment {
 	
-	private Coupling coupling;
+	protected Existence1 existence;
 	
-	public Environment1(Coupling coupling){
-		this.coupling = coupling;
+	public Environment1(Existence1 existence1){
+		this.existence = existence1;
 	}
 	
-	public Result giveResult(Experience experience){
-		if (experience.equals(this.coupling.createOrGetExperience(this.coupling.LABEL_E1)))
-			return this.coupling.createOrGetResult(this.coupling.LABEL_R2);
+	public Obtention provideObtention(Intention intention){
+		
+		Experience experience = ((Intention1)intention).getExperience();
+		Result result = giveResult(experience);
+		
+		return new Obtention1(result);
+	}
+	
+	protected Result giveResult(Experience experience){
+		Result result = null;
+		
+		if (experience.equals(this.existence.createOrGetExperience(this.existence.LABEL_E1)))
+			result =  this.existence.createOrGetResult(this.existence.LABEL_R2);
 		else
-			return this.coupling.createOrGetResult(this.coupling.LABEL_R1);
+			result =  this.existence.createOrGetResult(this.existence.LABEL_R1);
+
+		return result;
 	}
 }

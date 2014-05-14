@@ -6,84 +6,57 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import Environments.Environment2;
+import Environments.Environment3;
+import agent.Agent2;
+import agent.decider.Decider3;
 import agent.decider.Episode3;
 import agent.decider.Proposition;
 import coupling.interaction.Interaction;
+import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction3;
 
-public class Coupling3 implements Coupling {
+public class Coupling3 extends Coupling2 {
 
-	private Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
-
-	private Map<String ,Result> RESULTS = new HashMap<String ,Result>();
-
-	private Map<String , Interaction3> INTERACTIONS = new HashMap<String , Interaction3>() ;
-	
-	public Coupling3(){
-		init();
-	}
-	
 	@Override
-	public Experience createOrGetExperience(String label) {
-		if (!EXPERIENCES.containsKey(label))
-			EXPERIENCES.put(label, new Experience(label));			
-		return EXPERIENCES.get(label);
+	protected void initCoupling(){
+		this.setDecider(new Decider3(this));
+		this.setEnvironment(new Environment3(this));
+
+		Experience e1 = createOrGetExperience(LABEL_E1);
+		Experience e2 = createOrGetExperience(LABEL_E2);
+		Result r1 = createOrGetResult(LABEL_R1);
+		Result r2 = createOrGetResult(LABEL_R2);
+		createOrGetPrimitiveInteraction(e1, r1, -1);
+		createOrGetPrimitiveInteraction(e1, r2, 1);
+		createOrGetPrimitiveInteraction(e2, r1, -1);
+		createOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 
-	public Episode3 createEpisode(Experience experience) {
-		return new Episode3(this, experience);
+	public Episode3 createEpisode(Interaction3 interaction) {
+		return new Episode3(this, interaction);
+	}
+
+	@Override
+	protected Interaction3 createNewInteraction(String label, int valence){
+		return new Interaction3(label, valence);
 	}
 
 	public Experience createOrGetCompositeExperience(Interaction3 compositeInteraction) {
-		String label = compositeInteraction.getLabel();
-		if (!EXPERIENCES.containsKey(label))
-			EXPERIENCES.put(label, new Experience(compositeInteraction));			
-		return EXPERIENCES.get(label);
-	}
-
-	@Override
-	public Experience getOtherExperience(Experience experience) {
-		Experience otherExperience = null;
-		for (Experience e : EXPERIENCES.values()){
-			if (e!=experience && e.isPrimitive()){
-				otherExperience =  e;
-				break;
-			}
-		}		
-		return otherExperience;
-	}
-
-	@Override
-	public Result createOrGetResult(String label) {
-		if (!RESULTS.containsKey(label))
-			RESULTS.put(label, new Result(label));			
-		return RESULTS.get(label);
-	}
-
-	public Interaction createOrGetPrimitiveInteraction(Experience experience,
-			Result result, int valence) {
-		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
-		interaction.setExperience(experience);
-		interaction.setResult(result);
-		return interaction;
-	}
+		Experience experience = this.createOrGetExperience(compositeInteraction.getLabel());
+		experience.setInteraction(compositeInteraction);
+		return experience;	
+}
 
 	public Interaction3 createOrGetInteraction(Experience experience,
 			Result result, int valence) {
-		Interaction3 interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+		Interaction3 interaction = (Interaction3)createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 		return interaction;
 	}
 
-	public Interaction3 getInteraction(String label) {
-		return INTERACTIONS.get(label);
-	}
-
-	public Collection<Interaction3> getInteractions(){
-		return INTERACTIONS.values();
-	}
-	
 	public Interaction3 createOrReinforceCompositeInteraction(
 			Interaction3 preInteraction, Interaction3 postInteraction) {
 			
@@ -91,35 +64,18 @@ public class Coupling3 implements Coupling {
 			interaction.incrementWeight();
 			return interaction;
 		}
-//	public Interaction3 createOrReinforceCompositeInteraction(
-//		Interaction3 preInteraction, Interaction3 postInteraction) {
-//		
-//		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
-//		Interaction3 interaction = getInteraction(label);
-//		if (interaction == null){
-//			int valence = preInteraction.getValence() + postInteraction.getValence();	
-//			interaction = createOrGet(label, valence); 
-//			interaction.setPreInteraction(preInteraction);
-//			interaction.setPostInteraction(postInteraction);
-//			interaction.incrementWeight();
-//			System.out.println("learn " + interaction.toString());
-//		}
-//		else
-//			interaction.incrementWeight();
-//		return interaction;
-//	}
+
 	
 	public Interaction3 createOrGetCompositeInteraction(
 			Interaction3 preInteraction, Interaction3 postInteraction) {
 			
 			String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
-			Interaction3 interaction = getInteraction(label);
+			Interaction3 interaction = (Interaction3)getInteraction(label);
 			if (interaction == null){
 				int valence = preInteraction.getValence() + postInteraction.getValence();	
-				interaction = createOrGet(label, valence); 
+				interaction = (Interaction3)createOrGet(label, valence); 
 				interaction.setPreInteraction(preInteraction);
 				interaction.setPostInteraction(postInteraction);
-				//interaction.incrementWeight();
 				System.out.println("learn " + interaction.toString());
 			}
 			else
@@ -127,15 +83,9 @@ public class Coupling3 implements Coupling {
 			return interaction;
 		}
 		
-	protected Interaction3 createOrGet(String label, int valence) {
-		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction3(label, valence));			
-		return INTERACTIONS.get(label);
-	}	
-	
 	public List<Proposition> getDefaultPropositions(){
 		List<Proposition> propositions = new ArrayList<Proposition>();
-		for (Experience experience : EXPERIENCES.values()){
+		for (Experience experience : this.getExperiences()){
 			if (experience.isPrimitive()){
 				Proposition proposition = new Proposition(experience, 0);
 				propositions.add(proposition);
@@ -144,15 +94,11 @@ public class Coupling3 implements Coupling {
 		return propositions;
 	}
 	
-	public Experience getFirstExperience() {
-		return (Experience)EXPERIENCES.values().toArray()[0];
-	}
+	public Experience propose(Interaction3 interaction){
 
-	public Experience propose(Episode3 episode){
+		Experience experience = this.getOtherInteraction(null).getExperience();
 
-		Experience experience = this.getFirstExperience();
-
-		List<Proposition> propositions = this.getPropositions(episode);
+		List<Proposition> propositions = this.getPropositions(interaction);
 
 		if (propositions.size() > 0){
 			Collections.sort(propositions);
@@ -167,51 +113,25 @@ public class Coupling3 implements Coupling {
 		return experience;
 	}
 	
-	protected List<Proposition> getPropositions(Episode3 episode){
+	protected List<Proposition> getPropositions(Interaction3 interaction){
 		List<Proposition> propositions = this.getDefaultPropositions(); 
 				
-		for (Interaction3 activatedInteraction : getActivatedInteractions(episode)){
-			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+		for (Interaction2 activatedInteraction : getActivatedInteractions(interaction)){
+			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), ((Interaction3)activatedInteraction).getWeight() * activatedInteraction.getPostInteraction().getValence());
 			int index = propositions.indexOf(proposition);
 			if (index < 0)
 				propositions.add(proposition);
 			else
-				propositions.get(index).addProclivity(activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
+				propositions.get(index).addProclivity(((Interaction3)activatedInteraction).getWeight() * activatedInteraction.getPostInteraction().getValence());
 		}
 		return propositions;
 	}
 	
-	protected List<Interaction3> getActivatedInteractions(Episode3 episode) {
-		List<Interaction3> activatedInteractions = new ArrayList<Interaction3>();
-		for (Interaction3 activatedInteraction : this.getInteractions())
-			if (episode.getInteraction() != null && episode.getInteraction().equals(activatedInteraction.getPreInteraction())){
-				activatedInteractions.add(activatedInteraction);
-				System.out.println("activated " + activatedInteraction.toString());
-			}
-		return activatedInteractions;
-	}
-
-	protected void init(){
-		Experience e1 = createOrGetExperience(LABEL_E1);
-		Experience e2 = createOrGetExperience(LABEL_E2);
-		Result r1 = createOrGetResult(LABEL_R1);
-		Result r2 = createOrGetResult(LABEL_R2);
-		createOrGetPrimitiveInteraction(e1, r1, -1);
-		createOrGetPrimitiveInteraction(e1, r2, 1);
-		createOrGetPrimitiveInteraction(e2, r1, -1);
-		createOrGetPrimitiveInteraction(e2, r2, 1);
-	}
-
 	@Override
-	public Intention chooseIntention(Obtention situation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Obtention giveObtention(Intention intention) {
-		// TODO Auto-generated method stub
-		return null;
+	public Obtention produceObtention(Intention intention) {
+		Experience experience = ((Intention3)intention).getInteraction().getExperience();
+		Result result = this.getEnvironment().provideObtention(experience);
+		return new Obtention3(this.createOrGetInteraction(experience, result, 0));
 	}
 	
 }
