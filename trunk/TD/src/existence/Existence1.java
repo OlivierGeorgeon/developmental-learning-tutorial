@@ -3,8 +3,9 @@ package existence;
 import java.util.HashMap;
 import java.util.Map;
 
-import Environments.Environment;
-import Environments.Environment1;
+import reactive.Environment;
+import reactive.Environment1;
+
 import agent.decider.Decider;
 import agent.decider.Decider1;
 import coupling.Experience;

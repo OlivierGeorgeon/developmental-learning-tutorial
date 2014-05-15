@@ -2,7 +2,8 @@ package existence;
 
 import java.util.ArrayList;
 import java.util.List;
-import Environments.Environment3;
+
+import reactive.Environment3;
 import agent.decider.Decider3;
 import agent.decider.Proposition;
 import coupling.Experience;

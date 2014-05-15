@@ -5,11 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Element;
+
+import reactive.Environment1;
+import reactive.Environment2;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
-import Environments.Environment1;
-import Environments.Environment2;
 import agent.Agent2;
 import agent.Agent21;
 import agent.decider.Decider21;

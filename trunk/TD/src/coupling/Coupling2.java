@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import Environments.Environment2;
+import reactive.Environment2;
+
 import agent.Agent2;
 import agent.decider.Decider2;
 import agent.decider.Episode2;
