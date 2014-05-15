@@ -7,8 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Environments.Environment2;
-import Environments.Environment3;
+import reactive.Environment2;
+import reactive.Environment3;
+
 import agent.Agent2;
 import agent.decider.Decider3;
 import agent.decider.Episode3;

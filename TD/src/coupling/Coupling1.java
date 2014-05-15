@@ -6,12 +6,12 @@ import java.util.Map;
 
 import org.w3c.dom.Element;
 
+import reactive.Environment;
+import reactive.Environment1;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
 
-import Environments.Environment;
-import Environments.Environment1;
 import agent.Agent;
 import agent.Agent1;
 import agent.decider.Decider;
