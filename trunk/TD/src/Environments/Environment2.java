@@ -1,6 +1,6 @@
 package Environments;
 
-import Existence.Existence2;
+import Existence.Existence1;
 import coupling.Experience;
 import coupling.Result;
 
@@ -14,7 +14,7 @@ public class Environment2 extends Environment1 {
 
 	private Experience experience_1;
 
-	public Environment2(Existence2 existence){
+	public Environment2(Existence1 existence){
 		super(existence);
 	}
 	
