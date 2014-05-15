@@ -2,11 +2,12 @@ package main;
 
 import org.w3c.dom.Element;
 
-import reactive.Existence;
-import reactive.Existence0;
-import reactive.Existence01;
-import reactive.Existence1;
-import reactive.Existence2;
+import existence.Existence;
+import existence.Existence0;
+import existence.Existence01;
+import existence.Existence1;
+import existence.Existence2;
+
 import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
 import tracer.Trace;

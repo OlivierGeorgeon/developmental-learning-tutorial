@@ -3,7 +3,6 @@ package agent.decider;
 import java.util.Collections;
 import java.util.List;
 
-import reactive.Existence3;
 import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
@@ -13,6 +12,7 @@ import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction3;
+import existence.Existence3;
 
 /**
  * Decider2 can adapt to Reality1, Reality2 or Reality3.

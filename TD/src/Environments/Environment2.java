@@ -1,8 +1,8 @@
 package Environments;
 
-import reactive.Existence1;
 import coupling.Experience;
 import coupling.Result;
+import existence.Existence1;
 
 /**
  * A Reality2 is a sort of Reality1

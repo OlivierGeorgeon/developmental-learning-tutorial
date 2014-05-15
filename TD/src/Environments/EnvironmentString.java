@@ -2,10 +2,10 @@ package Environments;
 
 import org.w3c.dom.*;
 
-import reactive.Existence6;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
+import existence.Existence6;
 
 /**
  * This class implements the String Environment 

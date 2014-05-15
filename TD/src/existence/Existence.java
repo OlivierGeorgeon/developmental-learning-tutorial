@@ -1,4 +1,4 @@
-package reactive;
+package existence;
 
 /**
  * An Existence is an Object that simulates a "flow of consciousness" when it is run step by step.   

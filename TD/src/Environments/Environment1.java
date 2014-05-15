@@ -1,12 +1,12 @@
 package Environments;
 
-import reactive.Existence1;
 import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
+import existence.Existence1;
 
 /**
  * A Reality1 is a sort of Reality that expects an Intention of type Intention1 

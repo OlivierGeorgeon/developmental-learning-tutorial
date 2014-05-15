@@ -1,9 +1,9 @@
 package Environments;
 
-import reactive.Existence1;
 import coupling.Existence3;
 import coupling.Experience;
 import coupling.Result;
+import existence.Existence1;
 
 /**
  * The environment of Exercise 5.
