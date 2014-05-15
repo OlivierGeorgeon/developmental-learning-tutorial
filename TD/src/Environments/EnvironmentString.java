@@ -1,9 +1,8 @@
 package Environments;
 
 import org.w3c.dom.*;
+import Existence.Existence6;
 import tracer.Trace;
-import coupling.Existence3;
-import coupling.Coupling6;
 import coupling.Experience;
 import coupling.Result;
 
@@ -11,9 +10,7 @@ import coupling.Result;
  * This class implements the String Environment 
  * used by Georgeon & Hassas in their paper "Single agents can be constructivist too".
  */
-public class EnvironmentString implements Environment{
-	
-	private Existence3 coupling;
+public class EnvironmentString extends Environment5{
 	
 	private static final int WIDTH = 20;	
 	private int position = 0;
@@ -27,8 +24,8 @@ public class EnvironmentString implements Environment{
 	 * @return The boolean feedback resulting from the schema enaction.
 	 */
 
-	public EnvironmentString(Existence3 coupling){
-		this.coupling = coupling;
+	public EnvironmentString(Existence6  existence){
+		super(existence);
 	}
 	
 	public Result giveResult(Experience experience){
@@ -36,11 +33,11 @@ public class EnvironmentString implements Environment{
 
 		Result result = null;
 		
-		if (experience.equals(this.coupling.createOrGetExperience(Coupling6.LABEL_STEP)))
+		if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_STEP)))
 			result = step();
-		else if (experience.equals(this.coupling.createOrGetExperience(Coupling6.LABEL_FEEL)))
+		else if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_FEEL)))
 			result = feel();
-		else if (experience.equals(this.coupling.createOrGetExperience(Coupling6.LABEL_SWAP)))
+		else if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_SWAP)))
 			result = swap();
 		
 		return result;
@@ -51,11 +48,11 @@ public class EnvironmentString implements Environment{
 	 * @return true if the agent went up
 	 */
 	private Result step(){
-		Result result = this.coupling.createOrGetResult(Coupling6.LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
 
 		if (position < WIDTH -1){
 			if (board[position] <= board[position + 1])
-				result = this.coupling.createOrGetResult(Coupling6.LABEL_TRUE);
+				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
 			position++;
 		}else 
 			position = 0;
@@ -67,10 +64,10 @@ public class EnvironmentString implements Environment{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result feel(){
-		Result result = this.coupling.createOrGetResult(Coupling6.LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
 		
 		if ((position < WIDTH -1) && (board[position] <= board[position +1]))
-				result = this.coupling.createOrGetResult(Coupling6.LABEL_TRUE);
+				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
 
 		return result;		
 	}
@@ -80,13 +77,13 @@ public class EnvironmentString implements Environment{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result swap(){
-		Result result = this.coupling.createOrGetResult(Coupling6.LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
 
 		int temp = board[position];
 		if ((position < WIDTH -1) && (board[position] > board[position +1])){
 				board[position] = board[position + 1];
 				board[position + 1] = temp;
-				result = this.coupling.createOrGetResult(Coupling6.LABEL_TRUE);
+				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
 		}
 
 		return result;		

@@ -2,6 +2,7 @@ package main;
 
 import org.w3c.dom.Element;
 
+import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
@@ -22,6 +23,9 @@ public class Main {
 	public static void main(String[] args){
 		
 		Tracer<Element> tracer = new ConsoleTracer();
+		//Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","OgoKXiacniNKfSYySo-npitjFOXwRM");
+		//Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","l-kHWqeLDlSZT-TdBrLSoXVeBRCRsw");
+		//Tracer<Element> tracer = new AbstractLiteTracer("http://macbook-pro-de-olivier-2.local/alite/php/stream/","BGKGGBbdjxbYzYAlvXrjbVMjOwyXEA");
 		Trace.init(tracer);		
 
 		//Existence existence = new Existence0();
