@@ -1,6 +1,6 @@
 package agent.decider;
 
-import Existence.Existence2;
+import reactive.Existence2;
 import coupling.Existence3;
 import coupling.interaction.Interaction3;
 

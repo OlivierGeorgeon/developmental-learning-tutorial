@@ -1,7 +1,8 @@
 package Environments;
 
 import org.w3c.dom.*;
-import Existence.Existence6;
+
+import reactive.Existence6;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
