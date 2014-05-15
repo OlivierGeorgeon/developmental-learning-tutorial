@@ -2,7 +2,8 @@ package agent.decider;
 
 import java.util.Collections;
 import java.util.List;
-import Existence.Existence3;
+
+import reactive.Existence3;
 import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
@@ -34,8 +35,7 @@ public class Decider3 implements Decider{
 	public Intention chooseIntention(Obtention obtention){
 
 		Result result = null; 
-		if (obtention != null)
-			result = ((Obtention1)obtention).getResult();
+		if (obtention != null) result = ((Obtention1)obtention).getResult();
 		
 		if (result != null){
 			Experience experience = this.currentInteraction.getExperience();

@@ -2,15 +2,15 @@ package main;
 
 import org.w3c.dom.Element;
 
+import reactive.Existence;
+import reactive.Existence0;
+import reactive.Existence01;
+import reactive.Existence1;
+import reactive.Existence2;
 import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
-import Existence.Existence;
-import Existence.Existence0;
-import Existence.Existence01;
-import Existence.Existence1;
-import Existence.Existence2;
 
 /**
  * The Main Class instantiates an Existence and a Tracer.  

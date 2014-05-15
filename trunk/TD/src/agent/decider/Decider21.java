@@ -2,7 +2,8 @@ package agent.decider;
 
 import java.util.ArrayList;
 import java.util.List;
-import Existence.Existence2;
+
+import reactive.Existence2;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Intention;

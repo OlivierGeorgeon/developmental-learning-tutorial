@@ -1,6 +1,6 @@
 package agent.decider;
 
-import Existence.Existence1;
+import reactive.Existence1;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Intention;
