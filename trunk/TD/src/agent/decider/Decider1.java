@@ -1,6 +1,5 @@
 package agent.decider;
 
-import reactive.Existence1;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Intention;
@@ -8,6 +7,7 @@ import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
+import existence.Existence1;
 
 /**
  * Decider1 is a re-implementation of the decisional mechanism of Existence01.

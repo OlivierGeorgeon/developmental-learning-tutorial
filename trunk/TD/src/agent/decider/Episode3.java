@@ -1,8 +1,8 @@
 package agent.decider;
 
-import reactive.Existence2;
 import coupling.Existence3;
 import coupling.interaction.Interaction3;
+import existence.Existence2;
 
 public class Episode3 extends Episode2{
 	

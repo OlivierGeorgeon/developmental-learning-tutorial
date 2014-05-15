@@ -3,7 +3,6 @@ package agent.decider;
 import java.util.ArrayList;
 import java.util.List;
 
-import reactive.Existence2;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Intention;
@@ -13,6 +12,7 @@ import coupling.Obtention1;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
+import existence.Existence2;
 
 /**
  * Like Decider2, Decider21 can adapt to Reality1 or Reality2.

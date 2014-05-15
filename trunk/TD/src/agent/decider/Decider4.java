@@ -1,7 +1,5 @@
 package agent.decider;
 
-import reactive.Existence3;
-import reactive.Existence4;
 import agent.Agent;
 import coupling.Coupling4;
 import coupling.Experience;
@@ -10,6 +8,8 @@ import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
 import coupling.interaction.Interaction3;
+import existence.Existence3;
+import existence.Existence4;
 
 /**
  * @author Olivier

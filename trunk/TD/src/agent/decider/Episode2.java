@@ -1,9 +1,9 @@
 package agent.decider;
 
-import reactive.Existence2;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
+import existence.Existence2;
 
 public class Episode2 implements Episode{
 

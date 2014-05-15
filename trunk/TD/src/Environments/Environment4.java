@@ -1,6 +1,5 @@
 package Environments;
 
-import reactive.Existence1;
 import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
@@ -8,6 +7,7 @@ import coupling.Obtention;
 import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction3;
+import existence.Existence1;
 
 /**
  * A Reality4 is a sort of Reality3 that expects an Intention1 which specifies an experience,
