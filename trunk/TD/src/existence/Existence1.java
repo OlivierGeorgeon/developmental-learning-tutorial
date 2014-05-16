@@ -5,6 +5,7 @@ import java.util.Map;
 
 import reactive.Environment;
 import reactive.Environment1;
+import tracer.Trace;
 
 import agent.decider.Decider;
 import agent.decider.Decider1;
@@ -37,8 +38,8 @@ public class Existence1 implements Existence {
 	protected Map<String,Result> RESULTS = new HashMap<String,Result>();
 	protected Map<String,Interaction> INTERACTIONS = new HashMap<String,Interaction>() ;
 
-	protected Decider decider;
-	protected Environment environment;
+	protected Decider proactive;
+	protected Environment reactive;
 	protected Obtention obtention;
 	
 	public Existence1(){
@@ -46,8 +47,8 @@ public class Existence1 implements Existence {
 	}	
 	
 	protected void initExistence(){
-		this.decider = new Decider1(this);
-		this.environment = new Environment1(this);
+		this.proactive = new Decider1(this);
+		this.reactive = new Environment1(this);
 		
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
@@ -62,8 +63,10 @@ public class Existence1 implements Existence {
 	@Override
 	public String step() {
 		
-		Intention intention = this.decider.chooseIntention(this.obtention);
-		this.obtention = this.environment.provideObtention(intention);
+		Intention intention = this.proactive.chooseIntention(this.obtention);
+		Trace.addEventElement("intend", intention.getLabel());
+		this.obtention = this.reactive.provideObtention(intention);
+		Trace.addEventElement("obtain", this.obtention.getLabel());
 		
 		this.learn();
 				
@@ -74,7 +77,7 @@ public class Existence1 implements Existence {
 	}
 	
 	protected String print(Intention intention, Obtention obtention){
-		return this.getInteraction(intention.getLabel() + obtention.getLabel()).toString();
+		return "";//obtention.getLabel();
 	}
 	
 	public Interaction createOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {

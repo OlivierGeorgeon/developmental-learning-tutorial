@@ -57,7 +57,7 @@ public class Decider21 extends Decider2{
 			}
 		}
 		
-		List<Interaction> proposedInteractions = this.existence.proposeInteractions();
+		List<Interaction> proposedInteractions = this.existence.affordedInteractions();
 		
 		Interaction intendedInteraction = (Interaction2)this.existence.getOtherInteraction(null);
 		if (this.selfSatisfactionCounter < BOREDOME_LEVEL){

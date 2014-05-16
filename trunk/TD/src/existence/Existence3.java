@@ -2,7 +2,7 @@ package existence;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import coupling.Obtention2;
 import reactive.Environment3;
 import agent.decider.Decider3;
 import agent.decider.Proposition;
@@ -19,8 +19,8 @@ public class Existence3 extends Existence2 {
 
 	@Override
 	protected void initExistence(){
-		this.decider = new Decider3(this);
-		this.environment = new Environment3(this);
+		this.proactive = new Decider3(this);
+		this.reactive = new Environment3(this);
 
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
@@ -36,7 +36,7 @@ public class Existence3 extends Existence2 {
 	protected void learn(){
 
 		this.contextInteraction = this.currentInteraction;
-		this.currentInteraction = this.obtention.getInteraction();
+		this.currentInteraction = ((Obtention2)this.obtention).getInteraction();
 		
 		if (this.contextInteraction != null )
 			this.createOrReinforceCompositeInteraction(this.contextInteraction, this.currentInteraction);		
