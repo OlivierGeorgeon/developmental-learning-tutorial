@@ -1,5 +1,9 @@
 package coupling;
 
+/**
+ * An Obtention1 is sort of Obtention that specifies a Result
+ * @author Olivier.
+ */
 public class Obtention1 implements Obtention {
 	
 	private Result result;

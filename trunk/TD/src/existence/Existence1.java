@@ -64,8 +64,13 @@ public class Existence1 implements Existence {
 		
 		Intention intention = this.decider.chooseIntention(this.obtention);
 		this.obtention = this.environment.provideObtention(intention);
+		
+		this.learn();
 				
 		return print(intention, this.obtention);
+	}
+	
+	protected void learn(){
 	}
 	
 	protected String print(Intention intention, Obtention obtention){

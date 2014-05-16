@@ -1,6 +1,5 @@
 package reactive;
 
-import coupling.Existence3;
 import coupling.Experience;
 import coupling.Result;
 import existence.Existence1;
@@ -13,9 +12,7 @@ import existence.Existence1;
  */
 public class Environment5 extends Environment4 {
 
-	private Experience experience_1;
-	private Experience experience_2;
-	private Experience experience_3;
+	protected Experience antepenultimateExperience;
 
 	public Environment5(Existence1 existence){
 		super(existence);
@@ -25,14 +22,14 @@ public class Environment5 extends Environment4 {
 		
 		Result result = this.existence.createOrGetResult(this.existence.LABEL_R1);
 
-		if (experience_3 != experience &&
-			experience_2 == experience &&
-			experience_1 == experience)
+		if (this.antepenultimateExperience != experience &&
+				this.penultimateExperience == experience &&
+			this.previousExperience == experience)
 			result =  this.existence.createOrGetResult(this.existence.LABEL_R2);
 		
-		experience_3 = experience_2;
-		experience_2 = experience_1;
-		experience_1 = experience;
+		this.antepenultimateExperience = this.penultimateExperience;
+		this.penultimateExperience = this.previousExperience;
+		this.previousExperience = experience;
 		
 		return result;
 	}

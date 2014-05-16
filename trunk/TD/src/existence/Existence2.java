@@ -3,21 +3,25 @@ package existence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import reactive.Environment2;
 import agent.decider.Decider2;
 import coupling.Experience;
+import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
 
 /**
- * Existence2 is a sort of Existence1 that supports the acquisition of composite interactions (Interaction2). 
+ * Existence2 is a sort of Existence1 that learns composite interactions (Interaction2). 
  * Additionally, Existence2 proposes a list of interactions to the Decider.
  * 
  * @author Olivier
  */
 public class Existence2 extends Existence1 {
+
+	protected Obtention2 obtention;
+	private Interaction2 contextInteraction;
+	private Interaction2 currentInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -35,12 +39,22 @@ public class Existence2 extends Existence1 {
 	}
 	
 	@Override
+	protected void learn(){
+
+		this.contextInteraction = this.currentInteraction;
+		this.currentInteraction = this.obtention.getInteraction();
+		
+		if (this.contextInteraction != null )
+			this.createOrGetCompositeInteraction(this.contextInteraction, this.currentInteraction);		
+	}
+	
+	@Override
 	protected Interaction2 createNewInteraction(String label, int valence){
 		return new Interaction2(label, valence);
 	}
 
 	public Interaction2 createOrGetCompositeInteraction(
-		Interaction2 preInteraction, Interaction2 postInteraction) {
+		Interaction preInteraction, Interaction postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
 		Interaction2 interaction = (Interaction2)createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
 		interaction.setPreInteraction(preInteraction);
@@ -49,9 +63,9 @@ public class Existence2 extends Existence1 {
 		return interaction;
 	}
 
-	public List<Interaction> proposeInteractions(Interaction contextInteraction){
+	public List<Interaction> proposeInteractions(){
 		List<Interaction> interactions = new ArrayList<Interaction>();
-		for (Interaction2 activatedInteraction : this.getActivatedInteractions(contextInteraction)){
+		for (Interaction2 activatedInteraction : this.getActivatedInteractions(this.contextInteraction)){
 			interactions.add(activatedInteraction.getPostInteraction());
 			System.out.println("propose " + activatedInteraction.getPostInteraction().getLabel());
 		}
@@ -59,7 +73,7 @@ public class Existence2 extends Existence1 {
 		return interactions;
 	}
 
-	public List<Interaction2> getActivatedInteractions(Interaction interaction) {
+	protected List<Interaction2> getActivatedInteractions(Interaction interaction) {
 		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
 		for (Interaction activatedInteraction : this.INTERACTIONS.values())
 			if (interaction == ((Interaction2)activatedInteraction).getPreInteraction())

@@ -2,16 +2,15 @@ package coupling;
 
 import coupling.interaction.Interaction3;
 
-public class Obtention3 implements Obtention {
-	
-	private Interaction3 interaction;
+public class Obtention3 extends Obtention2 {
 	
 	public Obtention3(Interaction3 interaction){
-		this.interaction = interaction;
+		super(interaction);
 	}
 	
+	@Override
 	public Interaction3 getInteraction(){
-		return this.interaction;
+		return (Interaction3)this.interaction;
 	}
 
 	@Override
