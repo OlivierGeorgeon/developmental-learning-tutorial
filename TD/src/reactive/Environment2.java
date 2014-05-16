@@ -3,7 +3,6 @@ package reactive;
 import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
-import coupling.Obtention;
 import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction2;

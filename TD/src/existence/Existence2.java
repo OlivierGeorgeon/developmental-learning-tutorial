@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import reactive.Environment2;
+import tracer.Trace;
 import agent.decider.Decider2;
 import coupling.Experience;
 import coupling.Obtention2;
@@ -19,14 +20,13 @@ import coupling.interaction.Interaction2;
  */
 public class Existence2 extends Existence1 {
 
-	protected Obtention2 obtention;
 	private Interaction2 contextInteraction;
 	private Interaction2 currentInteraction;
 
 	@Override
 	protected void initExistence(){
-		this.decider = new Decider2(this);
-		this.environment = new Environment2(this);
+		this.proactive = new Decider2(this);
+		this.reactive = new Environment2(this);
 
 		Experience e1 = createOrGetExperience(LABEL_E1);
 		Experience e2 = createOrGetExperience(LABEL_E2);
@@ -42,8 +42,14 @@ public class Existence2 extends Existence1 {
 	protected void learn(){
 
 		this.contextInteraction = this.currentInteraction;
-		this.currentInteraction = this.obtention.getInteraction();
+		this.currentInteraction = ((Obtention2)this.obtention).getInteraction();
 		
+		if (this.currentInteraction.getValence() >= 0)
+			Trace.addEventElement("mood", "PLEASED");
+		else{
+			Trace.addEventElement("mood", "PAINED");
+		}
+
 		if (this.contextInteraction != null )
 			this.createOrGetCompositeInteraction(this.contextInteraction, this.currentInteraction);		
 	}
@@ -63,11 +69,13 @@ public class Existence2 extends Existence1 {
 		return interaction;
 	}
 
-	public List<Interaction> proposeInteractions(){
+	public List<Interaction> affordedInteractions(){
 		List<Interaction> interactions = new ArrayList<Interaction>();
-		for (Interaction2 activatedInteraction : this.getActivatedInteractions(this.contextInteraction)){
-			interactions.add(activatedInteraction.getPostInteraction());
-			System.out.println("propose " + activatedInteraction.getPostInteraction().getLabel());
+		if (this.currentInteraction != null){
+			for (Interaction2 activatedInteraction : this.getActivatedInteractions(this.currentInteraction)){
+				interactions.add(activatedInteraction.getPostInteraction());
+				System.out.println("afforded " + activatedInteraction.getPostInteraction().getLabel());
+			}
 		}
 		Collections.sort(interactions);
 		return interactions;

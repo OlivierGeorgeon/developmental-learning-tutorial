@@ -20,7 +20,7 @@ public class Obtention2 implements Obtention {
 
 	@Override
 	public String getLabel() {
-		return this.interaction.getLabel();
+		return this.interaction.toString();
 	}
 
 }

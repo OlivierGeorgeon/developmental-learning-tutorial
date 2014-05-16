@@ -27,29 +27,16 @@ public class Decider2 implements Decider{
 	}
 	
 	public Intention chooseIntention(Obtention obtention){
-		
-		Interaction2 interaction = null;
-		if (obtention != null) interaction = (((Obtention2)obtention).getInteraction());
-
-		if (interaction != null){
-			if (interaction.getValence() >= 0)
-				Trace.addEventElement("mood", "PLEASED");
-			else{
-				Trace.addEventElement("mood", "PAINED");
-			}
-		}
-			
-		List<Interaction> proposedInteractions = this.existence.proposeInteractions();
+					
+		List<Interaction> affordedInteractions = this.existence.affordedInteractions();
 		
 		Interaction intendedInteraction = this.existence.getOtherInteraction(null);
-		if (proposedInteractions.size() > 0)
-			if (proposedInteractions.get(0).getValence() >= 0)
-				intendedInteraction = proposedInteractions.get(0);
+		if (affordedInteractions.size() > 0)
+			if (affordedInteractions.get(0).getValence() >= 0)
+				intendedInteraction = affordedInteractions.get(0);
 			else
-				intendedInteraction = (Interaction2)this.existence.getOtherInteraction(proposedInteractions.get(0));
+				intendedInteraction = (Interaction2)this.existence.getOtherInteraction(affordedInteractions.get(0));
 	
-		Trace.addEventElement("intend", intendedInteraction.toString());
-
 		return new Intention1(intendedInteraction.getExperience());
 	}
 }
