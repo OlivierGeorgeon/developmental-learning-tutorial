@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import coupling.Obtention2;
 import reactive.Environment3;
+import tracer.Trace;
 import agent.decider.Decider3;
 import agent.decider.Proposition;
 import coupling.Experience;
@@ -37,6 +38,12 @@ public class Existence3 extends Existence2 {
 
 		this.contextInteraction = this.currentInteraction;
 		this.currentInteraction = ((Obtention2)this.obtention).getInteraction();
+		
+		if (this.currentInteraction.getValence() >= 0)
+			Trace.addEventElement("mood", "PLEASED");
+		else{
+			Trace.addEventElement("mood", "PAINED");
+		}
 		
 		if (this.contextInteraction != null )
 			this.createOrReinforceCompositeInteraction(this.contextInteraction, this.currentInteraction);		

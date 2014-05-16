@@ -37,8 +37,6 @@ public class Decider3 implements Decider{
 			experience = selectedProposition.getExperience();
 		}	
 		
-		System.out.println("select " + experience.getLabel());
-
 		return new Intention1(experience);
 	}	
 }
