@@ -1,8 +1,8 @@
 package coupling.interaction;
 
 /**
- * An Interaction3 has a weight.
- * @author Olivier
+ * An Interaction3 is an Interaction2 with a weight.
+ * @author Olivier.
  */
 public class Interaction3 extends Interaction2 {
 	

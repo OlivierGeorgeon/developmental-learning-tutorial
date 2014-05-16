@@ -4,6 +4,7 @@ import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention;
+import coupling.Obtention2;
 import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction3;
@@ -21,16 +22,15 @@ import existence.Existence1;
  * @author Olivier
  */
 public class Environment4 extends Environment3 {
-
-	protected Experience experience_1;
-	protected Experience experience_2;
+	
+	protected Experience penultimateExperience;
 
 	public Environment4(Existence1 existence){
 		super(existence);
 	}
 
 	@Override
-	public Obtention provideObtention(Intention intention){
+	public Obtention3 provideObtention(Intention intention){
 
 		Experience experience = ((Intention1)intention).getExperience();
 		Result result = giveResult(experience);
@@ -43,12 +43,12 @@ public class Environment4 extends Environment3 {
 		
 		Result result = this.existence.createOrGetResult(this.existence.LABEL_R1);
 
-		if (experience_2!=experience &&
-			experience_1==experience)
+		if (this.penultimateExperience != experience &&
+			this.previousExperience == experience)
 			result =  this.existence.createOrGetResult(this.existence.LABEL_R2);
 		
-		experience_2 = experience_1;
-		experience_1 = experience;
+		this.penultimateExperience = this.previousExperience;
+		this.previousExperience = experience;
 		
 		return result;
 	}

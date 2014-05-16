@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * An Interaction2 has a preInteraction and a postInteraction.
+ * An Interaction2 is an Interaction with a preInteraction and a postInteraction.
  * @author Olivier
  */
 public class Interaction2 extends Interaction1{
 	
-	private Interaction2 preInteraction;
-	private Interaction2 postInteraction;
+	private Interaction preInteraction;
+	private Interaction postInteraction;
 
 	public Interaction2(String label, int valence){
 		super(label, valence);
 	}
 	
 	public Interaction2 getPreInteraction() {
-		return preInteraction;
+		return (Interaction2)preInteraction;
 	}
 
-	public void setPreInteraction(Interaction2 preInteraction) {
+	public void setPreInteraction(Interaction preInteraction) {
 		this.preInteraction = preInteraction;
 	}
 
 	public Interaction2 getPostInteraction() {
-		return postInteraction;
+		return (Interaction2)postInteraction;
 	}
 	
-	public void setPostInteraction(Interaction2 postInteraction) {
+	public void setPostInteraction(Interaction postInteraction) {
 		this.postInteraction = postInteraction;
 	}
 

@@ -1,14 +1,11 @@
 package agent.decider;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import tracer.Trace;
-import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention;
-import coupling.Obtention1;
+import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
@@ -25,53 +22,45 @@ import existence.Existence2;
  * Decider21 illustrates the benefit of implementing different motivational dimensions.   
  * @author Olivier
  */
-public class Decider21 implements Decider{
+public class Decider21 extends Decider2{
 
 	public static int BOREDOME_LEVEL = 5;
 	
-	private Existence2 existence;
-	private Interaction contextInteraction;
-	private Interaction currentInteraction;	
-	private int selfSatsfactionCounter;
+	private int selfSatisfactionCounter;
 	
-	public Decider21(Existence2 coupling){
-		this.existence = coupling;
+	private Result expectedResult;
+	
+	public Decider21(Existence2 existence){
+		super(existence);
 	}
 	
+	@Override
 	public Intention chooseIntention(Obtention obtention){
 
-		Result result = null; 
-		if (obtention != null) result = ((Obtention1)obtention).getResult();
+		Interaction2 interaction = null;
+		if (obtention != null) interaction = (((Obtention2)obtention).getInteraction());
 		
-		if (this.currentInteraction != null){
-			if (this.currentInteraction.getValence() >= 0)
+		if (interaction != null){
+			if (interaction.getValence() >= 0)
 				Trace.addEventElement("mood", "PLEASED");
 			else
 				Trace.addEventElement("mood", "PAINED");
-			if (this.currentInteraction.getResult().equals(result)){			
-				Trace.addEventElement("mood", "SELF-SATISFIED");
-				this.selfSatsfactionCounter++;
-			}
-			else{
-				Trace.addEventElement("mood", "FRUSTRATED");
-				this.selfSatsfactionCounter = 0;
+			if (this.expectedResult != null){
+				if (this.expectedResult.equals(interaction.getResult())){			
+					Trace.addEventElement("mood", "SELF-SATISFIED");
+					this.selfSatisfactionCounter++;
+				}
+				else{
+					Trace.addEventElement("mood", "FRUSTRATED");
+					this.selfSatisfactionCounter = 0;
+				}
 			}
 		}
 		
-		if (result != null){
-			Experience experience = this.currentInteraction.getExperience();
-			this.currentInteraction = (Interaction2)this.existence.createOrGetPrimitiveInteraction(experience, result, 0);			
-		}
-
-		if (this.contextInteraction != null )
-			this.existence.createOrGetCompositeInteraction((Interaction2)this.contextInteraction, (Interaction2)this.currentInteraction);
-
-		List<Interaction> proposedInteractions = new ArrayList<Interaction>();
-		if (this.currentInteraction != null)
-			proposedInteractions = this.existence.proposeInteractions((Interaction2)this.currentInteraction); 
+		List<Interaction> proposedInteractions = this.existence.proposeInteractions();
 		
 		Interaction intendedInteraction = (Interaction2)this.existence.getOtherInteraction(null);
-		if (this.selfSatsfactionCounter < BOREDOME_LEVEL){
+		if (this.selfSatisfactionCounter < BOREDOME_LEVEL){
 			if (proposedInteractions.size() > 0)
 				if (proposedInteractions.get(0).getValence() >= 0)
 					intendedInteraction = proposedInteractions.get(0);
@@ -80,16 +69,13 @@ public class Decider21 implements Decider{
 		}
 		else{
 			Trace.addEventElement("mood", "BORED");
-			this.selfSatsfactionCounter = 0;
+			this.selfSatisfactionCounter = 0;
 			if (proposedInteractions.size() == 1)
 				intendedInteraction = (Interaction2)this.existence.getOtherInteraction(proposedInteractions.get(0));
 			else if (proposedInteractions.size() > 1)
 				intendedInteraction = proposedInteractions.get(1);
 		}
 					
-		this.contextInteraction = this.currentInteraction;
-
-		this.currentInteraction = intendedInteraction;
 		Trace.addEventElement("intend", intendedInteraction.toString());
 
 		return new Intention1 (intendedInteraction.getExperience());
