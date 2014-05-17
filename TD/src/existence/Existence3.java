@@ -61,6 +61,14 @@ public class Existence3 extends Existence2 {
 			return interaction;
 		}
 
+    public Interaction3 createOrGetInteraction(Experience experience,
+            Result result, int valence) {
+    Interaction3 interaction = (Interaction3)createOrGet(experience.getLabel() + result.getLabel(), valence);
+    interaction.setExperience(experience);
+    interaction.setResult(result);
+    return interaction;
+}
+
 	public List<Proposition> getPropositions(){
 		List<Proposition> propositions = this.getDefaultPropositions(); 
 		

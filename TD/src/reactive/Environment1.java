@@ -41,4 +41,8 @@ public class Environment1 implements Environment {
 
 		return result;
 	}
+	
+	protected Existence1 getExistence(){
+		return this.existence;
+	}
 }

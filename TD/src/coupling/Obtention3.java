@@ -8,6 +8,10 @@ public class Obtention3 extends Obtention2 {
 		super(interaction);
 	}
 	
+	public void setInteraction(Interaction3 interaction){
+		this.interaction = interaction;
+	}
+	
 	@Override
 	public Interaction3 getInteraction(){
 		return (Interaction3)this.interaction;
