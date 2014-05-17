@@ -5,6 +5,7 @@ import org.w3c.dom.*;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
+import existence.Existence1;
 import existence.Existence6;
 
 /**
@@ -29,16 +30,20 @@ public class EnvironmentString extends Environment5{
 		super(existence);
 	}
 	
+	protected Existence6 getExistence(){
+		return (Existence6)this.existence;
+	}
+
 	public Result giveResult(Experience experience){
 		traceEnv();
 
 		Result result = null;
 		
-		if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_STEP)))
+		if (experience.equals(this.existence.createOrGetExperience(this.getExistence().LABEL_STEP)))
 			result = step();
-		else if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_FEEL)))
+		else if (experience.equals(this.existence.createOrGetExperience(this.getExistence().LABEL_FEEL)))
 			result = feel();
-		else if (experience.equals(this.existence.createOrGetExperience(((Existence6)this.existence).LABEL_SWAP)))
+		else if (experience.equals(this.existence.createOrGetExperience(this.getExistence().LABEL_SWAP)))
 			result = swap();
 		
 		return result;
@@ -49,11 +54,11 @@ public class EnvironmentString extends Environment5{
 	 * @return true if the agent went up
 	 */
 	private Result step(){
-		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(this.getExistence().LABEL_FALSE);
 
 		if (position < WIDTH -1){
 			if (board[position] <= board[position + 1])
-				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
+				result = this.existence.createOrGetResult(this.getExistence().LABEL_TRUE);
 			position++;
 		}else 
 			position = 0;
@@ -65,10 +70,10 @@ public class EnvironmentString extends Environment5{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result feel(){
-		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(this.getExistence().LABEL_FALSE);
 		
 		if ((position < WIDTH -1) && (board[position] <= board[position +1]))
-				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
+				result = this.existence.createOrGetResult(this.getExistence().LABEL_TRUE);
 
 		return result;		
 	}
@@ -78,13 +83,13 @@ public class EnvironmentString extends Environment5{
 	 * @return true if the next item is greater than the current item
 	 */
 	private Result swap(){
-		Result result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_FALSE);
+		Result result = this.existence.createOrGetResult(this.getExistence().LABEL_FALSE);
 
 		int temp = board[position];
 		if ((position < WIDTH -1) && (board[position] > board[position +1])){
 				board[position] = board[position + 1];
 				board[position + 1] = temp;
-				result = this.existence.createOrGetResult(((Existence6)this.existence).LABEL_TRUE);
+				result = this.existence.createOrGetResult(this.getExistence().LABEL_TRUE);
 		}
 
 		return result;		

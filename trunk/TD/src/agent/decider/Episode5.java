@@ -3,12 +3,13 @@ package agent.decider;
 import java.util.ArrayList;
 import java.util.List;
 import coupling.Coupling3;
+import coupling.Intention4;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction3;
 
-public class Episode5 extends Episode4{
+public class Episode5 extends Intention4{
 
 	private List<Interaction2> series = new ArrayList<Interaction2>();
 	

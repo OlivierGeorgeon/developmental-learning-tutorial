@@ -19,33 +19,6 @@ public class Existence4 extends Existence3 {
 	@Override
 	protected void learn(){
 
-		Interaction3 enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.primitiveExperience.getLabel() + result.getLabel());
-		if (this.getExperience().isPrimitive()){
-			this.setInteraction(enactedPrimitiveInteraction);
-			this.terminated = true;
-		}
-		else{
-			if (step == 0){
-				if (!enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPreInteraction())){
-					Interaction3 alternateInteraction = this.getCoupling().createOrGetInteraction(this.getExperience(), result, enactedPrimitiveInteraction.getValence());
-					this.setInteraction(alternateInteraction);
-					System.out.println("alternate interaction " + alternateInteraction.getLabel());
-					this.terminated = true;
-				}
-				step++;
-			}
-			else{
-				if (enactedPrimitiveInteraction.equals(this.getExperience().getInteraction().getPostInteraction()))
-					this.setInteraction(this.getExperience().getInteraction());
-				else{
-					this.getCoupling().createOrGetPrimitiveInteraction(this.getExperience(), result, this.getExperience().getInteraction().getPreInteraction().getValence() + enactedPrimitiveInteraction.getValence());
-					Interaction3 alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
-					System.out.println("alternate interaction " + alternateInteraction.getLabel());
-					this.setInteraction(alternateInteraction);
-				}
-				this.terminated = true;
-			}			
-		}
 	}
 
 	@Override

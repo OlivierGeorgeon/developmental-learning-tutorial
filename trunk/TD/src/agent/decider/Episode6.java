@@ -7,12 +7,13 @@ import org.w3c.dom.*;
 import tracer.Trace;
 import coupling.Coupling3;
 import coupling.Coupling6;
+import coupling.Intention4;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction3;
 
-public class Episode6 extends Episode4{
+public class Episode6 extends Intention4{
 
 	private List<Interaction2> series = new ArrayList<Interaction2>();
 	
