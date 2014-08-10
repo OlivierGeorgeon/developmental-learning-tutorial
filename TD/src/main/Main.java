@@ -24,16 +24,19 @@ public class Main {
 	
 	public static void main(String[] args){
 		
+		/** Change this line to use another tracer: */
 		Tracer<Element> tracer = new ConsoleTracer();
 		//Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","OgoKXiacniNKfSYySo-npitjFOXwRM");
 		//Tracer<Element> tracer = new AbstractLiteTracer("http://134.214.128.53/abstract/lite/php/stream/","l-kHWqeLDlSZT-TdBrLSoXVeBRCRsw");
 		//Tracer<Element> tracer = new AbstractLiteTracer("http://macbook-pro-de-olivier-2.local/alite/php/stream/","BGKGGBbdjxbYzYAlvXrjbVMjOwyXEA");
 		Trace.init(tracer);		
 
+		/** Change this line to run another existence: */
 		//Existence existence = new Existence0();
 		//Existence existence = new Existence01();
 		Existence existence = new Existence3();
 		
+		/** Change this line to adjust the number of cycles of the loop: */
 		for(int i = 0 ; i < 50 ; i++){			
 			String stepTrace = existence.step();
 			System.out.println(i + ": " + stepTrace);
