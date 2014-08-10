@@ -30,13 +30,16 @@ public class Decider2 implements Decider{
 					
 		List<Interaction> affordedInteractions = this.existence.affordedInteractions();
 		
-		Interaction intendedInteraction = this.existence.getOtherInteraction(null);
-		if (affordedInteractions.size() > 0)
+		Interaction intendedInteraction;
+		if (affordedInteractions.size() > 0){
 			if (affordedInteractions.get(0).getValence() >= 0)
 				intendedInteraction = affordedInteractions.get(0);
 			else
 				intendedInteraction = (Interaction2)this.existence.getOtherInteraction(affordedInteractions.get(0));
-	
+		}
+		else 
+			intendedInteraction = this.existence.getOtherInteraction(null);
+			
 		return new Intention1(intendedInteraction.getExperience());
 	}
 }

@@ -9,14 +9,10 @@ import coupling.interaction.Interaction;
 import coupling.interaction.Interaction1;
 
 /**
- * An Existence0 simulates a "flow of consciousness" made of a succession of Experiences and Results.   
+ * An Existence0 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
  * The Existence0 is SELF-SATISFIED when the Result corresponds to the Result it expected, and FRUSTRATED otherwise.
- * Additionally, the Existence0 is BORED when it has been happy for too long, which causes it to try another Experience.  
+ * Additionally, the Existence0 is BORED when it has been SELF-SATISFIED for too long, which causes it to try another Experience.  
  * An Existence0 is still a single entity rather than being split into an explicit Agent and Environment.
- * An Existence0 demonstrates a rudimentary decisional mechanism but no learning.  
- * 
- * Existence0 illustrates the primacy of existence as a "monist" entity that precedes the dualism agent/environment.
- * 
  * @author Olivier
  */
 public class Existence0 implements Existence {
@@ -54,6 +50,10 @@ public class Existence0 implements Existence {
 		return this.experience.getLabel() + this.result.getLabel();
 	}
 
+	/**
+	 * @param result: The result obtained in the previous cycle.
+	 * @return The next experience.
+	 */
 	protected Experience chooseExperience(Result result){
 
 		if (this.expectedResult != null && this.expectedResult.equals(result))
@@ -79,6 +79,10 @@ public class Existence0 implements Existence {
 		return this.experience;
 	}
 	
+	/**
+	 * @param experience: The current experience.
+	 * @return The result of this experience.
+	 */
 	public Result giveResult(Experience experience){
 		if (experience.equals(createOrGetExperience(LABEL_E1)))
 			return createOrGetResult(LABEL_R1);
@@ -86,6 +90,13 @@ public class Existence0 implements Existence {
 			return createOrGetResult(LABEL_R2);
 	}
 	
+	/**
+	 * Create an interaction as a tuple <experience, result>.
+	 * @param experience: The experience.
+	 * @param result: The result.
+	 * @param valence: The valence of this interaction (not used in Existence0)
+	 * @return The created interaction
+	 */
 	protected Interaction createPrimitiveInteraction(Experience experience, Result result, int valence) {
 		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
@@ -93,16 +104,31 @@ public class Existence0 implements Existence {
 		return interaction;
 	}
 
+	/**
+	 * Records an interaction in memory.
+	 * @param label: The label of this interaction.
+	 * @param valence: The valence of this interaction (not used in Existence0)
+	 * @return The interaction.
+	 */
 	protected Interaction createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
 			INTERACTIONS.put(label, new Interaction1(label, valence));			
 		return INTERACTIONS.get(label);
 	}
 	
+	/**
+	 * Finds an interaction from its label
+	 * @param label: The label of this interaction.
+	 * @return The interaction.
+	 */
 	protected Interaction getInteraction(String label){
 		return INTERACTIONS.get(label);
 	}
 	
+	/**
+	 * Finds an interaction from its experience
+	 * @return The interaction.
+	 */
 	protected Interaction predict(Experience experience){
 		Interaction interaction = null;
 		
@@ -113,12 +139,22 @@ public class Existence0 implements Existence {
 		return interaction;
 	}
 
+	/**
+	 * Creates a new experience from its label and stores it in memory.
+	 * @param label: The experience's label
+	 * @return The experience.
+	 */
 	protected Experience createOrGetExperience(String label) {
 		if (!EXPERIENCES.containsKey(label))
 			EXPERIENCES.put(label, new Experience(label));			
 		return EXPERIENCES.get(label);
 	}
 
+	/**
+	 * Finds an experience different from that passed in parameter.
+	 * @param experience: The experience that we don't want
+	 * @return The other experience.
+	 */
 	protected Experience getOtherExperience(Experience experience) {
 		Experience otherExperience = null;
 		for (Experience e : EXPERIENCES.values()){
@@ -130,6 +166,11 @@ public class Existence0 implements Existence {
 		return otherExperience;
 	}
 
+	/**
+	 * Creates a new result from its label and stores it in memory.
+	 * @param label: The result's label
+	 * @return The result.
+	 */
 	protected Result createOrGetResult(String label) {
 		if (!RESULTS.containsKey(label))
 			RESULTS.put(label, new Result(label));			
