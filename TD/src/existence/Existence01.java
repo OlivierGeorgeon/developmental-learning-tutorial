@@ -15,8 +15,6 @@ import coupling.Result;
  * Try to change the Valences of interactions and the method giveResult(experience) 
  * and observe that the Existence01 still learns to enact interactions that have positive valences.  
  * 
- * Existece1 illustrates a motivational system based upon the valence of interactions.
- * 
  * @author Olivier
  */
 public class Existence01 extends Existence0 {
@@ -27,10 +25,11 @@ public class Existence01 extends Existence0 {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, 1); // Change the valence of interactions to change the agent's motivation 
-		createPrimitiveInteraction(e1, r2, -1);
-		createPrimitiveInteraction(e2, r1, 1);
-		createPrimitiveInteraction(e2, r2, -1);		
+		/** Change the valence of interactions to change the agent's motivation */
+		createPrimitiveInteraction(e1, r1, -1);  
+		createPrimitiveInteraction(e1, r2, 1);
+		createPrimitiveInteraction(e2, r1, -1);
+		createPrimitiveInteraction(e2, r2, 1);		
 	}
 	
 	@Override
@@ -50,13 +49,13 @@ public class Existence01 extends Existence0 {
 		return this.experience;
 	}
 	
-	// Change the function giveResult(experience) to produce different results of experiences
+	/** Change the function giveResult(experience) to produce different results of experiences */
 	@Override
 	public Result giveResult(Experience experience){
 		if (experience.equals(this.createOrGetExperience(LABEL_E1)))
-			return this.createOrGetResult(LABEL_R2);
-		else
 			return this.createOrGetResult(LABEL_R1);
+		else
+			return this.createOrGetResult(LABEL_R2);
 	}
 
 }
