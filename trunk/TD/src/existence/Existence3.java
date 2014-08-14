@@ -88,10 +88,10 @@ public class Existence3 extends Existence2 {
 	protected List<Proposition> getDefaultPropositions(){
 		List<Proposition> propositions = new ArrayList<Proposition>();
 		for (Experience experience : this.EXPERIENCES.values()){
-			if (experience.isPrimitive()){
+			//if (experience.isPrimitive()){
 				Proposition proposition = new Proposition(experience, 0);
 				propositions.add(proposition);
-			}
+			//}
 		}
 		return propositions;
 	}

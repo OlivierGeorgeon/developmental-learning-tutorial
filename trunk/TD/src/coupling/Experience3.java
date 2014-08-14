@@ -5,7 +5,7 @@ import coupling.interaction.Interaction3;
 public class Experience3 extends Experience {
 
 	/**
-	 * The experience's interaction.
+	 * The experience's sub-interaction.
 	 */
 	private Interaction3 interaction;
 	
