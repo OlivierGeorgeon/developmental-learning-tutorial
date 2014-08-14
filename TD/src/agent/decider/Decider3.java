@@ -10,7 +10,7 @@ import existence.Existence3;
 
 /**
  * Decider3 can adapt to Reality1, Reality2 or Reality3.
- * Like Decider2, Decider3 seeks to enact interactions that have positive values.
+ * Like Decider2, Decider3 seeks to enact interactions that have positive valence.
  * Decider3 illustrates the benefit of reinforcing the weight of composite interactions
  * and of using the weight of activated interactions to balance the decision.   
  * @author Olivier
