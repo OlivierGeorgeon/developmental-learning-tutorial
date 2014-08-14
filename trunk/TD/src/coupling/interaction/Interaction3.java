@@ -1,5 +1,10 @@
 package coupling.interaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import coupling.Experience3;
+
 /**
  * An Interaction3 is an Interaction2 with a weight.
  * @author Olivier.
@@ -12,6 +17,18 @@ public class Interaction3 extends Interaction2 {
 		super(label, valence);
 	}
 	
+	public Experience3 getExperience() {
+		return (Experience3)super.getExperience(); 
+	}
+
+	public Interaction3 getPreInteraction() {
+		return (Interaction3)super.getPreInteraction();
+	}
+
+	public Interaction3 getPostInteraction() {
+		return (Interaction3)super.getPostInteraction();
+	}
+	
 	public int getWeight() {
 		return weight;
 	}
@@ -20,6 +37,17 @@ public class Interaction3 extends Interaction2 {
 		this.weight++;
 	}
 	
+	public List<Interaction3> getSeries(){
+		List<Interaction3> series = new ArrayList<Interaction3>();
+				
+		if (this.getExperience().isPrimitive())	
+			series.add(this);
+		else{
+			series.addAll(this.getPreInteraction().getSeries());
+			series.addAll(this.getPostInteraction().getSeries());
+		}		
+		return series;
+	}
 	public String toString(){
 		return this.getLabel() + "," + this.getValence() + "," + this.weight;
 	}	
