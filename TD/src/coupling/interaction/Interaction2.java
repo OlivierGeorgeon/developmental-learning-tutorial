@@ -32,17 +32,17 @@ public class Interaction2 extends Interaction1{
 		this.postInteraction = postInteraction;
 	}
 
-	public List<Interaction2> getSeries(){
-		List<Interaction2> series = new ArrayList<Interaction2>();
-				
-		if (this.getExperience().isPrimitive())	
-			series.add(this);
-		else{
-			series.addAll(this.getPreInteraction().getSeries());
-			series.addAll(this.getPostInteraction().getSeries());
-		}		
-		return series;
-	}
+//	public List<Interaction2> getSeries(){
+//		List<Interaction2> series = new ArrayList<Interaction2>();
+//				
+//		if (this.getExperience().isPrimitive())	
+//			series.add(this);
+//		else{
+//			series.addAll(this.getPreInteraction().getSeries());
+//			series.addAll(this.getPostInteraction().getSeries());
+//		}		
+//		return series;
+//	}
 
 	public String toString(){
 		if (this.preInteraction != null)

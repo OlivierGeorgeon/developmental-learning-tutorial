@@ -33,7 +33,8 @@ public class Main {
 
 		/** Change this line to run another existence: */
 		//Existence existence = new Existence0();
-		Existence existence = new Existence01();
+		//Existence existence = new Existence01();
+		Existence existence = new Existence2();
 		//Existence existence = new Existence3();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
