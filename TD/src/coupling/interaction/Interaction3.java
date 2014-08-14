@@ -3,7 +3,7 @@ package coupling.interaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import coupling.Experience3;
+import coupling.Experience4;
 
 /**
  * An Interaction3 is an Interaction2 with a weight.
@@ -17,8 +17,8 @@ public class Interaction3 extends Interaction2 {
 		super(label, valence);
 	}
 	
-	public Experience3 getExperience() {
-		return (Experience3)super.getExperience(); 
+	public Experience4 getExperience() {
+		return (Experience4)super.getExperience(); 
 	}
 
 	public Interaction3 getPreInteraction() {

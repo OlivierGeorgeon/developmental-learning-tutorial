@@ -2,14 +2,14 @@ package coupling;
 
 import coupling.interaction.Interaction3;
 
-public class Experience3 extends Experience {
+public class Experience4 extends Experience {
 
 	/**
 	 * The experience's sub-interaction.
 	 */
 	private Interaction3 interaction;
 	
-	public Experience3(String label){
+	public Experience4(String label){
 		super(label);
 	}
 
