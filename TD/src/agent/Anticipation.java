@@ -1,4 +1,4 @@
-package agent.decider;
+package agent;
 
 public interface Anticipation extends Comparable<Anticipation>{
 

@@ -3,7 +3,7 @@ package existence;
 import java.util.Collections;
 import java.util.List;
 import tracer.Trace;
-import agent.decider.Anticipation;
+import agent.Anticipation;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction031;
