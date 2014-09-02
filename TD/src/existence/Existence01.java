@@ -3,14 +3,15 @@ package existence;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
+import coupling.interaction.Interaction;
+import coupling.interaction.Interaction2;
 
 /**
- * An Existence01 is a sort of Existence0 in which each Interaction has a predefined Valence.
- * (An Interaction is a pair [Experience, Result].) 
+ * An Existence2 is a sort of Existence1 in which each Interaction has a predefined Valence.
  * When a given Experience is performed and a given Result is obtained, the corresponding Interaction is considered enacted.
- * The Existence01 is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
- * An Existence0 is still a single entity rather than being split into an explicit Agent and Environment. 
- * An Existence0 demonstrates a rudimentary decisional mechanism and a rudimentary learning mechanism.
+ * The Existence2 is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
+ * An Existence2 is still a single entity rather than being split into an explicit Agent and Environment. 
+ * An Existence2 demonstrates a rudimentary decisional mechanism and a rudimentary learning mechanism.
  * It learns to choose the Experience that induces an Interaction that has a positive valence.  
  * Try to change the Valences of interactions and the method giveResult(experience) 
  * and observe that the Existence01 still learns to enact interactions that have positive valences.  
@@ -56,6 +57,37 @@ public class Existence01 extends Existence1 {
 			return this.createOrGetResult(LABEL_R1);
 		else
 			return this.createOrGetResult(LABEL_R2);
+	}
+
+	/**
+	 * Create an interaction as a tuple <experience, result>.
+	 * @param experience: The experience.
+	 * @param result: The result.
+	 * @param valence: the interaction's valence
+	 * @return The created interaction
+	 */
+	protected Interaction createPrimitiveInteraction(Experience experience, Result result, int valence) {
+		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+		interaction.setExperience(experience);
+		interaction.setResult(result);
+		return interaction;
+	}
+
+	/**
+	 * Records an interaction in memory.
+	 * @param label: The label of this interaction.
+	 * @param valence: the interaction's valence
+	 * @return The interaction.
+	 */
+	protected Interaction createOrGet(String label, int valence) {
+		if (!INTERACTIONS.containsKey(label))
+			INTERACTIONS.put(label, new Interaction2(label, valence));			
+		return INTERACTIONS.get(label);
+	}
+	
+	@Override
+	protected Interaction2 getInteraction(String label){
+		return (Interaction2)INTERACTIONS.get(label);
 	}
 
 }
