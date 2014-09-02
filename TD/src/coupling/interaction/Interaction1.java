@@ -9,27 +9,17 @@ import coupling.Result;
 public class Interaction1 implements Interaction{
 	
 	private String label;
-	private Experience experience;
-	private Result result;
-	private int valence;
+	protected Experience experience;
+	protected Result result;
 	
-	public Interaction1(String label, int valence){
+	public Interaction1(String label){
 		this.label = label;
-		this.valence = valence;
 	}
 	
 	public String getLabel(){
 		return this.label;
 	}
 	
-	public int getValence(){
-		return this.valence;
-	}
-
-	public int compareTo(Interaction interaction){
-		return new Integer(interaction.getValence()).compareTo(this.getValence());
-	}
-
 	public Experience getExperience() {
 		return experience;
 	}
@@ -47,7 +37,7 @@ public class Interaction1 implements Interaction{
 	}
 
 	public String toString(){
-		return this.experience.getLabel() + this.result.getLabel() + "," + this.getValence();
+		return this.experience.getLabel() + this.result.getLabel();
 	}
 
 }

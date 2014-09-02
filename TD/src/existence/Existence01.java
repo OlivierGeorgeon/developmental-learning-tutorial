@@ -51,7 +51,7 @@ public class Existence01 extends Existence1 {
 	
 	/** Change the function giveResult(experience) to produce different results of experiences */
 	@Override
-	public Result giveResult(Experience experience){
+	public Result returnResult(Experience experience){
 		if (experience.equals(this.createOrGetExperience(LABEL_E1)))
 			return this.createOrGetResult(LABEL_R1);
 		else
