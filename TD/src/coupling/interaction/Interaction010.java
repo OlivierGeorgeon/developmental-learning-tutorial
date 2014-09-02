@@ -4,7 +4,7 @@ import coupling.Experience;
 import coupling.Result;
 
 /**
- * An interaction1 is the association of an experience with a result.
+ * An interaction010 is the association of an experience with a result.
  */
 public class Interaction010 implements Interaction{
 	

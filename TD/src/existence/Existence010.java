@@ -217,6 +217,4 @@ public class Existence010 implements Existence {
 		else
 			return createOrGetResult(LABEL_R2);
 	}
-
-
 }

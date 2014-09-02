@@ -7,6 +7,7 @@ import existence.Existence010;
 import existence.Existence020;
 import existence.Existence021;
 import existence.Existence030;
+import existence.Existence031;
 import existence.Existence3_;
 
 import tracer.AbstractLiteTracer;
@@ -32,10 +33,10 @@ public class Main {
 		Trace.init(tracer);		
 
 		/** Change this line to run another existence: */
-		//Existence existence = new Existence0();
-		//Existence existence = new Existence01();
-		Existence existence = new Existence030();
-		//Existence existence = new Existence3();
+		//Existence existence = new Existence010();
+		//Existence existence = new Existence020();
+		Existence existence = new Existence031();
+		//Existence existence = new Existence040();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
 		for(int i = 0 ; i < 20 ; i++){			

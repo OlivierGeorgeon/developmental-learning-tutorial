@@ -1,7 +1,7 @@
 package coupling.interaction;
 
 /**
- * An interaction1 is the association of an experience with a result.
+ * An Interaction020 is an Interaction010 with a valence. 
  */
 public class Interaction020 extends Interaction010{
 	
