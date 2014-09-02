@@ -3,20 +3,17 @@ package existence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import reactive.Environment2;
 import tracer.Trace;
-import agent.decider.Decider2;
+import agent.decider.Anticipation030;
 import coupling.Experience;
-import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction020;
 import coupling.interaction.Interaction030;
 
 /**
  * Existence030 is a sort of Existence020.
  * It learns composite interactions (Interaction030). 
- * It bases its next choice on the composite interactions that are reactivated
+ * It bases its next choice on anticipations that can be made from reactivated composite interactions.
  */
 public class Existence030 extends Existence020 {
 
@@ -44,29 +41,11 @@ public class Existence030 extends Existence020 {
 		else
 			Trace.addEventElement("mood", "PAINED");
 		createOrGetCompositeInteraction(this.contextInteraction, this.enactedInteraction);
+		List<Anticipation030> anticipations = computeAnticipations(this.enactedInteraction);
+		Experience experience = chooseExperience(anticipations);
+		return experience;
+	}
 		
-	}
-	
-	@Override
-	protected void learn(){
-
-		this.contextInteraction = this.enactedInteraction;
-		this.enactedInteraction = ((Obtention2)this.obtention).getInteraction();
-		
-		if (this.enactedInteraction.getValence() >= 0)
-			Trace.addEventElement("mood", "PLEASED");
-		else{
-			Trace.addEventElement("mood", "PAINED");
-		}
-
-		if (this.contextInteraction != null )
-			this.createOrGetCompositeInteraction(this.contextInteraction, this.enactedInteraction);		
-	}
-	
-	protected Interaction030 createNewInteraction(String label, int valence){
-		return new Interaction030(label, valence);
-	}
-
 	public Interaction030 createOrGetCompositeInteraction(
 		Interaction030 preInteraction, Interaction030 postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
@@ -77,16 +56,31 @@ public class Existence030 extends Existence020 {
 		return interaction;
 	}
 
-	public List<Interaction> affordedInteractions(){
-		List<Interaction> interactions = new ArrayList<Interaction>();
-		if (this.enactedInteraction != null){
+	public List<Anticipation030> computeAnticipations(Interaction030 enactedInteraction){
+		List<Anticipation030> anticipations = new ArrayList<Anticipation030>();
+		if (enactedInteraction != null){
 			for (Interaction activatedInteraction : this.getActivatedInteractions(this.enactedInteraction)){
-				interactions.add(((Interaction030)activatedInteraction).getPostInteraction());
+				Interaction030 proposedInteraction = ((Interaction030)activatedInteraction).getPostInteraction();
+				anticipations.add(new Anticipation030(proposedInteraction));
 				System.out.println("afforded " + ((Interaction030)activatedInteraction).getPostInteraction().getLabel());
 			}
 		}
-		Collections.sort(interactions);
-		return interactions;
+		return anticipations;
+	}
+	
+	public Experience chooseExperience(List<Anticipation030> anticipations){
+		Collections.sort(anticipations);
+		Interaction intendedInteraction;
+		if (anticipations.size() > 0){
+			Interaction030 affordedInteraction = anticipations.get(0).getInteraction();
+			if (affordedInteraction.getValence() >= 0)
+				intendedInteraction = affordedInteraction;
+			else
+				intendedInteraction = (Interaction030)this.getOtherInteraction(affordedInteraction);
+		}
+		else 
+			intendedInteraction = this.getOtherInteraction(null);
+		return intendedInteraction.getExperience();
 	}
 
 	protected List<Interaction> getActivatedInteractions(Interaction interaction) {
@@ -96,7 +90,24 @@ public class Existence030 extends Existence020 {
 				activatedInteractions.add((Interaction030)activatedInteraction);
 		return activatedInteractions;
 	}	
-	
+
+	@Override
+	protected Interaction030 getInteraction(String label){
+		return (Interaction030)INTERACTIONS.get(label);
+	}
+
+	public Interaction getOtherInteraction(Interaction interaction) {
+		Interaction otherInteraction = (Interaction)INTERACTIONS.values().toArray()[0];
+		if (interaction != null)
+			for (Interaction e : INTERACTIONS.values()){
+				if (e.getExperience() != null && e.getExperience()!=interaction.getExperience()){
+					otherInteraction =  e;
+					break;
+				}
+			}		
+		return otherInteraction;
+	}
+
 	/**
 	 * Environment030
 	 */
@@ -114,9 +125,4 @@ public class Existence030 extends Existence020 {
 		return result;
 	}
 	
-	@Override
-	protected Interaction030 getInteraction(String label){
-		return (Interaction030)INTERACTIONS.get(label);
-	}
-
 }
