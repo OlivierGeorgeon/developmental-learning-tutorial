@@ -5,7 +5,7 @@ import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention2;
 import coupling.Result;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction2_;
 import existence.Existence1_;
 
 /**
@@ -28,7 +28,7 @@ public class Environment2 extends Environment1 {
 		Experience experience = ((Intention1)intention).getExperience();
 		Result result = giveResult(experience);
 		
-		Interaction2 currentInteraction = (Interaction2)this.existence.createOrGetPrimitiveInteraction(experience, result, 0);
+		Interaction2_ currentInteraction = (Interaction2_)this.existence.createOrGetPrimitiveInteraction(experience, result, 0);
 		
 		return new Obtention2(currentInteraction);
 	}

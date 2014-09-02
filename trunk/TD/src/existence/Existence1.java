@@ -9,10 +9,10 @@ import coupling.interaction.Interaction;
 import coupling.interaction.Interaction1;
 
 /**
- * An Existence0 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
- * The Existence0 is SELF-SATISFIED when the Result corresponds to the Result it expected, and FRUSTRATED otherwise.
+ * An Existence1 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
+ * The Existence1 is SELF-SATISFIED when the Result corresponds to the Result it expected, and FRUSTRATED otherwise.
  * Additionally, the Existence0 is BORED when it has been SELF-SATISFIED for too long, which causes it to try another Experience.  
- * An Existence0 is still a single entity rather than being split into an explicit Agent and Environment.
+ * An Existence1 is still a single entity rather than being split into an explicit Agent and Environment.
  * @author Olivier
  */
 public class Existence1 implements Existence {
@@ -94,7 +94,7 @@ public class Existence1 implements Existence {
 	 * Create an interaction as a tuple <experience, result>.
 	 * @param experience: The experience.
 	 * @param result: The result.
-	 * @param valence: The valence of this interaction (not used in Existence0)
+	 * @param valence: The valence of this interaction (not used in Existence1)
 	 * @return The created interaction
 	 */
 	protected Interaction createPrimitiveInteraction(Experience experience, Result result, int valence) {
@@ -107,7 +107,7 @@ public class Existence1 implements Existence {
 	/**
 	 * Records an interaction in memory.
 	 * @param label: The label of this interaction.
-	 * @param valence: The valence of this interaction (not used in Existence0)
+	 * @param valence: The valence of this interaction (not used in Existence1)
 	 * @return The interaction.
 	 */
 	protected Interaction createOrGet(String label, int valence) {
