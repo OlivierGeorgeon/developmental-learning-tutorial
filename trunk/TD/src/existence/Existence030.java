@@ -19,8 +19,8 @@ import coupling.interaction.Interaction030;
  */
 public class Existence030 extends Existence020 {
 
-	private Interaction030 contextInteraction;
-	private Interaction030 enactedInteraction;
+	private Interaction030 contextInteraction = null;
+	private Interaction030 enactedInteraction = null;
 
 	@Override
 	protected void initExistence(){
@@ -47,7 +47,7 @@ public class Existence030 extends Existence020 {
 		this.setContextInteraction(this.getEnactedInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return enactedInteraction.getLabel();
+		return enactedInteraction.toString();
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class Existence030 extends Existence020 {
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
 		interaction.setValence(valence);
-		System.out.println("learn " + interaction.toString());
+		System.out.println("learn " + interaction.getLabel());
 		return interaction;
 	}
 
@@ -100,10 +100,10 @@ public class Existence030 extends Existence020 {
 	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		if (enactedInteraction != null){
-			for (Interaction activatedInteraction : this.getActivatedInteractions(this.enactedInteraction)){
+			for (Interaction activatedInteraction : this.getActivatedInteractions(enactedInteraction)){
 				Interaction030 proposedInteraction = ((Interaction030)activatedInteraction).getPostInteraction();
 				anticipations.add(new Anticipation030(proposedInteraction));
-				System.out.println("afforded " + ((Interaction030)activatedInteraction).getPostInteraction().getLabel());
+				System.out.println("afforded " + proposedInteraction.toString());
 			}
 		}
 		return anticipations;
@@ -155,11 +155,11 @@ public class Existence030 extends Existence020 {
 	protected Interaction030 getContextInteraction(){
 		return this.contextInteraction;
 	}
-	protected void setEnactedInteraction(Interaction030 contextInteraction){
-		this.contextInteraction = contextInteraction;
+	protected void setEnactedInteraction(Interaction030 enactedInteraction){
+		this.enactedInteraction = enactedInteraction;
 	}
 	protected Interaction030 getEnactedInteraction(){
-		return this.contextInteraction;
+		return this.enactedInteraction;
 	}
 
 	/**

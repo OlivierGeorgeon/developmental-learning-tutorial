@@ -3,7 +3,6 @@ package existence;
 /**
  * An Existence is an Object that simulates a "stream of intelligence" when it is run step by step.   
  * Each call to the Step() method generates an "event of intelligence" that can be traced.
- * @author Olivier
  */
 public interface Existence {
 	
