@@ -45,6 +45,11 @@ public class Existence031 extends Existence030 {
 		return new Interaction031(label);
 	}
 
+	/**
+	 * Computes the list of anticipations
+	 * @param the enacted interaction
+	 * @return the list of anticipations
+	 */
 	@Override
 	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
 		List<Anticipation> anticipations = this.getDefaultPropositions(); 
@@ -73,8 +78,8 @@ public class Existence031 extends Existence030 {
 	
 
 	@Override
-	public Experience chooseExperience(List<Anticipation> anticipations){
-		// The list of anticipations is never empty because all experiences are proposed by default with a proclivity of 0
+	public Experience selectExperience(List<Anticipation> anticipations){
+		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
 		Collections.sort(anticipations);
 		for (Anticipation anticipation : anticipations)
 			System.out.println("propose " + anticipation.toString());

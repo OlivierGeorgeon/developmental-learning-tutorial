@@ -9,13 +9,13 @@ import agent.decider.Anticipation030;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction020;
 import coupling.interaction.Interaction030;
 
 /**
  * Existence030 is a sort of Existence020.
  * It learns composite interactions (Interaction030). 
  * It bases its next choice on anticipations that can be made from reactivated composite interactions.
+ * Existence030 illustrates the benefit of basing the next decision upon the previous enacted Interaction.   
  */
 public class Existence030 extends Existence020 {
 
@@ -57,8 +57,7 @@ public class Existence030 extends Existence020 {
 			Trace.addEventElement("mood", "PAINED");
 		learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
 		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
-		Experience experience = chooseExperience(anticipations);
-		return experience;
+		return selectExperience(anticipations);
 	}
 		
 	public void learnCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
@@ -87,6 +86,11 @@ public class Existence030 extends Existence020 {
 		return new Interaction030(label);
 	}
 
+	/**
+	 * Computes the list of anticipations
+	 * @param the enacted interaction
+	 * @return the list of anticipations
+	 */
 	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		if (enactedInteraction != null){
@@ -99,7 +103,7 @@ public class Existence030 extends Existence020 {
 		return anticipations;
 	}
 	
-	public Experience chooseExperience(List<Anticipation> anticipations){
+	public Experience selectExperience(List<Anticipation> anticipations){
 		Collections.sort(anticipations);
 		Interaction intendedInteraction;
 		if (anticipations.size() > 0){
@@ -142,7 +146,7 @@ public class Existence030 extends Existence020 {
 	/**
 	 * Environment030
 	 */
-	protected Experience previousExperience;
+	private Experience previousExperience;
 
 	public Result returnResult030(Experience experience){
 		Result result = null;
