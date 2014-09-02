@@ -11,7 +11,7 @@ import coupling.interaction.Interaction4;
 import coupling.Experience;
 import coupling.Experience4;
 
-public class Existence4 extends Existence3_ {
+public class Existence4_ extends Existence3_ {
 
 	private Interaction4 interaction_1;
 	private Interaction4 interaction_2;

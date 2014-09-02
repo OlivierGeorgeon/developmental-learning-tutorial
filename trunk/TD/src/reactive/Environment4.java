@@ -7,7 +7,7 @@ import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction3;
-import existence.Existence4;
+import existence.Existence4_;
 
 /**
  * A Reality4 is a sort of Reality3 that expects an Intention1 which specifies an experience,
@@ -24,13 +24,13 @@ public class Environment4 extends Environment3 {
 	
 	protected Experience penultimateExperience;
 
-	public Environment4(Existence4 existence){
+	public Environment4(Existence4_ existence){
 		super(existence);
 	}
 	
 	@Override
-	protected Existence4 getExistence(){
-		return (Existence4)this.existence;
+	protected Existence4_ getExistence(){
+		return (Existence4_)this.existence;
 	}
 
 

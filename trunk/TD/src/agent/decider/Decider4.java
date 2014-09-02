@@ -1,6 +1,6 @@
 package agent.decider;
 
-import existence.Existence4;
+import existence.Existence4_;
 
 /**
  * Decider4 is the same as Decider3.
@@ -9,7 +9,7 @@ import existence.Existence4;
  */
 public class Decider4 extends Decider3{
 	
-	public Decider4(Existence4 existence){
+	public Decider4(Existence4_ existence){
 		super(existence);
 	}
 

@@ -3,7 +3,7 @@ package reactive;
 import coupling.Experience;
 import coupling.Result;
 import existence.Existence1_;
-import existence.Existence4;
+import existence.Existence4_;
 
 /**
  * The environment of Exercise 5.
@@ -15,7 +15,7 @@ public class Environment5 extends Environment4 {
 
 	protected Experience antepenultimateExperience;
 
-	public Environment5(Existence4 existence){
+	public Environment5(Existence4_ existence){
 		super(existence);
 	}
 	
