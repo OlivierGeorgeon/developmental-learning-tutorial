@@ -9,7 +9,7 @@ import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
-import existence.Existence2;
+import existence.Existence2_;
 
 /**
  * Like Decider2, Decider21 can adapt to Reality1 or Reality2.
@@ -30,7 +30,7 @@ public class Decider21 extends Decider2{
 	
 	private Result expectedResult;
 	
-	public Decider21(Existence2 existence){
+	public Decider21(Existence2_ existence){
 		super(existence);
 	}
 	

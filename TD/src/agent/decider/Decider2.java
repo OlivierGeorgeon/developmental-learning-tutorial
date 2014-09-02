@@ -8,7 +8,7 @@ import coupling.Obtention;
 import coupling.Obtention2;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction2;
-import existence.Existence2;
+import existence.Existence2_;
 
 /**
  * Decider2 can adapt to Reality1 or Reality2.
@@ -20,9 +20,9 @@ import existence.Existence2;
  */
 public class Decider2 implements Decider{
 
-	protected Existence2 existence;
+	protected Existence2_ existence;
 	
-	public Decider2(Existence2 existence){
+	public Decider2(Existence2_ existence){
 		this.existence = existence;
 	}
 	
