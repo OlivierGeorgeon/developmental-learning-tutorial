@@ -3,18 +3,13 @@ package coupling.interaction;
 import coupling.Experience;
 import coupling.Result;
 
-public interface Interaction extends Comparable<Interaction>{
+public interface Interaction{
 
 	/**
 	 * @return The interaction's label
 	 */
 	public String getLabel();
 	
-	/**
-	 * @return The interaction's valence
-	 */
-	public int getValence();
-
 	/**
 	 * @return The interaction's experience
 	 */
