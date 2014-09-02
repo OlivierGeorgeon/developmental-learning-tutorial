@@ -27,7 +27,7 @@ import coupling.interaction.Interaction1;
  * 
  * @author Olivier
  */
-public class Existence1 implements Existence {
+public class Existence1_ implements Existence {
 
 	public final String LABEL_E1 = "e1"; 
 	public final String LABEL_E2 = "e2"; 
@@ -42,7 +42,7 @@ public class Existence1 implements Existence {
 	protected Environment reactive;
 	protected Obtention obtention;
 	
-	public Existence1(){
+	public Existence1_(){
 		initExistence();
 	}	
 	
