@@ -7,7 +7,7 @@ import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
-import existence.Existence1_;
+import existence.Existence021;
 
 /**
  * Decider1 is a re-implementation of the decisional mechanism of Existence01.
@@ -18,12 +18,12 @@ import existence.Existence1_;
  * and observe that the Decider1 still learns to enact interactions that have positive valences.  
  * @author Olivier
  */
-public class Decider1 implements Decider{
+public class Decider021 implements Decider{
 
-	private Existence1_ existence;
+	private Existence021 existence;
 	private Experience experience;
 	
-	public Decider1(Existence1_ existence){
+	public Decider021(Existence021 existence){
 		this.existence = existence;
 	}
 	

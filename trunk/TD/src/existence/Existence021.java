@@ -8,7 +8,7 @@ import reactive.Environment1;
 import tracer.Trace;
 
 import agent.decider.Decider;
-import agent.decider.Decider1;
+import agent.decider.Decider021;
 import coupling.Experience;
 import coupling.Obtention;
 import coupling.Intention;
@@ -27,7 +27,7 @@ import coupling.interaction.Interaction010;
  * 
  * @author Olivier
  */
-public class Existence1_ implements Existence {
+public class Existence021 implements Existence {
 
 	public final String LABEL_E1 = "e1"; 
 	public final String LABEL_E2 = "e2"; 
@@ -42,12 +42,12 @@ public class Existence1_ implements Existence {
 	protected Environment reactive;
 	protected Obtention obtention;
 	
-	public Existence1_(){
+	public Existence021(){
 		initExistence();
 	}	
 	
 	protected void initExistence(){
-		this.proactive = new Decider1(this);
+		this.proactive = new Decider021(this);
 		this.reactive = new Environment1(this);
 		
 		Experience e1 = createOrGetExperience(LABEL_E1);

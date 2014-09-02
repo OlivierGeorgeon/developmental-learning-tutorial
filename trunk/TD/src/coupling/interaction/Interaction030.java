@@ -1,29 +1,29 @@
 package coupling.interaction;
 
 /**
- * An Interaction2 is an Interaction that can be primitive or composite
+ * An Interaction030 is an Interaction that can be primitive or composite
  * A composite interaction has a preInteraction and a postInteraction.
  * @author Olivier
  */
-public class Interaction2_ extends Interaction010{
+public class Interaction030 extends Interaction020{
 	
 	private Interaction preInteraction;
 	private Interaction postInteraction;
 
-	public Interaction2_(String label, int valence){
+	public Interaction030(String label, int valence){
 		super(label, valence);
 	}
 	
-	public Interaction2_ getPreInteraction() {
-		return (Interaction2_)preInteraction;
+	public Interaction030 getPreInteraction() {
+		return (Interaction030)preInteraction;
 	}
 
 	public void setPreInteraction(Interaction preInteraction) {
 		this.preInteraction = preInteraction;
 	}
 
-	public Interaction2_ getPostInteraction() {
-		return (Interaction2_)postInteraction;
+	public Interaction030 getPostInteraction() {
+		return (Interaction030)postInteraction;
 	}
 	
 	public void setPostInteraction(Interaction postInteraction) {
