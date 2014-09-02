@@ -4,7 +4,7 @@ import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction020;
 
 /**
  * An Existence2 is a sort of Existence1 in which each Interaction has a predefined Valence.
@@ -81,13 +81,13 @@ public class Existence01 extends Existence010 {
 	 */
 	protected Interaction createOrGet(String label, int valence) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction2(label, valence));			
+			INTERACTIONS.put(label, new Interaction020(label, valence));			
 		return INTERACTIONS.get(label);
 	}
 	
 	@Override
-	protected Interaction2 getInteraction(String label){
-		return (Interaction2)INTERACTIONS.get(label);
+	protected Interaction020 getInteraction(String label){
+		return (Interaction020)INTERACTIONS.get(label);
 	}
 
 }
