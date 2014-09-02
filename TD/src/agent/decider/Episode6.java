@@ -11,7 +11,7 @@ import coupling.Intention4;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction2_;
-import coupling.interaction.Interaction3;
+import coupling.interaction.Interaction3_;
 
 public class Episode6 extends Intention4{
 
@@ -19,7 +19,7 @@ public class Episode6 extends Intention4{
 	
 	private int valence;
 	
-	private Interaction3 alternateInteraction;
+	private Interaction3_ alternateInteraction;
 	
 	public Episode6(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
@@ -32,7 +32,7 @@ public class Episode6 extends Intention4{
 		
 		this.alternateInteraction = null;
 		
-		Interaction3 enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
+		Interaction3_ enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
 
 		Trace.addEventElement("enacted_interaction", enactedPrimitiveInteraction.getLabel());
 		Trace.addEventElement("primitive_enacted_schema", this.getPrimitiveExperience().getLabel());
@@ -71,7 +71,7 @@ public class Episode6 extends Intention4{
 						this.setInteraction(enactedPrimitiveInteraction);
 					else
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction3)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction3_)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 						
 					this.setTerminated();
 				}
@@ -88,7 +88,7 @@ public class Episode6 extends Intention4{
 						this.setInteraction(enactedPrimitiveInteraction);
 					else 
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction3)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction3_)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 				}
 				this.setTerminated();
 			}			
@@ -107,7 +107,7 @@ public class Episode6 extends Intention4{
 		return nextExperience; 
 	}
 	
-	public Interaction3 getAlternateInteraction(){
+	public Interaction3_ getAlternateInteraction(){
 		return this.alternateInteraction;
 	}
 }
