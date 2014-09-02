@@ -6,7 +6,7 @@ import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
-import existence.Existence1;
+import existence.Existence1_;
 
 /**
  * A Reality1 is a sort of Reality that expects an Intention of type Intention1 
@@ -17,9 +17,9 @@ import existence.Existence1;
  */
 public class Environment1 implements Environment {
 	
-	protected Existence1 existence;
+	protected Existence1_ existence;
 	
-	public Environment1(Existence1 existence1){
+	public Environment1(Existence1_ existence1){
 		this.existence = existence1;
 	}
 	
@@ -42,7 +42,7 @@ public class Environment1 implements Environment {
 		return result;
 	}
 	
-	protected Existence1 getExistence(){
+	protected Existence1_ getExistence(){
 		return this.existence;
 	}
 }
