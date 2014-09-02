@@ -5,25 +5,25 @@ package coupling.interaction;
  * A composite interaction has a preInteraction and a postInteraction.
  * @author Olivier
  */
-public class Interaction2 extends Interaction1{
+public class Interaction2_ extends Interaction1{
 	
 	private Interaction preInteraction;
 	private Interaction postInteraction;
 
-	public Interaction2(String label, int valence){
+	public Interaction2_(String label, int valence){
 		super(label, valence);
 	}
 	
-	public Interaction2 getPreInteraction() {
-		return (Interaction2)preInteraction;
+	public Interaction2_ getPreInteraction() {
+		return (Interaction2_)preInteraction;
 	}
 
 	public void setPreInteraction(Interaction preInteraction) {
 		this.preInteraction = preInteraction;
 	}
 
-	public Interaction2 getPostInteraction() {
-		return (Interaction2)postInteraction;
+	public Interaction2_ getPostInteraction() {
+		return (Interaction2_)postInteraction;
 	}
 	
 	public void setPostInteraction(Interaction postInteraction) {

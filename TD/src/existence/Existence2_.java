@@ -10,7 +10,7 @@ import coupling.Experience;
 import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction2_;
 
 /**
  * Existence2 is a sort of Existence1 that learns composite interactions (Interaction2). 
@@ -20,8 +20,8 @@ import coupling.interaction.Interaction2;
  */
 public class Existence2_ extends Existence1_ {
 
-	private Interaction2 contextInteraction;
-	private Interaction2 currentInteraction;
+	private Interaction2_ contextInteraction;
+	private Interaction2_ currentInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -55,14 +55,14 @@ public class Existence2_ extends Existence1_ {
 	}
 	
 	@Override
-	protected Interaction2 createNewInteraction(String label, int valence){
-		return new Interaction2(label, valence);
+	protected Interaction2_ createNewInteraction(String label, int valence){
+		return new Interaction2_(label, valence);
 	}
 
-	public Interaction2 createOrGetCompositeInteraction(
+	public Interaction2_ createOrGetCompositeInteraction(
 		Interaction preInteraction, Interaction postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction2 interaction = (Interaction2)createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
+		Interaction2_ interaction = (Interaction2_)createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
 		System.out.println("learn " + interaction.toString());
@@ -73,8 +73,8 @@ public class Existence2_ extends Existence1_ {
 		List<Interaction> interactions = new ArrayList<Interaction>();
 		if (this.currentInteraction != null){
 			for (Interaction activatedInteraction : this.getActivatedInteractions(this.currentInteraction)){
-				interactions.add(((Interaction2)activatedInteraction).getPostInteraction());
-				System.out.println("afforded " + ((Interaction2)activatedInteraction).getPostInteraction().getLabel());
+				interactions.add(((Interaction2_)activatedInteraction).getPostInteraction());
+				System.out.println("afforded " + ((Interaction2_)activatedInteraction).getPostInteraction().getLabel());
 			}
 		}
 		Collections.sort(interactions);
@@ -84,8 +84,8 @@ public class Existence2_ extends Existence1_ {
 	protected List<Interaction> getActivatedInteractions(Interaction interaction) {
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 		for (Interaction activatedInteraction : this.INTERACTIONS.values())
-			if (interaction == ((Interaction2)activatedInteraction).getPreInteraction())
-				activatedInteractions.add((Interaction2)activatedInteraction);
+			if (interaction == ((Interaction2_)activatedInteraction).getPreInteraction())
+				activatedInteractions.add((Interaction2_)activatedInteraction);
 		return activatedInteractions;
 	}	
 

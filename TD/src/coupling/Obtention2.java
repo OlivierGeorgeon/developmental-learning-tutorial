@@ -1,6 +1,6 @@
 package coupling;
 
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction2_;
 
 /**
  * An Obtention2 consists of an Interaction2
@@ -8,13 +8,13 @@ import coupling.interaction.Interaction2;
  */
 public class Obtention2 implements Obtention {
 	
-	protected Interaction2 interaction;
+	protected Interaction2_ interaction;
 	
-	public Obtention2(Interaction2 interaction){
+	public Obtention2(Interaction2_ interaction){
 		this.interaction = interaction;
 	}
 	
-	public Interaction2 getInteraction(){
+	public Interaction2_ getInteraction(){
 		return this.interaction;
 	}
 

@@ -3,6 +3,9 @@ package coupling.interaction;
 import coupling.Experience;
 import coupling.Result;
 
+/**
+ * An interaction1 is the association of an experience with a result.
+ */
 public class Interaction1 implements Interaction{
 	
 	private String label;

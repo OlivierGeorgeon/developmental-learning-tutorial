@@ -6,12 +6,12 @@ import coupling.Coupling3;
 import coupling.Intention4;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction2_;
 import coupling.interaction.Interaction3;
 
 public class Episode5 extends Intention4{
 
-	private List<Interaction2> series = new ArrayList<Interaction2>();
+	private List<Interaction2_> series = new ArrayList<Interaction2_>();
 	
 	private int valence;
 	
@@ -34,7 +34,7 @@ public class Episode5 extends Intention4{
 			this.setTerminated();
 		}
 		else{
-			Interaction2 intendedPrimitiveInteraction = this.series.get(this.getStep());
+			Interaction2_ intendedPrimitiveInteraction = this.series.get(this.getStep());
 			if (this.getStep() < this.series.size() -1){			
 				// TODO Manage different results for longer interactions
 				if (!enactedPrimitiveInteraction.equals(intendedPrimitiveInteraction)){

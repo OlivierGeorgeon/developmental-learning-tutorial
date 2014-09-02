@@ -8,7 +8,7 @@ import coupling.Obtention;
 import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction2_;
 import existence.Existence2_;
 
 /**
@@ -37,7 +37,7 @@ public class Decider21 extends Decider2{
 	@Override
 	public Intention chooseIntention(Obtention obtention){
 
-		Interaction2 interaction = null;
+		Interaction2_ interaction = null;
 		if (obtention != null) interaction = (((Obtention2)obtention).getInteraction());
 		
 		if (interaction != null){
@@ -59,19 +59,19 @@ public class Decider21 extends Decider2{
 		
 		List<Interaction> proposedInteractions = this.existence.affordedInteractions();
 		
-		Interaction intendedInteraction = (Interaction2)this.existence.getOtherInteraction(null);
+		Interaction intendedInteraction = (Interaction2_)this.existence.getOtherInteraction(null);
 		if (this.selfSatisfactionCounter < BOREDOME_LEVEL){
 			if (proposedInteractions.size() > 0)
 				if (proposedInteractions.get(0).getValence() >= 0)
 					intendedInteraction = proposedInteractions.get(0);
 				else
-					intendedInteraction = (Interaction2)this.existence.getOtherInteraction(proposedInteractions.get(0));
+					intendedInteraction = (Interaction2_)this.existence.getOtherInteraction(proposedInteractions.get(0));
 		}
 		else{
 			Trace.addEventElement("mood", "BORED");
 			this.selfSatisfactionCounter = 0;
 			if (proposedInteractions.size() == 1)
-				intendedInteraction = (Interaction2)this.existence.getOtherInteraction(proposedInteractions.get(0));
+				intendedInteraction = (Interaction2_)this.existence.getOtherInteraction(proposedInteractions.get(0));
 			else if (proposedInteractions.size() > 1)
 				intendedInteraction = proposedInteractions.get(1);
 		}
