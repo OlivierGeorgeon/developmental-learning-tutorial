@@ -14,7 +14,7 @@ import coupling.Intention4;
 import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 import coupling.interaction.Interaction4;
 
 public class Existence3_ extends Existence030 {
@@ -54,20 +54,20 @@ public class Existence3_ extends Existence030 {
 	}
 	
 	@Override
-	protected Interaction3_ createNewInteraction(String label, int valence){
-		return new Interaction3_(label, valence);
+	protected Interaction031 createNewInteraction(String label, int valence){
+		return new Interaction031(label, valence);
 	}
 
-	public Interaction3_ createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
+	public Interaction031 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
 			
-			Interaction3_ interaction = (Interaction3_)createOrGetCompositeInteraction(preInteraction, postInteraction);
+			Interaction031 interaction = (Interaction031)createOrGetCompositeInteraction(preInteraction, postInteraction);
 			interaction.incrementWeight();
 			return interaction;
 		}
 
-    public Interaction3_ createOrGetInteraction(Experience experience,
+    public Interaction031 createOrGetInteraction(Experience experience,
             Result result, int valence) {
-    Interaction3_ interaction = (Interaction3_)createOrGet(experience.getLabel() + result.getLabel(), valence);
+    Interaction031 interaction = (Interaction031)createOrGet(experience.getLabel() + result.getLabel(), valence);
     interaction.setExperience(experience);
     interaction.setResult(result);
     return interaction;
@@ -78,12 +78,12 @@ public class Existence3_ extends Existence030 {
 		
 		if (this.currentInteraction != null){
 			for (Interaction activatedInteraction : getActivatedInteractions(this.currentInteraction)){
-				Proposition proposition = new Proposition(((Interaction3_)activatedInteraction).getPostInteraction().getExperience(), ((Interaction3_)activatedInteraction).getWeight() * ((Interaction3_)activatedInteraction).getPostInteraction().getValence());
+				Proposition proposition = new Proposition(((Interaction031)activatedInteraction).getPostInteraction().getExperience(), ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
 				int index = propositions.indexOf(proposition);
 				if (index < 0)
 					propositions.add(proposition);
 				else
-					propositions.get(index).addProclivity(((Interaction3_)activatedInteraction).getWeight() * ((Interaction3_)activatedInteraction).getPostInteraction().getValence());
+					propositions.get(index).addProclivity(((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
 			}
 		}
 		return propositions;
@@ -100,26 +100,26 @@ public class Existence3_ extends Existence030 {
 		return propositions;
 	}
 	
-	public Interaction3_ enact(Interaction3_ intendedInteraction){
+	public Interaction031 enact(Interaction031 intendedInteraction){
 
 		if (intendedInteraction.isPrimitive()){
 			Result result = this.reactive.giveResult(intendedInteraction.getExperience());
-			return (Interaction3_)this.createOrGetPrimitiveInteraction(intendedInteraction.getExperience(), result, 0);
+			return (Interaction031)this.createOrGetPrimitiveInteraction(intendedInteraction.getExperience(), result, 0);
 		}			
 		else {			
 			// Enact the pre interaction
-			Interaction3_ enactedPreInteraction = enact(intendedInteraction.getPreInteraction());
+			Interaction031 enactedPreInteraction = enact(intendedInteraction.getPreInteraction());
 			if (!enactedPreInteraction.equals(intendedInteraction.getPreInteraction())){
 				return enactedPreInteraction;
 			}
 			else
 			{
 				// Enact the post interaction
-				Interaction3_ enactedPostInteraction = enact(intendedInteraction.getPostInteraction());
+				Interaction031 enactedPostInteraction = enact(intendedInteraction.getPostInteraction());
 				if (!enactedPostInteraction.equals(intendedInteraction.getPostInteraction())){
 					return enactedPreInteraction;
 				}
-				return (Interaction3_)this.createOrGetCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
+				return (Interaction031)this.createOrGetCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 package coupling;
 
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 
 /**
  * An Obtention2 consists of an Interaction3
@@ -8,17 +8,17 @@ import coupling.interaction.Interaction3_;
  */
 public class Obtention3 extends Obtention2 {
 	
-	public Obtention3(Interaction3_ interaction){
+	public Obtention3(Interaction031 interaction){
 		super(interaction);
 	}
 	
-	public void setInteraction(Interaction3_ interaction){
+	public void setInteraction(Interaction031 interaction){
 		this.interaction = interaction;
 	}
 	
 	@Override
-	public Interaction3_ getInteraction(){
-		return (Interaction3_)this.interaction;
+	public Interaction031 getInteraction(){
+		return (Interaction031)this.interaction;
 	}
 
 	@Override
