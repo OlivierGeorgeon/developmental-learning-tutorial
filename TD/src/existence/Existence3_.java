@@ -60,14 +60,14 @@ public class Existence3_ extends Existence030 {
 
 	public Interaction031 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
 			
-			Interaction031 interaction = (Interaction031)createOrGetCompositeInteraction(preInteraction, postInteraction);
+			Interaction031 interaction = (Interaction031)learnCompositeInteraction(preInteraction, postInteraction);
 			interaction.incrementWeight();
 			return interaction;
 		}
 
     public Interaction031 createOrGetInteraction(Experience experience,
             Result result, int valence) {
-    Interaction031 interaction = (Interaction031)createOrGet(experience.getLabel() + result.getLabel(), valence);
+    Interaction031 interaction = (Interaction031)addOrGetIntearction(experience.getLabel() + result.getLabel(), valence);
     interaction.setExperience(experience);
     interaction.setResult(result);
     return interaction;
@@ -119,7 +119,7 @@ public class Existence3_ extends Existence030 {
 				if (!enactedPostInteraction.equals(intendedInteraction.getPostInteraction())){
 					return enactedPreInteraction;
 				}
-				return (Interaction031)this.createOrGetCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
+				return (Interaction031)this.learnCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
 			}
 		}
 	}
