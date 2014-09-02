@@ -14,7 +14,7 @@ import coupling.interaction.Interaction1;
  * Additionally, the Existence0 is BORED when it has been SELF-SATISFIED for too long, which causes it to try another Experience.  
  * An Existence1 is still a single entity rather than being split into an explicit Agent and Environment.
  */
-public class Existence1 implements Existence {
+public class Existence010 implements Existence {
 	
 	protected final String LABEL_E1 = "e1"; 
 	protected final String LABEL_E2 = "e2"; 
@@ -31,7 +31,7 @@ public class Existence1 implements Existence {
 	protected Result result;
 	protected Result expectedResult;
 	
-	public Existence1(){
+	public Existence010(){
 		initExistence();
 	}	
 	

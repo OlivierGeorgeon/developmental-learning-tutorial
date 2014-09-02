@@ -18,7 +18,7 @@ import coupling.interaction.Interaction2;
  * 
  * @author Olivier
  */
-public class Existence01 extends Existence1 {
+public class Existence01 extends Existence010 {
 
 	@Override
 	protected void initExistence(){
