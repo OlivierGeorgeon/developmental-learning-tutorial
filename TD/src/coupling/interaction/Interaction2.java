@@ -3,7 +3,7 @@ package coupling.interaction;
 /**
  * An interaction1 is the association of an experience with a result.
  */
-public class Interaction2 extends Interaction1{
+public class Interaction2 extends Interaction010{
 	
 	private int valence;
 	
