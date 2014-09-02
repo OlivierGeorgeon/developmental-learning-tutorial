@@ -6,7 +6,7 @@ import coupling.Experience;
 import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention;
-import existence.Existence3;
+import existence.Existence3_;
 
 /**
  * Decider3 can adapt to Reality1, Reality2 or Reality3.
@@ -17,9 +17,9 @@ import existence.Existence3;
  */
 public class Decider3 implements Decider{
 
-	protected Existence3 existence;
+	protected Existence3_ existence;
 	
-	public Decider3(Existence3 existence3){
+	public Decider3(Existence3_ existence3){
 		this.existence = existence3;
 	}
 	
