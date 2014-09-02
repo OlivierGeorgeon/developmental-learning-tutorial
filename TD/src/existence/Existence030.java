@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import tracer.Trace;
+import agent.decider.Anticipation;
 import agent.decider.Anticipation030;
 import coupling.Experience;
 import coupling.Result;
@@ -41,7 +42,7 @@ public class Existence030 extends Existence020 {
 		else
 			Trace.addEventElement("mood", "PAINED");
 		createOrGetCompositeInteraction(this.contextInteraction, this.enactedInteraction);
-		List<Anticipation030> anticipations = computeAnticipations(this.enactedInteraction);
+		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
 		Experience experience = chooseExperience(anticipations);
 		return experience;
 	}
@@ -56,8 +57,8 @@ public class Existence030 extends Existence020 {
 		return interaction;
 	}
 
-	public List<Anticipation030> computeAnticipations(Interaction030 enactedInteraction){
-		List<Anticipation030> anticipations = new ArrayList<Anticipation030>();
+	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
+		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		if (enactedInteraction != null){
 			for (Interaction activatedInteraction : this.getActivatedInteractions(this.enactedInteraction)){
 				Interaction030 proposedInteraction = ((Interaction030)activatedInteraction).getPostInteraction();
@@ -68,11 +69,11 @@ public class Existence030 extends Existence020 {
 		return anticipations;
 	}
 	
-	public Experience chooseExperience(List<Anticipation030> anticipations){
+	public Experience chooseExperience(List<Anticipation> anticipations){
 		Collections.sort(anticipations);
 		Interaction intendedInteraction;
 		if (anticipations.size() > 0){
-			Interaction030 affordedInteraction = anticipations.get(0).getInteraction();
+			Interaction030 affordedInteraction = ((Anticipation030)anticipations.get(0)).getInteraction();
 			if (affordedInteraction.getValence() >= 0)
 				intendedInteraction = affordedInteraction;
 			else

@@ -19,8 +19,8 @@ public class Anticipation030 implements Anticipation {
 	}
 
 	@Override
-	public int compareTo(Anticipation o) {
-		return ((Integer)this.interaction.getValence()).compareTo(((Anticipation030)o).getInteraction().getValence());
+	public int compareTo(Anticipation anticipation) {
+		return ((Integer)((Anticipation030)anticipation).getInteraction().getValence()).compareTo(this.interaction.getValence());
 	}
 
 }
