@@ -10,15 +10,18 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
-import coupling.interaction.Interaction031;
 
 /**
- * Existence030 is a sort of Existence020.
- * It learns composite interactions (Interaction030). 
- * It bases its next choice on anticipations that can be made from reactivated composite interactions.
- * Existence030 illustrates the benefit of basing the next decision upon the previous enacted Interaction.   
+ * Like Existence030, Existence032 can adapt to Environment010, Environment020, and Environment030.
+ * Again, it is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
+ * Additionally, like Existence010, Existence032 is SELF-SATISFIED when it correctly anticipated the result, and FRUSTRATED otherwise.
+ * It is also BORED when it has been SELF-SATISFIED for too long.
+ * Try to change the Valences of interactions and the reality defined in Existence2.initExistence(),
+ * and observe that Existence032 tries to balance satisfaction and pleasure.
+ * (when the valence of interaction are all set to 0, then only satisfaction/frustration/boredom drives Existence032's choices)
+ * Existence032 illustrates the benefit of implementing different motivational dimensions.   
  */
-public class Existence030 extends Existence020 {
+public class Existence032 extends Existence020 {
 
 	private Interaction030 contextInteraction;
 	private Interaction030 enactedInteraction;
@@ -54,10 +57,20 @@ public class Existence030 extends Existence020 {
 		if (this.experience != null && result != null)
 			this.enactedInteraction = getInteraction(this.experience.getLabel() + result.getLabel());
 		if (this.enactedInteraction != null){
-			if (this.enactedInteraction.getValence() >= 0)
+			if (enactedInteraction.getValence() >= 0)
 				Trace.addEventElement("mood", "PLEASED");
 			else
 				Trace.addEventElement("mood", "PAINED");
+			if (this.expectedResult != null){
+				if (this.expectedResult.equals(enactedInteraction.getResult())){			
+					Trace.addEventElement("mood", "SELF-SATISFIED");
+					this.selfSatisfactionCounter++;
+				}
+				else{
+					Trace.addEventElement("mood", "FRUSTRATED");
+					this.selfSatisfactionCounter = 0;
+				}
+			}
 			learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
 		}
 		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
@@ -108,17 +121,26 @@ public class Existence030 extends Existence020 {
 	}
 	
 	public Experience selectExperience(List<Anticipation> anticipations){
+
 		Collections.sort(anticipations);
-		Interaction intendedInteraction;
-		if (anticipations.size() > 0){
-			Interaction030 affordedInteraction = ((Anticipation030)anticipations.get(0)).getInteraction();
-			if (affordedInteraction.getValence() >= 0)
-				intendedInteraction = affordedInteraction;
-			else
-				intendedInteraction = (Interaction030)this.getOtherInteraction(affordedInteraction);
+		Interaction intendedInteraction = (Interaction030)this.getOtherInteraction(null);
+		if (this.selfSatisfactionCounter < BOREDOME_LEVEL){
+			if (anticipations.size() > 0){
+				Interaction030 proposedInteraction = ((Anticipation030)anticipations.get(0)).getInteraction();
+				if (proposedInteraction.getValence() >= 0)
+					intendedInteraction = proposedInteraction;
+				else
+					intendedInteraction = (Interaction030)this.getOtherInteraction(proposedInteraction);
+			}
 		}
-		else 
-			intendedInteraction = this.getOtherInteraction(null);
+		else{
+			Trace.addEventElement("mood", "BORED");
+			this.selfSatisfactionCounter = 0;
+			if (anticipations.size() == 1)
+				intendedInteraction = (Interaction030)this.getOtherInteraction(((Anticipation030)anticipations.get(0)).getInteraction());
+			else if (anticipations.size() > 1)
+				intendedInteraction = ((Anticipation030)anticipations.get(1)).getInteraction();
+		}
 		return intendedInteraction.getExperience();
 	}
 
