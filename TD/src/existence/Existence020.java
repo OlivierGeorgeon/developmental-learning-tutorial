@@ -3,8 +3,6 @@ package existence;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction;
-import coupling.interaction.Interaction010;
 import coupling.interaction.Interaction020;
 
 /**

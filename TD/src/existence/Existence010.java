@@ -7,7 +7,6 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction010;
-import coupling.interaction.Interaction020;
 
 /**
  * An Existence010 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
