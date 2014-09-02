@@ -69,7 +69,7 @@ public class Decider6 {
 	private Experience flowExperience(List<Interaction031> flowInteractions){
 
 		Experience experience = this.coupling.getFirstExperience();
-		List<Proposition> propositions = this.coupling.getDefaultPropositions(); 
+		List<Proposition> propositions = this.coupling.getDefaultAnticipations(); 
 		
 		for (Interaction031 activatedInteraction : flowInteractions){
 			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
