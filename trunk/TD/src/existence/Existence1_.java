@@ -14,7 +14,7 @@ import coupling.Obtention;
 import coupling.Intention;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction1;
+import coupling.interaction.Interaction010;
 
 /**
  * Existence1 is a re-implementation of Existence0 in which the decision has been moved to the class Decider and the result to the class Environment.
@@ -93,8 +93,8 @@ public class Existence1_ implements Existence {
 		return INTERACTIONS.get(label);
 	}
 	
-	protected Interaction1 createNewInteraction(String label, int valence){
-		return new Interaction1(label, valence);
+	protected Interaction010 createNewInteraction(String label, int valence){
+		return new Interaction010(label, valence);
 	}
 
 	public Interaction getInteraction(String label){

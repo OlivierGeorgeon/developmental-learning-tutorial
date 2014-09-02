@@ -6,7 +6,7 @@ import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction1;
+import coupling.interaction.Interaction010;
 
 /**
  * An Existence1 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
@@ -109,7 +109,7 @@ public class Existence010 implements Existence {
 	 */
 	protected Interaction createOrGet(String label) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction1(label));			
+			INTERACTIONS.put(label, new Interaction010(label));			
 		return INTERACTIONS.get(label);
 	}
 	

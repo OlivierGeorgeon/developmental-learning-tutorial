@@ -6,13 +6,13 @@ import coupling.Result;
 /**
  * An interaction1 is the association of an experience with a result.
  */
-public class Interaction1 implements Interaction{
+public class Interaction010 implements Interaction{
 	
 	private String label;
 	protected Experience experience;
 	protected Result result;
 	
-	public Interaction1(String label){
+	public Interaction010(String label){
 		this.label = label;
 	}
 	

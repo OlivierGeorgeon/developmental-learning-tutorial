@@ -5,7 +5,7 @@ package coupling.interaction;
  * A composite interaction has a preInteraction and a postInteraction.
  * @author Olivier
  */
-public class Interaction2_ extends Interaction1{
+public class Interaction2_ extends Interaction010{
 	
 	private Interaction preInteraction;
 	private Interaction postInteraction;
