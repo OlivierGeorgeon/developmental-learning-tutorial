@@ -7,18 +7,16 @@ import coupling.interaction.Interaction;
 import coupling.interaction.Interaction020;
 
 /**
- * An Existence2 is a sort of Existence1 in which each Interaction has a predefined Valence.
+ * An Existence020 is a sort of Existence1 in which each Interaction has a predefined Valence.
  * When a given Experience is performed and a given Result is obtained, the corresponding Interaction is considered enacted.
- * The Existence2 is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
- * An Existence2 is still a single entity rather than being split into an explicit Agent and Environment. 
- * An Existence2 demonstrates a rudimentary decisional mechanism and a rudimentary learning mechanism.
+ * The Existence020 is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
+ * An Existence020 is still a single entity rather than being split into an explicit Agent and Environment. 
+ * An Existence020 demonstrates a rudimentary decisional mechanism and a rudimentary learning mechanism.
  * It learns to choose the Experience that induces an Interaction that has a positive valence.  
  * Try to change the Valences of interactions and the method giveResult(experience) 
- * and observe that the Existence01 still learns to enact interactions that have positive valences.  
- * 
- * @author Olivier
+ * and observe that the Existence020 still learns to enact interactions that have positive valences.  
  */
-public class Existence01 extends Existence010 {
+public class Existence020 extends Existence010 {
 
 	@Override
 	protected void initExistence(){
