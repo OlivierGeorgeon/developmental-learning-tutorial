@@ -71,7 +71,7 @@ public class Episode6 extends Intention4{
 						this.setInteraction(enactedPrimitiveInteraction);
 					else
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 						
 					this.setTerminated();
 				}
@@ -88,7 +88,7 @@ public class Episode6 extends Intention4{
 						this.setInteraction(enactedPrimitiveInteraction);
 					else 
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().createOrGetCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 				}
 				this.setTerminated();
 			}			

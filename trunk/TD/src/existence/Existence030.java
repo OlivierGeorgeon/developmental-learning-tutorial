@@ -9,6 +9,7 @@ import agent.decider.Anticipation030;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
+import coupling.interaction.Interaction020;
 import coupling.interaction.Interaction030;
 
 /**
@@ -27,12 +28,25 @@ public class Existence030 extends Existence020 {
 		Experience e2 = createOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
-		createPrimitiveInteraction(e1, r1, -1);
-		createPrimitiveInteraction(e1, r2, 1);
-		createPrimitiveInteraction(e2, r1, -1);
-		createPrimitiveInteraction(e2, r2, 1);
+		addOrGetPrimitiveInteraction(e1, r1, -1);
+		addOrGetPrimitiveInteraction(e1, r2, 1);
+		addOrGetPrimitiveInteraction(e2, r1, -1);
+		addOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 	
+	@Override
+	public String step() {
+		
+		this.experience = chooseExperience(result);
+		
+		/** Change the returnResult() to change the environment */		
+		//this.result = returnResult010(experience);
+		//this.result = returnResult020(experience);
+		this.result = returnResult030(experience);
+		
+		return this.experience.getLabel() + this.result.getLabel();
+	}
+
 	@Override
 	public Experience chooseExperience(Result result){
 		this.contextInteraction = this.enactedInteraction;
@@ -41,20 +55,36 @@ public class Existence030 extends Existence020 {
 			Trace.addEventElement("mood", "PLEASED");
 		else
 			Trace.addEventElement("mood", "PAINED");
-		createOrGetCompositeInteraction(this.contextInteraction, this.enactedInteraction);
+		learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
 		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
 		Experience experience = chooseExperience(anticipations);
 		return experience;
 	}
 		
-	public Interaction030 createOrGetCompositeInteraction(
+	public void learnCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
+		addOrGetCompositeInteraction(preInteraction, postInteraction);
+	}
+
+	/**
+	 * Records a composite interaction in memory
+	 * @param preInteraction: The composite interaction's pre-interaction
+	 * @param postInteraction: The composite interaction's post-interaction
+	 * @return the learned composite interaction
+	 */
+	public Interaction030 addOrGetCompositeInteraction(
 		Interaction030 preInteraction, Interaction030 postInteraction) {
 		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction030 interaction = (Interaction030)createOrGet(preInteraction.getLabel() + postInteraction.getLabel(), valence); 
+		Interaction030 interaction = (Interaction030)addOrGetInteraction(preInteraction.getLabel() + postInteraction.getLabel()); 
 		interaction.setPreInteraction(preInteraction);
 		interaction.setPostInteraction(postInteraction);
+		interaction.setValence(valence);
 		System.out.println("learn " + interaction.toString());
 		return interaction;
+	}
+
+	@Override
+	protected Interaction030 createInteraction(String label){
+		return new Interaction030(label);
 	}
 
 	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
@@ -114,8 +144,7 @@ public class Existence030 extends Existence020 {
 	 */
 	protected Experience previousExperience;
 
-	@Override
-	public Result returnResult(Experience experience){
+	public Result returnResult030(Experience experience){
 		Result result = null;
 		if (previousExperience == experience)
 			result =  this.createOrGetResult(this.LABEL_R1);

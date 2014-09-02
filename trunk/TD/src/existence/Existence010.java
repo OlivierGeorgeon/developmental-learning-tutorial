@@ -7,6 +7,7 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction010;
+import coupling.interaction.Interaction020;
 
 /**
  * An Existence010 simulates a "stream of intelligence" made of a succession of Experiences and Results.   
@@ -44,7 +45,7 @@ public class Existence010 implements Existence {
 	public String step() {
 		
 		this.experience = chooseExperience(result);
-		this.result = returnResult(experience);
+		this.result = returnResult010(experience);
 		
 		return this.experience.getLabel() + this.result.getLabel();
 	}
@@ -61,7 +62,7 @@ public class Existence010 implements Existence {
 			Trace.addEventElement("mood", "FRUSTRATED");
 		
 		if (this.experience != null && result != null)
-			createPrimitiveInteraction(this.experience, result);
+			addOrGetPrimitiveInteraction(this.experience, result);
 
 		if (this.selfSatisfactionCounter >= BOREDOME_LEVEL){
 			Trace.addEventElement("mood", "BORED");
@@ -79,24 +80,13 @@ public class Existence010 implements Existence {
 	}
 	
 	/**
-	 * @param experience: The current experience.
-	 * @return The result of this experience.
-	 */
-	public Result returnResult(Experience experience){
-		if (experience.equals(createOrGetExperience(LABEL_E1)))
-			return createOrGetResult(LABEL_R1);
-		else
-			return createOrGetResult(LABEL_R2);
-	}
-	
-	/**
 	 * Create an interaction as a tuple <experience, result>.
 	 * @param experience: The experience.
 	 * @param result: The result.
 	 * @return The created interaction
 	 */
-	protected Interaction createPrimitiveInteraction(Experience experience, Result result) {
-		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel()); 
+	protected Interaction addOrGetPrimitiveInteraction(Experience experience, Result result) {
+		Interaction interaction = addOrGetInteraction(experience.getLabel() + result.getLabel()); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 		return interaction;
@@ -107,10 +97,14 @@ public class Existence010 implements Existence {
 	 * @param label: The label of this interaction.
 	 * @return The interaction.
 	 */
-	protected Interaction createOrGet(String label) {
+	protected Interaction addOrGetInteraction(String label) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, new Interaction010(label));			
+			INTERACTIONS.put(label, createInteraction(label));			
 		return INTERACTIONS.get(label);
+	}
+	
+	protected Interaction010 createInteraction(String label){
+		return new Interaction010(label);
 	}
 	
 	/**
@@ -173,4 +167,17 @@ public class Existence010 implements Existence {
 			RESULTS.put(label, new Result(label));			
 		return RESULTS.get(label);
 	}	
+	
+	/**
+	 * The Environment010
+	 * @param experience: The current experience.
+	 * @return The result of this experience.
+	 */
+	public Result returnResult010(Experience experience){
+		if (experience.equals(createOrGetExperience(LABEL_E1)))
+			return createOrGetResult(LABEL_R1);
+		else
+			return createOrGetResult(LABEL_R2);
+	}
+	
 }

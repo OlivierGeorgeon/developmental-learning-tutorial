@@ -80,21 +80,22 @@ public class Existence021 implements Existence {
 		return "";//obtention.getLabel();
 	}
 	
-	public Interaction createOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {
-		Interaction interaction = createOrGet(experience.getLabel() + result.getLabel(), valence); 
+	public Interaction020 createOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {
+		Interaction020 interaction = (Interaction020)addOrGetIntearction(experience.getLabel() + result.getLabel()); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
+		interaction.setValence(valence);
 		return interaction;
 	}
 
-	protected Interaction createOrGet(String label, int valence) {
+	protected Interaction addOrGetIntearction(String label) {
 		if (!INTERACTIONS.containsKey(label))
-			INTERACTIONS.put(label, createNewInteraction(label, valence));			
+			INTERACTIONS.put(label, createInteraction(label));			
 		return INTERACTIONS.get(label);
 	}
 	
-	protected Interaction020 createNewInteraction(String label, int valence){
-		return new Interaction020(label, valence);
+	protected Interaction020 createInteraction(String label){
+		return new Interaction020(label);
 	}
 
 	public Interaction020 getInteraction(String label){

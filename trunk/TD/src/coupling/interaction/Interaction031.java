@@ -7,8 +7,8 @@ public class Interaction031 extends Interaction030 {
 	
 	private int weight = 0;
 
-	public Interaction031(String label, int valence){
-		super(label, valence);
+	public Interaction031(String label){
+		super(label);
 	}
 	
 	@Override

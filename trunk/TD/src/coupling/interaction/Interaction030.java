@@ -9,8 +9,8 @@ public class Interaction030 extends Interaction020{
 	private Interaction030 preInteraction;
 	private Interaction030 postInteraction;
 
-	public Interaction030(String label, int valence){
-		super(label, valence);
+	public Interaction030(String label){
+		super(label);
 	}
 	
 	public Interaction030 getPreInteraction() {

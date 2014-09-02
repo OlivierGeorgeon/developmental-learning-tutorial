@@ -6,11 +6,44 @@ import java.util.List;
 import agent.decider.Anticipation;
 import agent.decider.Anticipation031;
 import coupling.Experience;
+import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction031;
 
 public class Existence031 extends Existence030 {
+
+	@Override
+	public String step() {
+		
+		this.experience = chooseExperience(result);
+		
+		/** Change the returnResult() to change the environment */		
+		//this.result = returnResult010(experience);
+		//this.result = returnResult020(experience);
+		//this.result = returnResult030(experience);
+		this.result = returnResult031(experience);
+		
+		return this.experience.getLabel() + this.result.getLabel();
+	}
+
+	/**
+	 * Records a composite interaction in memory
+	 * or increment its weight
+	 * @param preInteraction: The composite interaction's pre-interaction
+	 * @param postInteraction: The composite interaction's post-interaction
+	 * @return the learned composite interaction
+	 */
+	@Override
+	public void learnCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
+		Interaction031 interaction = (Interaction031)addOrGetCompositeInteraction(preInteraction, postInteraction);
+		interaction.incrementWeight();
+	}
+
+	@Override
+	protected Interaction031 createInteraction(String label){
+		return new Interaction031(label);
+	}
 
 	@Override
 	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
@@ -50,4 +83,33 @@ public class Existence031 extends Existence030 {
 		return selectedAnticipation.getExperience();
 	}
 
+	/**
+	 * Environment031
+	 */
+	private final int T1 = 8;
+	private final int T2 = 15;
+	private int clock = 0;
+
+	public Result returnResult031(Experience experience){
+
+		Result result = null;
+
+		this.clock++;
+		
+		if (clock <= T1 || clock > T2){
+			if (experience.equals(this.createOrGetExperience(this.LABEL_E1)))
+				result =  this.createOrGetResult(this.LABEL_R1);
+			else
+				result = this.createOrGetResult(this.LABEL_R2);
+		} 
+		else {
+			if (experience.equals(this.createOrGetExperience(this.LABEL_E1)))
+				result = this.createOrGetResult(this.LABEL_R2);
+			else
+				result = this.createOrGetResult(this.LABEL_R1);
+		}
+		return result;
+	}
+
+	
 }

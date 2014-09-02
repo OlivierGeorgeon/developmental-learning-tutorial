@@ -29,7 +29,7 @@ public class Existence4_ extends Existence3_ {
 			Interaction4 interaction = (Interaction4)getInteraction(label);
 			if (interaction == null){
 				int valence = preInteraction.getValence() + postInteraction.getValence();	
-				interaction = (Interaction4)this.createOrGet(label, valence); 
+				interaction = (Interaction4)this.addOrGetIntearction(label, valence); 
 				interaction.setPreInteraction(preInteraction);
 				interaction.setPostInteraction(postInteraction);
 				interaction.incrementWeight();
