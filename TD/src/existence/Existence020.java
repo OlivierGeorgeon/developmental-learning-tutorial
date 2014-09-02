@@ -38,7 +38,7 @@ public class Existence020 extends Existence010 {
 			this.experience = this.getOtherExperience(null);
 		else{ 
 			int mood = getInteraction(this.experience.getLabel() + result.getLabel()).getValence();
-			if (mood > 0)
+			if (mood >= 0)
 				Trace.addEventElement("mood", "PLEASED");
 			else{
 				Trace.addEventElement("mood", "PAINED");

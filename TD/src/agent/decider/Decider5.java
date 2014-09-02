@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import coupling.Coupling5;
 import coupling.Experience;
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 
 public class Decider5 {
 
@@ -22,7 +22,7 @@ public class Decider5 {
 		
 		store(episode);
 		
-		List<Interaction3_> flowInteractions = getFlowInteractions();
+		List<Interaction031> flowInteractions = getFlowInteractions();
 		Experience experience = flowExperience(flowInteractions);
 		
 		return new Episode5(this.coupling, experience);		
@@ -30,7 +30,7 @@ public class Decider5 {
 
 	public void store(Episode5 episode){
 		
-		Interaction3_ superInteraction = null;
+		Interaction031 superInteraction = null;
 		
 		if (!this.slot1.isEmpty()){
 			// learn the new super-interaction [last current]
@@ -44,7 +44,7 @@ public class Decider5 {
 				//if (episode.getExperience().isPrimitive() && 
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
-					this.coupling.createOrReinforceCompositeInteraction((Interaction3_)this.slot2.getInteraction().getPreInteraction(), superInteraction);
+					this.coupling.createOrReinforceCompositeInteraction((Interaction031)this.slot2.getInteraction().getPreInteraction(), superInteraction);
 					// learn [[previous last] current]
 					this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
 				//}
@@ -55,12 +55,12 @@ public class Decider5 {
 		this.slot2.setInteraction(superInteraction);
 	}
 
-	private Experience flowExperience(List<Interaction3_> flowInteractions){
+	private Experience flowExperience(List<Interaction031> flowInteractions){
 
 		Experience experience = this.coupling.getFirstExperience();
 		List<Proposition> propositions = this.coupling.getDefaultPropositions(); 
 		
-		for (Interaction3_ activatedInteraction : flowInteractions){
+		for (Interaction031 activatedInteraction : flowInteractions){
 			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
 			int index = propositions.indexOf(proposition);
 			if (index < 0)
@@ -82,10 +82,10 @@ public class Decider5 {
 		return experience;
 	}
 	
-	private List<Interaction3_> getFlowInteractions() {
-		List<Interaction3_> flowInteractions = new ArrayList<Interaction3_>();
+	private List<Interaction031> getFlowInteractions() {
+		List<Interaction031> flowInteractions = new ArrayList<Interaction031>();
 	
-		for (Interaction3_ flowInteraction : this.coupling.getInteractions())
+		for (Interaction031 flowInteraction : this.coupling.getInteractions())
 			if (slot2.activate(flowInteraction) ||
 				this.slot1.activate(flowInteraction) ||
 				this.slot1.getInteraction().getPostInteraction() != null && this.slot1.getInteraction().getPostInteraction().equals(flowInteraction.getPreInteraction())){

@@ -1,19 +1,19 @@
 package coupling;
 
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 
 /**
  * An intention3 consists of an Interaction3
  */
 public class Intention3 implements Intention {
 	
-	private Interaction3_ interaction;
+	private Interaction031 interaction;
 	
-	public Intention3(Interaction3_ interaction){
+	public Intention3(Interaction031 interaction){
 		this.interaction = interaction;
 	}
 
-	public Interaction3_ getInteraction(){
+	public Interaction031 getInteraction(){
 		return this.interaction;
 	}
 	

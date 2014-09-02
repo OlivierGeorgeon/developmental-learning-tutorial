@@ -1,20 +1,20 @@
 package agent.decider;
 
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 
 public class Slot {
 	
-	private Interaction3_ interaction;
+	private Interaction031 interaction;
 	
-	public void setInteraction(Interaction3_ interaction){
+	public void setInteraction(Interaction031 interaction){
 		this.interaction = interaction;
 	}
 
-	public Interaction3_ getInteraction(){
+	public Interaction031 getInteraction(){
 		return this.interaction;
 	}
 	
-	public boolean activate(Interaction3_ interaction){
+	public boolean activate(Interaction031 interaction){
 		if (interaction.getPreInteraction() == null)
 			return false;
 		else

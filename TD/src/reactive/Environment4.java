@@ -6,7 +6,7 @@ import coupling.Intention4;
 import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 import existence.Existence4_;
 
 /**

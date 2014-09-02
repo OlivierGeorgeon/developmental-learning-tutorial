@@ -7,7 +7,7 @@ import java.util.List;
 import tracer.Trace;
 import coupling.Coupling5;
 import coupling.Experience;
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 import org.w3c.dom.*;
 
 public class Decider6 {
@@ -25,7 +25,7 @@ public class Decider6 {
 		
 		store(episode);
 		
-		List<Interaction3_> flowInteractions = getFlowInteractions();
+		List<Interaction031> flowInteractions = getFlowInteractions();
 		Experience experience = flowExperience(flowInteractions);
 		
 		// TODO propose experiences based on something else than the flow.
@@ -37,7 +37,7 @@ public class Decider6 {
 		
 		Element e = Trace.addEventElement("learn");
 
-		Interaction3_ superInteraction = null;
+		Interaction031 superInteraction = null;
 		
 		if (!this.slot1.isEmpty()){
 			// learn the new super-interaction [last current]
@@ -45,7 +45,7 @@ public class Decider6 {
 			Trace.addSubelement(e, "superInteraction" , superInteraction.toString());
 
 			if (episode.getAlternateInteraction() != null){
-				Interaction3_ superAlternateInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getAlternateInteraction());
+				Interaction031 superAlternateInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getAlternateInteraction());
 				Trace.addSubelement(e, "superAlternateInteraction", superAlternateInteraction.toString());
 			}
 			if (!this.slot2.isEmpty()){
@@ -53,10 +53,10 @@ public class Decider6 {
 				//if (//episode.getExperience().isPrimitive() && 
 				//	this.slot1.getInteraction().getExperience().isPrimitive()){
 					// learn [previous [last current]]
-					Interaction3_ superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction((Interaction3_)this.slot2.getInteraction().getPreInteraction(), superInteraction);
+					Interaction031 superLeftInteraction = this.coupling.createOrReinforceCompositeInteraction((Interaction031)this.slot2.getInteraction().getPreInteraction(), superInteraction);
 					Trace.addSubelement(e, "superLeftInteraction" , superLeftInteraction.toString());
 					// learn [[previous last] current]
-					Interaction3_ superRightInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
+					Interaction031 superRightInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
 					Trace.addSubelement(e, "superRightInteraction", superRightInteraction.toString());
 				//}
 			}
@@ -66,12 +66,12 @@ public class Decider6 {
 		this.slot2.setInteraction(superInteraction);
 	}
 
-	private Experience flowExperience(List<Interaction3_> flowInteractions){
+	private Experience flowExperience(List<Interaction031> flowInteractions){
 
 		Experience experience = this.coupling.getFirstExperience();
 		List<Proposition> propositions = this.coupling.getDefaultPropositions(); 
 		
-		for (Interaction3_ activatedInteraction : flowInteractions){
+		for (Interaction031 activatedInteraction : flowInteractions){
 			Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), activatedInteraction.getWeight() * activatedInteraction.getPostInteraction().getValence());
 			int index = propositions.indexOf(proposition);
 			if (index < 0)
@@ -94,12 +94,12 @@ public class Decider6 {
 		return experience;
 	}
 	
-	private List<Interaction3_> getFlowInteractions() {
-		List<Interaction3_> flowInteractions = new ArrayList<Interaction3_>();
+	private List<Interaction031> getFlowInteractions() {
+		List<Interaction031> flowInteractions = new ArrayList<Interaction031>();
 
 		Element e = Trace.addEventElement("activations");
 		
-		for (Interaction3_ flowInteraction : this.coupling.getInteractions())
+		for (Interaction031 flowInteraction : this.coupling.getInteractions())
 			if (slot2.activate(flowInteraction) ||
 				this.slot1.activate(flowInteraction) ||
 				this.slot1.getInteraction().getPostInteraction() != null && this.slot1.getInteraction().getPostInteraction().equals(flowInteraction.getPreInteraction())){

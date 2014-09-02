@@ -7,7 +7,7 @@ import coupling.Intention4;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction030;
-import coupling.interaction.Interaction3_;
+import coupling.interaction.Interaction031;
 
 public class Episode5 extends Intention4{
 
@@ -15,7 +15,7 @@ public class Episode5 extends Intention4{
 	
 	private int valence;
 	
-	private Interaction3_ alternateInteraction;
+	private Interaction031 alternateInteraction;
 
 	public Episode5(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
@@ -26,7 +26,7 @@ public class Episode5 extends Intention4{
 	@Override
 	public void record(Result result){	
 		this.alternateInteraction = null;
-		Interaction3_ enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
+		Interaction031 enactedPrimitiveInteraction = this.getCoupling().getInteraction(this.getPrimitiveExperience().getLabel() + result.getLabel());
 		valence += enactedPrimitiveInteraction.getValence();
 		
 		if (this.getExperience().isPrimitive()){
@@ -78,7 +78,7 @@ public class Episode5 extends Intention4{
 		return nextExperience; 
 	}
 	
-	public Interaction3_ getAlternateInteraction(){
+	public Interaction031 getAlternateInteraction(){
 		return this.alternateInteraction;
 	}
 }
