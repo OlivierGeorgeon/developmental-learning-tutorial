@@ -6,7 +6,7 @@ import existence.Existence;
 import existence.Existence010;
 import existence.Existence020;
 import existence.Existence021;
-import existence.Existence2_;
+import existence.Existence030;
 import existence.Existence3_;
 
 import tracer.AbstractLiteTracer;
@@ -34,7 +34,7 @@ public class Main {
 		/** Change this line to run another existence: */
 		//Existence existence = new Existence0();
 		//Existence existence = new Existence01();
-		Existence existence = new Existence2_();
+		Existence existence = new Existence030();
 		//Existence existence = new Existence3();
 		
 		/** Change this line to adjust the number of cycles of the loop: */

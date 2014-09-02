@@ -14,10 +14,10 @@ import coupling.Obtention;
 import coupling.Intention;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction010;
+import coupling.interaction.Interaction020;
 
 /**
- * Existence1 is a re-implementation of Existence0 in which the decision has been moved to the class Decider and the result to the class Environment.
+ * Existence021 is a re-implementation of Existence020 in which the decision has been moved to the class Decider and the result to the class Environment.
  * Compared to an Existence0, an Esitence1's "flow of consciousness" is generalized as a succession of Intentions and Obtentions.
  * The Decider obtains the previous Obtention and chooses the next Intention through its method decideIntention(Obtention).
  * The Environment provides the next Obtention through its method produceObtention(Intention). 
@@ -93,12 +93,12 @@ public class Existence021 implements Existence {
 		return INTERACTIONS.get(label);
 	}
 	
-	protected Interaction010 createNewInteraction(String label, int valence){
-		return new Interaction010(label, valence);
+	protected Interaction020 createNewInteraction(String label, int valence){
+		return new Interaction020(label, valence);
 	}
 
-	public Interaction getInteraction(String label){
-		return INTERACTIONS.get(label);
+	public Interaction020 getInteraction(String label){
+		return (Interaction020)INTERACTIONS.get(label);
 	}
 	
 	public Interaction getOtherInteraction(Interaction interaction) {

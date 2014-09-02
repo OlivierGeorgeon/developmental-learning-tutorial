@@ -18,7 +18,7 @@ import coupling.interaction.Interaction030;
  * 
  * @author Olivier
  */
-public class Existence2_ extends Existence021 {
+public class Existence030 extends Existence021 {
 
 	private Interaction030 contextInteraction;
 	private Interaction030 currentInteraction;

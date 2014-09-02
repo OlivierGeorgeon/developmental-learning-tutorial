@@ -7,7 +7,7 @@ import coupling.interaction.Interaction;
 import coupling.interaction.Interaction020;
 
 /**
- * An Existence020 is a sort of Existence1 in which each Interaction has a predefined Valence.
+ * An Existence020 is a sort of Existence010 in which each Interaction has a predefined Valence.
  * When a given Experience is performed and a given Result is obtained, the corresponding Interaction is considered enacted.
  * The Existence020 is PLEASED when the enacted Interaction has a positive or null Valence, and PAINED otherwise.
  * An Existence020 is still a single entity rather than being split into an explicit Agent and Environment. 

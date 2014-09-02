@@ -21,7 +21,7 @@ public class Interaction020 extends Interaction010{
 //	}
 
 	public String toString(){
-		return this.experience.getLabel() + this.result.getLabel() + "," + this.getValence();
+		return this.getLabel() + "," + this.getValence();
 	}
 
 }
