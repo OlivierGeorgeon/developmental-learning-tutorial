@@ -6,11 +6,11 @@ import coupling.Experience4;
  * An Interaction3 is an Interaction2 with a weight.
  * @author Olivier.
  */
-public class Interaction3 extends Interaction2_ {
+public class Interaction3_ extends Interaction2_ {
 	
 	private int weight = 0;
 
-	public Interaction3(String label, int valence){
+	public Interaction3_(String label, int valence){
 		super(label, valence);
 	}
 	
@@ -18,12 +18,12 @@ public class Interaction3 extends Interaction2_ {
 		return (Experience4)super.getExperience(); 
 	}
 
-	public Interaction3 getPreInteraction() {
-		return (Interaction3)super.getPreInteraction();
+	public Interaction3_ getPreInteraction() {
+		return (Interaction3_)super.getPreInteraction();
 	}
 
-	public Interaction3 getPostInteraction() {
-		return (Interaction3)super.getPostInteraction();
+	public Interaction3_ getPostInteraction() {
+		return (Interaction3_)super.getPostInteraction();
 	}
 	
 	public int getWeight() {

@@ -1,6 +1,6 @@
 package coupling;
 
-import coupling.interaction.Interaction3;
+import coupling.interaction.Interaction3_;
 
 public class Intention4 extends Intention1{
 	
