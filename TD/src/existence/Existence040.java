@@ -8,28 +8,32 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction031;
 
+/** 
+* Existence040 is used to demonstrate an Existence capable of anticipating two steps to make a decision.
+*/
 public class Existence040 extends Existence031 {
 
-	Interaction031 enactedInteraction;
-	Interaction031 contextInteraction;
-	
 	@Override
 	public String step() {
 		
-		Interaction031 intendedInteraction = chooseInteraction(this.enactedInteraction);
-		this.enactedInteraction = enact(intendedInteraction);
+		Interaction031 intendedInteraction = chooseInteraction(this.getEnactedInteraction());
+		Interaction031 enactedInteraction = enact(intendedInteraction);
 		
-		return this.enactedInteraction.getLabel();
+		this.setContextInteraction(this.getEnactedInteraction());
+		this.setEnactedInteraction(enactedInteraction);
+		
+		return enactedInteraction.getLabel();
 	}
 	
 	public Interaction031 chooseInteraction(Interaction031 enactedInteraction){
-		this.contextInteraction = enactedInteraction;
-		if (enactedInteraction.getValence() >= 0)
+		Interaction031 previousEnactedInteraction = this.getEnactedInteraction();
+		if (previousEnactedInteraction.getValence() >= 0)
 			Trace.addEventElement("mood", "PLEASED");
 		else
 			Trace.addEventElement("mood", "PAINED");
-		learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
-		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
+		if (this.getContextInteraction()!= null)
+			learnCompositeInteraction(this.getContextInteraction(), previousEnactedInteraction);
+		List<Anticipation> anticipations = computeAnticipations(previousEnactedInteraction);
 		return selectInteraction(anticipations);
 	}
 	
@@ -68,9 +72,9 @@ public class Existence040 extends Existence031 {
 	 * @param The actually enacted primitive interaction.
 	 */
 	public Interaction031 enactPrimitiveIntearction(Interaction031 intendedPrimitiveInteraction){
+		Experience experience = intendedPrimitiveInteraction.getExperience();
 		/** Change the returnResult() to change the environment */		
 		//Result result = returnResult010(experience);
-		//Result result = returnResult020(experience);
 		//Result result = returnResult030(experience);
 		//Result result = returnResult031(experience);
 		Result result = returnResult040(experience);
@@ -79,20 +83,28 @@ public class Existence040 extends Existence031 {
 
 	/**
 	 * Environment040
+	 * Results in R2 when the current experience equals the previous experience and differs from the penultimate experience.
+	 * and in R1 otherwise.
+	 * e1->r1 e1->r2 e2->r1 e2->r2 etc. 
 	 */
-	private Experience previousExperience;
 	private Experience penultimateExperience;
+	protected void setPenultimateExperience(Experience penultimateExperience){
+		this.penultimateExperience = penultimateExperience;
+	}
+	protected Experience getPenultimateExperience(){
+		return this.penultimateExperience;
+	}
 
 	public Result returnResult040(Experience experience){
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 
 		if (this.penultimateExperience != experience &&
-			this.previousExperience == experience)
+			this.getPreviousExperience() == experience)
 			result =  this.createOrGetResult(this.LABEL_R2);
 		
-		this.penultimateExperience = this.previousExperience;
-		this.previousExperience = experience;
+		this.setPenultimateExperience(this.getPreviousExperience());
+		this.setPreviousExperience(experience);
 		
 		return result;
 	}

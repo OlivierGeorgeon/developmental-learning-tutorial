@@ -7,7 +7,7 @@ import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention1;
 import coupling.Result;
-import existence.Existence022;
+import existence.Existence021;
 
 /**
  * Decider1 is a re-implementation of the decisional mechanism of Existence01.
@@ -20,10 +20,10 @@ import existence.Existence022;
  */
 public class Decider021 implements Decider{
 
-	private Existence022 existence;
+	private Existence021 existence;
 	private Experience experience;
 	
-	public Decider021(Existence022 existence){
+	public Decider021(Existence021 existence){
 		this.existence = existence;
 	}
 	

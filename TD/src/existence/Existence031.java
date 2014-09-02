@@ -11,20 +11,29 @@ import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction031;
 
+/**
+ * Existence031 can adapt to Environment010 020 030 031.
+ * Like Existence030, Existence031 seeks to enact interactions that have positive valence.
+ * Existence031 illustrates the benefit of reinforcing the weight of composite interactions
+ * and of using the weight of activated interactions to balance the decision.   
+ */
 public class Existence031 extends Existence030 {
 
 	@Override
 	public String step() {
 		
-		this.experience = chooseExperience(result);
+		Experience experience = chooseExperience(this.getPreviousResult());
 		
-		/** Change the returnResult() to change the environment */		
-		//this.result = returnResult010(experience);
-		//this.result = returnResult020(experience);
-		//this.result = returnResult030(experience);
-		this.result = returnResult031(experience);
+		/** Change the call to the function returnResult to change the environment */
+		//Result result = returnResult010(experience);
+		//Result result = returnResult030(experience);
+		Result result = returnResult031(experience);
+	
+		Interaction030 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
+		this.setContextInteraction(this.getEnactedInteraction());
+		this.setEnactedInteraction(enactedInteraction);
 		
-		return this.experience.getLabel() + this.result.getLabel();
+		return enactedInteraction.getLabel();
 	}
 
 	/**
@@ -87,21 +96,34 @@ public class Existence031 extends Existence030 {
 		Anticipation031 selectedAnticipation = (Anticipation031)anticipations.get(0);
 		return selectedAnticipation.getExperience();
 	}
+	
+	@Override
+	public Interaction031 getEnactedInteraction(){
+		return (Interaction031)super.getEnactedInteraction();
+	}
 
 	/**
 	 * Environment031
+	 * Before time T1 and after time T2: E1 results in R1; E2 results in R2
+	 * between time T1 and time T2: E1 results R2; E2results in R1.
 	 */
-	private final int T1 = 8;
-	private final int T2 = 15;
+	protected final int T1 = 8;
+	protected final int T2 = 15;
 	private int clock = 0;
+	protected int getClock(){
+		return this.clock;
+	}
+	protected void incClock(){
+		this.clock++;
+	}
 
 	public Result returnResult031(Experience experience){
 
 		Result result = null;
 
-		this.clock++;
+		this.incClock();
 		
-		if (clock <= T1 || clock > T2){
+		if (this.getClock() <= this.T1 || this.getClock() > this.T2){
 			if (experience.equals(this.createOrGetExperience(this.LABEL_E1)))
 				result =  this.createOrGetResult(this.LABEL_R1);
 			else
@@ -115,6 +137,4 @@ public class Existence031 extends Existence030 {
 		}
 		return result;
 	}
-
-	
 }

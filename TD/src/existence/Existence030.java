@@ -10,7 +10,6 @@ import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
-import coupling.interaction.Interaction031;
 
 /**
  * Existence030 is a sort of Existence020.
@@ -38,29 +37,32 @@ public class Existence030 extends Existence020 {
 	@Override
 	public String step() {
 		
-		this.experience = chooseExperience(result);
+		Experience experience = chooseExperience(this.getPreviousResult());
 		
-		/** Change the returnResult() to change the environment */		
-		//this.result = returnResult010(experience);
-		//this.result = returnResult020(experience);
-		this.result = returnResult030(experience);
+		/** Change the call to the function returnResult to change the environment */
+		//Result result = returnResult010(experience);
+		Result result = returnResult030(experience);
+	
+		Interaction030 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
+		this.setContextInteraction(this.getEnactedInteraction());
+		this.setEnactedInteraction(enactedInteraction);
 		
-		return this.experience.getLabel() + this.result.getLabel();
+		return enactedInteraction.getLabel();
 	}
 
 	@Override
 	public Experience chooseExperience(Result result){
-		this.contextInteraction = this.enactedInteraction;
-		if (this.experience != null && result != null)
-			this.enactedInteraction = getInteraction(this.experience.getLabel() + result.getLabel());
-		if (this.enactedInteraction != null){
-			if (this.enactedInteraction.getValence() >= 0)
+		
+		Interaction030 previousEnactedInteraction = this.getEnactedInteraction();
+		if (previousEnactedInteraction != null){
+			if (previousEnactedInteraction.getValence() >= 0)
 				Trace.addEventElement("mood", "PLEASED");
 			else
 				Trace.addEventElement("mood", "PAINED");
-			learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
+			if (this.getContextInteraction() != null)
+				learnCompositeInteraction(this.getContextInteraction(), previousEnactedInteraction);
 		}
-		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
+		List<Anticipation> anticipations = computeAnticipations(previousEnactedInteraction);
 		return selectExperience(anticipations);
 	}
 		
@@ -146,23 +148,33 @@ public class Existence030 extends Existence020 {
 			}		
 		return otherInteraction;
 	}
+	
+	protected void setContextInteraction(Interaction030 contextInteraction){
+		this.contextInteraction = contextInteraction;
+	}
+	protected Interaction030 getContextInteraction(){
+		return this.contextInteraction;
+	}
+	protected void setEnactedInteraction(Interaction030 contextInteraction){
+		this.contextInteraction = contextInteraction;
+	}
+	protected Interaction030 getEnactedInteraction(){
+		return this.contextInteraction;
+	}
 
 	/**
 	 * Environment030
 	 * Results in R1 when the current experience equals the previous experience
 	 * and in R2 when the current experience differs from the previous experience.
 	 */
-	private Experience previousExperience;
-
-	public Result returnResult030(Experience experience){
+	protected Result returnResult030(Experience experience){
 		Result result = null;
-		if (previousExperience == experience)
+		if (this.getPreviousExperience() == experience)
 			result =  this.createOrGetResult(this.LABEL_R1);
 		else
 			result =  this.createOrGetResult(this.LABEL_R2);
-		previousExperience = experience;
+		this.setPreviousExperience(experience);
 
 		return result;
-	}
-	
+	}	
 }
