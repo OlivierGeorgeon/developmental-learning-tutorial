@@ -1,6 +1,5 @@
-package agent.decider;
+package agent;
 
-import agent.Anticipation;
 import coupling.Experience;
 
 /**
