@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import tracer.Trace;
-import agent.decider.Anticipation;
+import agent.Anticipation;
 import agent.decider.Anticipation030;
 import coupling.Experience;
 import coupling.Result;

@@ -3,7 +3,8 @@ package existence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import agent.decider.Anticipation;
+
+import agent.Anticipation;
 import agent.decider.Anticipation031;
 import coupling.Experience;
 import coupling.Result;
