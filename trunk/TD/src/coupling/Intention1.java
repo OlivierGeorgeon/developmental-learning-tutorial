@@ -1,5 +1,8 @@
 package coupling;
 
+/**
+ * An intention1 consists of an Experience
+ */
 public class Intention1 implements Intention {
 	
 	private Experience experience;

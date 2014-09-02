@@ -3,7 +3,7 @@ package coupling;
 import coupling.interaction.Interaction2;
 
 /**
- * An Interaction3 is an Interaction2 with a weight.
+ * An Obtention2 consists of an Interaction2
  * @author Olivier.
  */
 public class Obtention2 implements Obtention {

@@ -1,7 +1,9 @@
 package reactive;
 
+import coupling.Experience;
 import coupling.Intention;
 import coupling.Obtention;
+import coupling.Result;
 
 /**
  * The Reality is the reactive part of the Existence.
@@ -15,5 +17,8 @@ public interface Environment {
 	 * @return The next obtention.
 	 */
 	public Obtention provideObtention(Intention intention);
+	
+	public Result giveResult(Experience experience);
+
 
 }

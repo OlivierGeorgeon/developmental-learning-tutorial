@@ -8,10 +8,14 @@ import tracer.Trace;
 import agent.decider.Decider3;
 import agent.decider.Proposition;
 import coupling.Experience;
+import coupling.Intention;
+import coupling.Intention3;
+import coupling.Intention4;
+import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction3;
+import coupling.interaction.Interaction4;
 
 public class Existence3 extends Existence2 {
 
@@ -73,13 +77,13 @@ public class Existence3 extends Existence2 {
 		List<Proposition> propositions = this.getDefaultPropositions(); 
 		
 		if (this.currentInteraction != null){
-			for (Interaction2 activatedInteraction : getActivatedInteractions(this.currentInteraction)){
-				Proposition proposition = new Proposition(activatedInteraction.getPostInteraction().getExperience(), ((Interaction3)activatedInteraction).getWeight() * activatedInteraction.getPostInteraction().getValence());
+			for (Interaction activatedInteraction : getActivatedInteractions(this.currentInteraction)){
+				Proposition proposition = new Proposition(((Interaction3)activatedInteraction).getPostInteraction().getExperience(), ((Interaction3)activatedInteraction).getWeight() * ((Interaction3)activatedInteraction).getPostInteraction().getValence());
 				int index = propositions.indexOf(proposition);
 				if (index < 0)
 					propositions.add(proposition);
 				else
-					propositions.get(index).addProclivity(((Interaction3)activatedInteraction).getWeight() * activatedInteraction.getPostInteraction().getValence());
+					propositions.get(index).addProclivity(((Interaction3)activatedInteraction).getWeight() * ((Interaction3)activatedInteraction).getPostInteraction().getValence());
 			}
 		}
 		return propositions;
@@ -94,5 +98,29 @@ public class Existence3 extends Existence2 {
 			//}
 		}
 		return propositions;
+	}
+	
+	public Interaction3 enact(Interaction3 intendedInteraction){
+
+		if (intendedInteraction.isPrimitive()){
+			Result result = this.reactive.giveResult(intendedInteraction.getExperience());
+			return (Interaction3)this.createOrGetPrimitiveInteraction(intendedInteraction.getExperience(), result, 0);
+		}			
+		else {			
+			// Enact the pre interaction
+			Interaction3 enactedPreInteraction = enact(intendedInteraction.getPreInteraction());
+			if (!enactedPreInteraction.equals(intendedInteraction.getPreInteraction())){
+				return enactedPreInteraction;
+			}
+			else
+			{
+				// Enact the post interaction
+				Interaction3 enactedPostInteraction = enact(intendedInteraction.getPostInteraction());
+				if (!enactedPostInteraction.equals(intendedInteraction.getPostInteraction())){
+					return enactedPreInteraction;
+				}
+				return (Interaction3)this.createOrGetCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
+			}
+		}
 	}
 }
