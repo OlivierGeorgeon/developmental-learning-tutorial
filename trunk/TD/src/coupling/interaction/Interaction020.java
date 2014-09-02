@@ -3,11 +3,11 @@ package coupling.interaction;
 /**
  * An interaction1 is the association of an experience with a result.
  */
-public class Interaction2 extends Interaction010{
+public class Interaction020 extends Interaction010{
 	
 	private int valence;
 	
-	public Interaction2(String label, int valence){
+	public Interaction020(String label, int valence){
 		super(label);
 		this.valence = valence;
 	}
