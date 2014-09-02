@@ -17,7 +17,7 @@ import coupling.Result;
  * 
  * @author Olivier
  */
-public class Existence01 extends Existence0 {
+public class Existence01 extends Existence1 {
 
 	@Override
 	protected void initExistence(){
