@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import agent.Anticipation;
-import agent.decider.Anticipation031;
+import agent.Anticipation031;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
