@@ -31,32 +31,24 @@ public class Existence020 extends Existence010 {
 	}
 	
 	@Override
-	public String step() {
-		
-		this.experience = chooseExperience(result);
-		
-		/** Change the returnResult() to change the environment */		
-		//this.result = returnResult010(experience);
-		this.result = returnResult020(experience);
-		
-		return this.experience.getLabel() + this.result.getLabel();
-	}
-
-	@Override
 	public Experience chooseExperience(Result result){
 		
-		if (this.experience == null)
-			this.experience = this.getOtherExperience(null);
+		Experience previousExperience = this.getPreviousExperience();
+		Experience nextExperience = null;
+		if (previousExperience == null)
+			nextExperience = this.getOtherExperience(null);
 		else{ 
-			int mood = getInteraction(this.experience.getLabel() + result.getLabel()).getValence();
-			if (mood >= 0)
+			int mood = getInteraction(previousExperience.getLabel() + result.getLabel()).getValence();
+			if (mood >= 0){
 				Trace.addEventElement("mood", "PLEASED");
+				nextExperience = previousExperience;
+			}
 			else{
 				Trace.addEventElement("mood", "PAINED");
-				this.experience = this.getOtherExperience(this.experience);
+				nextExperience = this.getOtherExperience(previousExperience);
 			}
 		}
-		return this.experience;
+		return nextExperience;
 	}
 	
 	/**
@@ -84,13 +76,4 @@ public class Existence020 extends Existence010 {
 		return (Interaction020)INTERACTIONS.get(label);
 	}
 	
-	/** 
-	 * The Environment020
-	 */
-	public Result returnResult020(Experience experience){
-		if (experience.equals(this.createOrGetExperience(LABEL_E1)))
-			return this.createOrGetResult(LABEL_R1);
-		else
-			return this.createOrGetResult(LABEL_R2);
-	}
 }

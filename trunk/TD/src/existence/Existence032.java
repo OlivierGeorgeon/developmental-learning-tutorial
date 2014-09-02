@@ -21,10 +21,7 @@ import coupling.interaction.Interaction030;
  * (when the valence of interaction are all set to 0, then only satisfaction/frustration/boredom drives Existence032's choices)
  * Existence032 illustrates the benefit of implementing different motivational dimensions.   
  */
-public class Existence032 extends Existence020 {
-
-	private Interaction030 contextInteraction;
-	private Interaction030 enactedInteraction;
+public class Existence032 extends Existence030 {
 
 	@Override
 	protected void initExistence(){
@@ -39,48 +36,33 @@ public class Existence032 extends Existence020 {
 	}
 	
 	@Override
-	public String step() {
-		
-		this.experience = chooseExperience(result);
-		
-		/** Change the returnResult() to change the environment */		
-		//this.result = returnResult010(experience);
-		//this.result = returnResult020(experience);
-		this.result = returnResult030(experience);
-		
-		return this.experience.getLabel() + this.result.getLabel();
-	}
-
-	@Override
 	public Experience chooseExperience(Result result){
-		this.contextInteraction = this.enactedInteraction;
-		if (this.experience != null && result != null)
-			this.enactedInteraction = getInteraction(this.experience.getLabel() + result.getLabel());
-		if (this.enactedInteraction != null){
-			if (enactedInteraction.getValence() >= 0)
-				Trace.addEventElement("mood", "PLEASED");
-			else
-				Trace.addEventElement("mood", "PAINED");
-			if (this.expectedResult != null){
-				if (this.expectedResult.equals(enactedInteraction.getResult())){			
-					Trace.addEventElement("mood", "SELF-SATISFIED");
-					this.selfSatisfactionCounter++;
-				}
-				else{
-					Trace.addEventElement("mood", "FRUSTRATED");
-					this.selfSatisfactionCounter = 0;
-				}
+		
+		Interaction030 previousEnactedInteraction = (Interaction030)this.getEnactedInteraction();
+		if (previousEnactedInteraction.getValence() >= 0)
+			Trace.addEventElement("mood", "PLEASED");
+		else
+			Trace.addEventElement("mood", "PAINED");
+		if (this.getExpectedResult() != null){
+			if (this.getExpectedResult().equals(previousEnactedInteraction.getResult())){			
+				Trace.addEventElement("mood", "SELF-SATISFIED");
+				this.incSelfSatisfactionCounter();
 			}
-			learnCompositeInteraction(this.contextInteraction, this.enactedInteraction);
+			else{
+				Trace.addEventElement("mood", "FRUSTRATED");
+				this.setSelfSatisfactionCounter(0);
+			}
 		}
-		List<Anticipation> anticipations = computeAnticipations(this.enactedInteraction);
-		return selectExperience(anticipations);
+		if (this.getContextInteraction()!= null)
+			learnCompositeInteraction(this.getContextInteraction(), previousEnactedInteraction);
+
+		List<Anticipation> anticipations = computeAnticipations(previousEnactedInteraction);
+		Interaction030 intendedInteraction = selectInteraction(anticipations);
+		this.setExpectedResult(intendedInteraction.getResult());
+		
+		return intendedInteraction.getExperience();
 	}
 		
-	public void learnCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
-		addOrGetCompositeInteraction(preInteraction, postInteraction);
-	}
-
 	/**
 	 * Records a composite interaction in memory
 	 * @param preInteraction: The composite interaction's pre-interaction
@@ -103,28 +85,11 @@ public class Existence032 extends Existence020 {
 		return new Interaction030(label);
 	}
 
-	/**
-	 * Computes the list of anticipations
-	 * @param the enacted interaction
-	 * @return the list of anticipations
-	 */
-	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
-		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		if (enactedInteraction != null){
-			for (Interaction activatedInteraction : this.getActivatedInteractions(this.enactedInteraction)){
-				Interaction030 proposedInteraction = ((Interaction030)activatedInteraction).getPostInteraction();
-				anticipations.add(new Anticipation030(proposedInteraction));
-				System.out.println("afforded " + ((Interaction030)activatedInteraction).getPostInteraction().getLabel());
-			}
-		}
-		return anticipations;
-	}
-	
-	public Experience selectExperience(List<Anticipation> anticipations){
+	public Interaction030 selectInteraction(List<Anticipation> anticipations){
 
 		Collections.sort(anticipations);
-		Interaction intendedInteraction = (Interaction030)this.getOtherInteraction(null);
-		if (this.selfSatisfactionCounter < BOREDOME_LEVEL){
+		Interaction030 intendedInteraction = (Interaction030)this.getOtherInteraction(null);
+		if (this.getSelfSatisfactionCounter() < this.BOREDOME_LEVEL){
 			if (anticipations.size() > 0){
 				Interaction030 proposedInteraction = ((Anticipation030)anticipations.get(0)).getInteraction();
 				if (proposedInteraction.getValence() >= 0)
@@ -135,13 +100,13 @@ public class Existence032 extends Existence020 {
 		}
 		else{
 			Trace.addEventElement("mood", "BORED");
-			this.selfSatisfactionCounter = 0;
+			this.setSelfSatisfactionCounter(0);
 			if (anticipations.size() == 1)
 				intendedInteraction = (Interaction030)this.getOtherInteraction(((Anticipation030)anticipations.get(0)).getInteraction());
 			else if (anticipations.size() > 1)
 				intendedInteraction = ((Anticipation030)anticipations.get(1)).getInteraction();
 		}
-		return intendedInteraction.getExperience();
+		return intendedInteraction;
 	}
 
 	protected List<Interaction> getActivatedInteractions(Interaction interaction) {

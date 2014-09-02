@@ -6,7 +6,7 @@ import coupling.Intention1;
 import coupling.Obtention2;
 import coupling.Result;
 import coupling.interaction.Interaction030;
-import existence.Existence022;
+import existence.Existence021;
 
 /**
  * A Reality2 is a sort of Reality1
@@ -18,7 +18,7 @@ public class Environment2 extends Environment1 {
 
 	protected Experience previousExperience;
 	
-	public Environment2(Existence022 existence){
+	public Environment2(Existence021 existence){
 		super(existence);
 	}
 	

@@ -2,7 +2,7 @@ package reactive;
 
 import coupling.Experience;
 import coupling.Result;
-import existence.Existence022;
+import existence.Existence021;
 
 /**
  * A Reality2 is a sort of Reality1
@@ -16,7 +16,7 @@ public class Environment3 extends Environment2 {
 	private final int T2 = 15;
 	private int clock = 0;
 
-	public Environment3(Existence022 existence){
+	public Environment3(Existence021 existence){
 		super(existence);
 	}
 	
