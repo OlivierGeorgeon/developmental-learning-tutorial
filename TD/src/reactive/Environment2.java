@@ -34,7 +34,7 @@ public class Environment2 extends Environment1 {
 	}
 	
 	@Override
-	protected Result giveResult(Experience experience){
+	public Result giveResult(Experience experience){
 		Result result = null;
 		if (previousExperience == experience)
 			result =  this.existence.createOrGetResult(this.existence.LABEL_R1);

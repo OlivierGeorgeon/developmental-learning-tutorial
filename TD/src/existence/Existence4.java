@@ -6,15 +6,16 @@ import java.util.List;
 
 import agent.decider.Proposition;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2;
-import coupling.interaction.Interaction3;
+//import coupling.interaction.Interaction2;
+import coupling.interaction.Interaction4;
 import coupling.Experience;
+import coupling.Experience4;
 
 public class Existence4 extends Existence3 {
 
-	private Interaction3 interaction_1;
-	private Interaction3 interaction_2;
-	private Interaction3 superInteraction;
+	private Interaction4 interaction_1;
+	private Interaction4 interaction_2;
+	private Interaction4 superInteraction;
 
 	@Override
 	protected void learn(){
@@ -22,13 +23,13 @@ public class Existence4 extends Existence3 {
 	}
 
 	@Override
-	public Interaction3 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
+	public Interaction4 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
 			
 			String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
-			Interaction3 interaction = (Interaction3)getInteraction(label);
+			Interaction4 interaction = (Interaction4)getInteraction(label);
 			if (interaction == null){
 				int valence = preInteraction.getValence() + postInteraction.getValence();	
-				interaction = (Interaction3)this.createOrGet(label, valence); 
+				interaction = (Interaction4)this.createOrGet(label, valence); 
 				interaction.setPreInteraction(preInteraction);
 				interaction.setPostInteraction(postInteraction);
 				interaction.incrementWeight();
@@ -41,21 +42,21 @@ public class Existence4 extends Existence3 {
 			return interaction;
 		}
 
-	public Experience createOrGetCompositeExperience(Interaction3 compositeInteraction) {
-		Experience experience = this.createOrGetExperience(compositeInteraction.getLabel());
+	public Experience4 createOrGetCompositeExperience(Interaction4 compositeInteraction) {
+		Experience4 experience = (Experience4)this.createOrGetExperience(compositeInteraction.getLabel());
 		experience.setInteraction(compositeInteraction);
 		return experience;	
 	}
 	
 	@Override
-	protected List<Interaction2> getActivatedInteractions(Interaction interaction) {
-		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
+	protected List<Interaction> getActivatedInteractions(Interaction interaction) {
+		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 	
 		for (Interaction activatedInteraction : this.INTERACTIONS.values())
-			if (this.superInteraction != null && this.superInteraction.equals(((Interaction3)activatedInteraction).getPreInteraction()) ||
-				interaction != null && interaction.equals(((Interaction3)activatedInteraction).getPreInteraction()) ||
-				((Interaction3)interaction).getPostInteraction() != null && ((Interaction3)interaction).getPostInteraction().equals(((Interaction3)activatedInteraction).getPreInteraction())){
-				activatedInteractions.add((Interaction3)activatedInteraction);
+			if (this.superInteraction != null && this.superInteraction.equals(((Interaction4)activatedInteraction).getPreInteraction()) ||
+				interaction != null && interaction.equals(((Interaction4)activatedInteraction).getPreInteraction()) ||
+				((Interaction4)interaction).getPostInteraction() != null && ((Interaction4)interaction).getPostInteraction().equals(((Interaction4)activatedInteraction).getPreInteraction())){
+				activatedInteractions.add((Interaction4)activatedInteraction);
 				System.out.println("activated " + activatedInteraction.toString());
 			}
 		return activatedInteractions;

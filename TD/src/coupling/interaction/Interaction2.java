@@ -1,10 +1,8 @@
 package coupling.interaction;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * An Interaction2 is an Interaction with a preInteraction and a postInteraction.
+ * An Interaction2 is an Interaction that can be primitive or composite
+ * A composite interaction has a preInteraction and a postInteraction.
  * @author Olivier
  */
 public class Interaction2 extends Interaction1{

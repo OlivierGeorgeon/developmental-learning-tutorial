@@ -2,6 +2,9 @@ package coupling;
 
 import coupling.interaction.Interaction3;
 
+/**
+ * An intention3 consists of an Interaction3
+ */
 public class Intention3 implements Intention {
 	
 	private Interaction3 interaction;

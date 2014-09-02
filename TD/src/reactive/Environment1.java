@@ -31,7 +31,7 @@ public class Environment1 implements Environment {
 		return new Obtention1(result);
 	}
 	
-	protected Result giveResult(Experience experience){
+	public Result giveResult(Experience experience){
 		Result result = null;
 		
 		if (experience.equals(this.existence.createOrGetExperience(this.existence.LABEL_E1)))

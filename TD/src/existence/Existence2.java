@@ -72,17 +72,17 @@ public class Existence2 extends Existence1 {
 	public List<Interaction> affordedInteractions(){
 		List<Interaction> interactions = new ArrayList<Interaction>();
 		if (this.currentInteraction != null){
-			for (Interaction2 activatedInteraction : this.getActivatedInteractions(this.currentInteraction)){
-				interactions.add(activatedInteraction.getPostInteraction());
-				System.out.println("afforded " + activatedInteraction.getPostInteraction().getLabel());
+			for (Interaction activatedInteraction : this.getActivatedInteractions(this.currentInteraction)){
+				interactions.add(((Interaction2)activatedInteraction).getPostInteraction());
+				System.out.println("afforded " + ((Interaction2)activatedInteraction).getPostInteraction().getLabel());
 			}
 		}
 		Collections.sort(interactions);
 		return interactions;
 	}
 
-	protected List<Interaction2> getActivatedInteractions(Interaction interaction) {
-		List<Interaction2> activatedInteractions = new ArrayList<Interaction2>();
+	protected List<Interaction> getActivatedInteractions(Interaction interaction) {
+		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 		for (Interaction activatedInteraction : this.INTERACTIONS.values())
 			if (interaction == ((Interaction2)activatedInteraction).getPreInteraction())
 				activatedInteractions.add((Interaction2)activatedInteraction);

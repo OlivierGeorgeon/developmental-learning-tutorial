@@ -2,6 +2,10 @@ package coupling;
 
 import coupling.interaction.Interaction3;
 
+/**
+ * An Obtention2 consists of an Interaction3
+ * @author Olivier.
+ */
 public class Obtention3 extends Obtention2 {
 	
 	public Obtention3(Interaction3 interaction){
