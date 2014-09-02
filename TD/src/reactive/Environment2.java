@@ -5,8 +5,8 @@ import coupling.Intention;
 import coupling.Intention1;
 import coupling.Obtention2;
 import coupling.Result;
-import coupling.interaction.Interaction2_;
-import existence.Existence1_;
+import coupling.interaction.Interaction030;
+import existence.Existence021;
 
 /**
  * A Reality2 is a sort of Reality1
@@ -18,7 +18,7 @@ public class Environment2 extends Environment1 {
 
 	protected Experience previousExperience;
 	
-	public Environment2(Existence1_ existence){
+	public Environment2(Existence021 existence){
 		super(existence);
 	}
 	
@@ -28,7 +28,7 @@ public class Environment2 extends Environment1 {
 		Experience experience = ((Intention1)intention).getExperience();
 		Result result = giveResult(experience);
 		
-		Interaction2_ currentInteraction = (Interaction2_)this.existence.createOrGetPrimitiveInteraction(experience, result, 0);
+		Interaction030 currentInteraction = (Interaction030)this.existence.createOrGetPrimitiveInteraction(experience, result, 0);
 		
 		return new Obtention2(currentInteraction);
 	}

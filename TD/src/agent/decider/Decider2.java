@@ -7,7 +7,7 @@ import coupling.Intention1;
 import coupling.Obtention;
 import coupling.Obtention2;
 import coupling.interaction.Interaction;
-import coupling.interaction.Interaction2_;
+import coupling.interaction.Interaction030;
 import existence.Existence2_;
 
 /**
@@ -35,7 +35,7 @@ public class Decider2 implements Decider{
 			if (affordedInteractions.get(0).getValence() >= 0)
 				intendedInteraction = affordedInteractions.get(0);
 			else
-				intendedInteraction = (Interaction2_)this.existence.getOtherInteraction(affordedInteractions.get(0));
+				intendedInteraction = (Interaction030)this.existence.getOtherInteraction(affordedInteractions.get(0));
 		}
 		else 
 			intendedInteraction = this.existence.getOtherInteraction(null);

@@ -6,7 +6,7 @@ import coupling.Experience4;
  * An Interaction3 is an Interaction2 with a weight.
  * @author Olivier.
  */
-public class Interaction3_ extends Interaction2_ {
+public class Interaction3_ extends Interaction030 {
 	
 	private int weight = 0;
 
