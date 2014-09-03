@@ -23,7 +23,7 @@ public class Episode6 extends Intention4{
 	
 	public Episode6(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
-		if (!experience.isPrimitive())
+		if (!experience.isAbstract())
 			this.series = experience.getInteraction().getSeries();
 	}
 
@@ -55,7 +55,7 @@ public class Episode6 extends Intention4{
 
 		valence += enactedPrimitiveInteraction.getValence();
 		
-		if (this.getExperience().isPrimitive()){
+		if (this.getExperience().isAbstract()){
 			this.setInteraction(enactedPrimitiveInteraction);
 			this.setTerminated();
 		}
@@ -99,7 +99,7 @@ public class Episode6 extends Intention4{
 	public Experience nextPrimitiveExperience(){
 		Experience nextExperience = this.getExperience();
 		
-		if (!this.getExperience().isPrimitive())
+		if (!this.getExperience().isAbstract())
 			nextExperience = this.series.get(this.getStep()).getExperience();
 		
 		this.setPrimitiveExperience(nextExperience);

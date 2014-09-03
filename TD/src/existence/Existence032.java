@@ -35,8 +35,13 @@ public class Existence032 extends Existence030 {
 		addOrGetPrimitiveInteraction(e2, r2, 1);
 	}
 	
+	/**
+	 * Compute the system's mood and
+	 * and choose the next experience based on the previous interaction
+	 * @return The next experience.
+	 */
 	@Override
-	public Experience chooseExperience(Result result){
+	public Experience chooseExperience(){
 		
 		Interaction030 previousEnactedInteraction = (Interaction030)this.getEnactedInteraction();
 		if (previousEnactedInteraction.getValence() >= 0)
@@ -53,10 +58,9 @@ public class Existence032 extends Existence030 {
 				this.setSelfSatisfactionCounter(0);
 			}
 		}
-		if (this.getContextInteraction()!= null)
-			learnCompositeInteraction(this.getContextInteraction(), previousEnactedInteraction);
+		learnCompositeInteraction();
 
-		List<Anticipation> anticipations = computeAnticipations(previousEnactedInteraction);
+		List<Anticipation> anticipations = computeAnticipations();
 		Interaction030 intendedInteraction = selectInteraction(anticipations);
 		this.setExpectedResult(intendedInteraction.getResult());
 		

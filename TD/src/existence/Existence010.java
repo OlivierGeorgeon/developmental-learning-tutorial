@@ -43,7 +43,7 @@ public class Existence010 implements Existence {
 	@Override
 	public String step() {
 		
-		Experience experience = chooseExperience(this.getPreviousResult());
+		Experience experience = chooseExperience();
 		Result result = returnResult010(experience);
 	
 		this.setPreviousExperience(experience);
@@ -53,20 +53,22 @@ public class Existence010 implements Existence {
 	}
 
 	/**
-	 * @param result: The result obtained in the previous cycle.
+	 * Compute the system's mood and
+	 * and choose the next experience based on the previous result
 	 * @return The next experience.
 	 */
-	protected Experience chooseExperience(Result result){
+	protected Experience chooseExperience(){
 
 		Experience previousExperience = this.getPreviousExperience();
+		Result previousResult = this.getPreviousResult();
 		Experience nextExperience = null;
-		if (this.getExpectedResult() != null && this.getExpectedResult().equals(result))
+		if (this.getExpectedResult() != null && this.getExpectedResult().equals(previousResult))
 			Trace.addEventElement("mood", "SELF-SATISFIED");
 		else
 			Trace.addEventElement("mood", "FRUSTRATED");
 		
-		if (this.getPreviousExperience() != null && result != null)
-			addOrGetPrimitiveInteraction(previousExperience, result);
+		if (this.getPreviousExperience() != null && previousResult != null)
+			addOrGetPrimitiveInteraction(previousExperience, previousResult);
 
 		if (this.getSelfSatisfactionCounter() >= BOREDOME_LEVEL){
 			Trace.addEventElement("mood", "BORED");

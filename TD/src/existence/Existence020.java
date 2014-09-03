@@ -30,15 +30,21 @@ public class Existence020 extends Existence010 {
 		addOrGetPrimitiveInteraction(e2, r2, 1);		
 	}
 	
+	/**
+	 * Compute the system's mood and
+	 * and choose the next experience based on the previous interaction
+	 * @return The next experience.
+	 */
 	@Override
-	public Experience chooseExperience(Result result){
+	public Experience chooseExperience(){
 		
 		Experience previousExperience = this.getPreviousExperience();
+		Result previousResult = this.getPreviousResult();
 		Experience nextExperience = null;
 		if (previousExperience == null)
 			nextExperience = this.getOtherExperience(null);
 		else{ 
-			int mood = getInteraction(previousExperience.getLabel() + result.getLabel()).getValence();
+			int mood = getInteraction(previousExperience.getLabel() + previousResult.getLabel()).getValence();
 			if (mood >= 0){
 				Trace.addEventElement("mood", "PLEASED");
 				nextExperience = previousExperience;
