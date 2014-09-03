@@ -23,7 +23,7 @@ public class Existence031 extends Existence030 {
 	@Override
 	public String step() {
 		
-		Experience experience = chooseExperience(this.getPreviousResult());
+		Experience experience = chooseExperience();
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
@@ -38,16 +38,17 @@ public class Existence031 extends Existence030 {
 	}
 
 	/**
-	 * Records a composite interaction in memory
-	 * or increment its weight
-	 * @param preInteraction: The composite interaction's pre-interaction
-	 * @param postInteraction: The composite interaction's post-interaction
-	 * @return the learned composite interaction
+	 * Record the composite interaction from the context interaction and the enacted interaction.
+	 * Increment its weight.
 	 */
 	@Override
-	public void learnCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
-		Interaction031 interaction = (Interaction031)addOrGetCompositeInteraction(preInteraction, postInteraction);
-		interaction.incrementWeight();
+	public void learnCompositeInteraction(){
+		Interaction030 preInteraction = this.getContextInteraction();
+		Interaction030 postInteraction = this.getEnactedInteraction();
+		if (preInteraction != null){
+			Interaction031 interaction = (Interaction031)addOrGetCompositeInteraction(preInteraction, postInteraction);
+			interaction.incrementWeight();
+		}
 	}
 
 	@Override
@@ -57,15 +58,16 @@ public class Existence031 extends Existence030 {
 
 	/**
 	 * Computes the list of anticipations
+	 * from the enacted Interaction
 	 * @param the enacted interaction
 	 * @return the list of anticipations
 	 */
 	@Override
-	public List<Anticipation> computeAnticipations(Interaction030 enactedInteraction){
+	public List<Anticipation> computeAnticipations(){
 		List<Anticipation> anticipations = this.getDefaultPropositions(); 
 		
-		if (enactedInteraction != null){
-			for (Interaction activatedInteraction : getActivatedInteractions(enactedInteraction)){
+		if (this.getEnactedInteraction() != null){
+			for (Interaction activatedInteraction : getActivatedInteractions()){
 				Anticipation031 proposition = new Anticipation031(((Interaction031)activatedInteraction).getPostInteraction().getExperience(), ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
 				int index = anticipations.indexOf(proposition);
 				if (index < 0)

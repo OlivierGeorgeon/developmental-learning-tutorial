@@ -2,6 +2,10 @@ package coupling;
 
 import coupling.interaction.Interaction040;
 
+/**
+ * An Experience040 is an Experience that can be primitive or abstract.
+ * An abstract Experience has an interaction attached to it.
+ */
 public class Experience040 extends Experience {
 
 	/**
@@ -13,7 +17,7 @@ public class Experience040 extends Experience {
 		super(label);
 	}
 
-	public boolean isPrimitive(){
+	public boolean isAbstract(){
 		return (this.interaction == null);
 	}
 	
