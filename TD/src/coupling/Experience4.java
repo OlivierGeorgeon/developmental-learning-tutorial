@@ -1,13 +1,13 @@
 package coupling;
 
-import coupling.interaction.Interaction4;
+import coupling.interaction.Interaction040;
 
 public class Experience4 extends Experience {
 
 	/**
 	 * The experience's interaction.
 	 */
-	private Interaction4 interaction;
+	private Interaction040 interaction;
 	
 	public Experience4(String label){
 		super(label);
@@ -17,11 +17,11 @@ public class Experience4 extends Experience {
 		return (this.interaction == null);
 	}
 	
-	public void setInteraction(Interaction4 interaction){
+	public void setInteraction(Interaction040 interaction){
 		this.interaction = interaction;
 	}
 	
-	public Interaction4 getInteraction(){
+	public Interaction040 getInteraction(){
 		return this.interaction;
 	}
 

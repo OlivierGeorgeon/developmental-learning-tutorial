@@ -15,7 +15,7 @@ import coupling.Obtention3;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction031;
-import coupling.interaction.Interaction4;
+import coupling.interaction.Interaction040;
 
 public class Existence3_ extends Existence030 {
 
