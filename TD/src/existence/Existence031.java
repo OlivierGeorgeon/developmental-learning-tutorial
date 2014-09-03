@@ -127,13 +127,13 @@ public class Existence031 extends Existence030 {
 		this.incClock();
 		
 		if (this.getClock() <= this.T1 || this.getClock() > this.T2){
-			if (experience.equals(this.createOrGetExperience(this.LABEL_E1)))
+			if (experience.equals(this.addOrGetExperience(this.LABEL_E1)))
 				result =  this.createOrGetResult(this.LABEL_R1);
 			else
 				result = this.createOrGetResult(this.LABEL_R2);
 		} 
 		else {
-			if (experience.equals(this.createOrGetExperience(this.LABEL_E1)))
+			if (experience.equals(this.addOrGetExperience(this.LABEL_E1)))
 				result = this.createOrGetResult(this.LABEL_R2);
 			else
 				result = this.createOrGetResult(this.LABEL_R1);

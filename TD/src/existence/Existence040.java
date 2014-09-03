@@ -1,9 +1,11 @@
 package existence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import tracer.Trace;
 import agent.Anticipation;
+import agent.Anticipation031;
 import coupling.Experience;
 import coupling.Experience040;
 import coupling.Result;
@@ -20,6 +22,20 @@ public class Existence040 extends Existence031 {
 	private Interaction040 lastSuperInteraction;
 
 	@Override
+	protected void initExistence(){
+		Experience040 e1 = (Experience040)addOrGetExperience(LABEL_E1);
+		Experience040 e2 = (Experience040)addOrGetExperience(LABEL_E2);
+		Result r1 = createOrGetResult(LABEL_R1);
+		Result r2 = createOrGetResult(LABEL_R2);
+		Interaction040 e11 = (Interaction040)addOrGetPrimitiveInteraction(e1, r1, -1);
+		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 1);
+		Interaction040 e21 = (Interaction040)addOrGetPrimitiveInteraction(e2, r1, -1);
+		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 1);
+		e1.setInteraction(e12); e1.resetAbstract();
+		e2.setInteraction(e22); e2.resetAbstract();
+	}
+	
+	@Override
 	public String step() {
 		
 		Interaction040 intendedInteraction = chooseInteraction();
@@ -34,7 +50,7 @@ public class Existence040 extends Existence031 {
 	
 	/**
 	 * Learn composite interactions from 
-	 * the previous previous super interaction, the context interaction, and the enacted interaction
+	 * the previous super interaction, the context interaction, and the enacted interaction
 	 */
 	public void learnCompositeInteraction(){
 		Interaction040 previousInteraction = this.getContextInteraction();
@@ -70,14 +86,13 @@ public class Existence040 extends Existence031 {
 	 */
 	@Override
 	public Interaction040 addOrGetCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction) {
-		String label = preInteraction.getLabel() + postInteraction.getLabel();
+		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
         Interaction040 interaction = (Interaction040)getInteraction(label);
         if (interaction == null){
-			int valence = preInteraction.getValence() + postInteraction.getValence();
-			interaction = (Interaction040)addOrGetInteraction(preInteraction.getLabel() + postInteraction.getLabel()); 
+			interaction = (Interaction040)addOrGetInteraction(label); 
 			interaction.setPreInteraction(preInteraction);
 			interaction.setPostInteraction(postInteraction);
-			interaction.setValence(valence);
+			interaction.setValence(preInteraction.getValence() + postInteraction.getValence());
 			Experience040 abstractExperience = this.addOrGetAbstractExperience(interaction);
 			interaction.setExperience(abstractExperience);
 			System.out.println("learn " + interaction.getLabel());
@@ -102,15 +117,17 @@ public class Existence040 extends Existence031 {
 
 	/**
 	 * Compute the system's mood
-	 * and choose the next intended interaction based on the previous interaction
+	 * and choose the next intended interaction 
 	 * @return The next intended interaction.
 	 */
 	public Interaction040 chooseInteraction(){
 		Interaction040 previousEnactedInteraction = this.getEnactedInteraction();
-		if (previousEnactedInteraction.getValence() >= 0)
-			Trace.addEventElement("mood", "PLEASED");
-		else
-			Trace.addEventElement("mood", "PAINED");
+		if (previousEnactedInteraction != null){
+			if (previousEnactedInteraction.getValence() >= 0)
+				Trace.addEventElement("mood", "PLEASED");
+			else
+				Trace.addEventElement("mood", "PAINED");
+		}
 		learnCompositeInteraction();
 		List<Anticipation> anticipations = computeAnticipations();
 		return selectInteraction(anticipations);
@@ -138,10 +155,27 @@ public class Existence040 extends Existence031 {
 		return activatedInteractions;
 	}	
 
+	@Override
+	protected List<Anticipation> getDefaultPropositions(){
+		List<Anticipation> anticipations = new ArrayList<Anticipation>();
+		for (Experience experience : this.EXPERIENCES.values()){
+			Experience040 defaultExperience = (Experience040)experience;
+			if (!defaultExperience.isAbstract()){
+				Anticipation031 anticipation = new Anticipation031(experience, 0);
+				anticipations.add(anticipation);
+			}
+		}
+		return anticipations;
+	}
+
 	public Interaction040 selectInteraction(List<Anticipation> anticipations){
-		Interaction040 intendedInteraction = null;
-		// TODO
-		return intendedInteraction;
+		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
+		Collections.sort(anticipations);
+		for (Anticipation anticipation : anticipations)
+			System.out.println("propose " + anticipation.toString());
+		
+		Anticipation031 selectedAnticipation = (Anticipation031)anticipations.get(0);
+		return ((Experience040)selectedAnticipation.getExperience()).getInteraction();
 	}
 
 	public Interaction040 enact(Interaction030 intendedInteraction){
@@ -180,6 +214,11 @@ public class Existence040 extends Existence031 {
 		//Result result = returnResult031(experience);
 		Result result = returnResult040(experience);
 		return (Interaction040)this.addOrGetPrimitiveInteraction(experience, result);
+	}
+
+	@Override
+	protected Experience040 createExperience(String label){
+		return new Experience040(label);
 	}
 
 	public Interaction040 getContextInteraction(){

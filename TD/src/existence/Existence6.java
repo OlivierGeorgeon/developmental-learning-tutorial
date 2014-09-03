@@ -13,9 +13,9 @@ public class Existence6 extends Existence5 {
 
 	@Override
 	protected void initExistence(){
-		Experience e1 = createOrGetExperience(LABEL_STEP);
-		Experience e2 = createOrGetExperience(LABEL_FEEL);
-		Experience e3 = createOrGetExperience(LABEL_SWAP);
+		Experience e1 = addOrGetExperience(LABEL_STEP);
+		Experience e2 = addOrGetExperience(LABEL_FEEL);
+		Experience e3 = addOrGetExperience(LABEL_SWAP);
 		Result r1 = createOrGetResult(LABEL_TRUE);
 		Result r2 = createOrGetResult(LABEL_FALSE);
 		createOrGetPrimitiveInteraction(e1, r1, 4);   // step_up

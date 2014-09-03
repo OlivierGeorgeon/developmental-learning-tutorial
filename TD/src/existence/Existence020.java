@@ -19,8 +19,8 @@ public class Existence020 extends Existence010 {
 
 	@Override
 	protected void initExistence(){
-		Experience e1 = createOrGetExperience(LABEL_E1);
-		Experience e2 = createOrGetExperience(LABEL_E2);
+		Experience e1 = addOrGetExperience(LABEL_E1);
+		Experience e2 = addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		/** Change the valence of interactions to change the agent's motivation */

@@ -12,13 +12,18 @@ public class Experience040 extends Experience {
 	 * The experience's interaction.
 	 */
 	private Interaction040 interaction;
+	private boolean isAbstract = true;
 	
 	public Experience040(String label){
 		super(label);
 	}
 
 	public boolean isAbstract(){
-		return (this.interaction == null);
+		return this.isAbstract;
+	}
+	
+	public void resetAbstract(){
+		this.isAbstract = false;
 	}
 	
 	public void setInteraction(Interaction040 interaction){

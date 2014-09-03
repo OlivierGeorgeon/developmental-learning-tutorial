@@ -36,8 +36,8 @@ public class Existence010 implements Existence {
 	}	
 	
 	protected void initExistence(){
-		createOrGetExperience(LABEL_E1);
-		createOrGetExperience(LABEL_E2);
+		addOrGetExperience(LABEL_E1);
+		addOrGetExperience(LABEL_E2);
 	}
 
 	@Override
@@ -143,10 +143,14 @@ public class Existence010 implements Existence {
 	 * @param label: The experience's label
 	 * @return The experience.
 	 */
-	protected Experience createOrGetExperience(String label) {
+	protected Experience addOrGetExperience(String label) {
 		if (!EXPERIENCES.containsKey(label))
-			EXPERIENCES.put(label, new Experience(label));			
+			EXPERIENCES.put(label, createExperience(label));			
 		return EXPERIENCES.get(label);
+	}
+	
+	protected Experience createExperience(String label){
+		return new Experience(label);
 	}
 
 	/**
@@ -214,7 +218,7 @@ public class Existence010 implements Existence {
 	 * @return The result of this experience.
 	 */
 	public Result returnResult010(Experience experience){
-		if (experience.equals(createOrGetExperience(LABEL_E1)))
+		if (experience.equals(addOrGetExperience(LABEL_E1)))
 			return createOrGetResult(LABEL_R1);
 		else
 			return createOrGetResult(LABEL_R2);
