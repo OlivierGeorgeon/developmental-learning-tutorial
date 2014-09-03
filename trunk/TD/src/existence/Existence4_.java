@@ -7,15 +7,15 @@ import java.util.List;
 import agent.decider.Proposition;
 import coupling.interaction.Interaction;
 //import coupling.interaction.Interaction2;
-import coupling.interaction.Interaction4;
+import coupling.interaction.Interaction040;
 import coupling.Experience;
 import coupling.Experience4;
 
 public class Existence4_ extends Existence3_ {
 
-	private Interaction4 interaction_1;
-	private Interaction4 interaction_2;
-	private Interaction4 superInteraction;
+	private Interaction040 interaction_1;
+	private Interaction040 interaction_2;
+	private Interaction040 superInteraction;
 
 	@Override
 	protected void learn(){
@@ -23,13 +23,13 @@ public class Existence4_ extends Existence3_ {
 	}
 
 	@Override
-	public Interaction4 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
+	public Interaction040 createOrReinforceCompositeInteraction(Interaction preInteraction, Interaction postInteraction) {
 			
 			String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
-			Interaction4 interaction = (Interaction4)getInteraction(label);
+			Interaction040 interaction = (Interaction040)getInteraction(label);
 			if (interaction == null){
 				int valence = preInteraction.getValence() + postInteraction.getValence();	
-				interaction = (Interaction4)this.addOrGetIntearction(label, valence); 
+				interaction = (Interaction040)this.addOrGetIntearction(label, valence); 
 				interaction.setPreInteraction(preInteraction);
 				interaction.setPostInteraction(postInteraction);
 				interaction.incrementWeight();
@@ -42,7 +42,7 @@ public class Existence4_ extends Existence3_ {
 			return interaction;
 		}
 
-	public Experience4 createOrGetCompositeExperience(Interaction4 compositeInteraction) {
+	public Experience4 createOrGetCompositeExperience(Interaction040 compositeInteraction) {
 		Experience4 experience = (Experience4)this.createOrGetExperience(compositeInteraction.getLabel());
 		experience.setInteraction(compositeInteraction);
 		return experience;	
@@ -53,10 +53,10 @@ public class Existence4_ extends Existence3_ {
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 	
 		for (Interaction activatedInteraction : this.INTERACTIONS.values())
-			if (this.superInteraction != null && this.superInteraction.equals(((Interaction4)activatedInteraction).getPreInteraction()) ||
-				interaction != null && interaction.equals(((Interaction4)activatedInteraction).getPreInteraction()) ||
-				((Interaction4)interaction).getPostInteraction() != null && ((Interaction4)interaction).getPostInteraction().equals(((Interaction4)activatedInteraction).getPreInteraction())){
-				activatedInteractions.add((Interaction4)activatedInteraction);
+			if (this.superInteraction != null && this.superInteraction.equals(((Interaction040)activatedInteraction).getPreInteraction()) ||
+				interaction != null && interaction.equals(((Interaction040)activatedInteraction).getPreInteraction()) ||
+				((Interaction040)interaction).getPostInteraction() != null && ((Interaction040)interaction).getPostInteraction().equals(((Interaction040)activatedInteraction).getPreInteraction())){
+				activatedInteractions.add((Interaction040)activatedInteraction);
 				System.out.println("activated " + activatedInteraction.toString());
 			}
 		return activatedInteractions;
