@@ -43,7 +43,7 @@ public class Existence4_ extends Existence3_ {
 		}
 
 	public Experience040 createOrGetCompositeExperience(Interaction040 compositeInteraction) {
-		Experience040 experience = (Experience040)this.createOrGetExperience(compositeInteraction.getLabel());
+		Experience040 experience = (Experience040)this.addOrGetExperience(compositeInteraction.getLabel());
 		experience.setInteraction(compositeInteraction);
 		return experience;	
 	}

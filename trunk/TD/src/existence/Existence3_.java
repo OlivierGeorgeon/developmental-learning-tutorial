@@ -27,8 +27,8 @@ public class Existence3_ extends Existence030 {
 		this.proactive = new Decider3(this);
 		this.reactive = new Environment3(this);
 
-		Experience e1 = createOrGetExperience(LABEL_E1);
-		Experience e2 = createOrGetExperience(LABEL_E2);
+		Experience e1 = addOrGetExperience(LABEL_E1);
+		Experience e2 = addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		createOrGetPrimitiveInteraction(e1, r1, -1);
