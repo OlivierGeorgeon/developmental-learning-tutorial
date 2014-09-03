@@ -9,7 +9,7 @@ import coupling.interaction.Interaction;
 //import coupling.interaction.Interaction2;
 import coupling.interaction.Interaction040;
 import coupling.Experience;
-import coupling.Experience4;
+import coupling.Experience040;
 
 public class Existence4_ extends Existence3_ {
 
@@ -42,8 +42,8 @@ public class Existence4_ extends Existence3_ {
 			return interaction;
 		}
 
-	public Experience4 createOrGetCompositeExperience(Interaction040 compositeInteraction) {
-		Experience4 experience = (Experience4)this.createOrGetExperience(compositeInteraction.getLabel());
+	public Experience040 createOrGetCompositeExperience(Interaction040 compositeInteraction) {
+		Experience040 experience = (Experience040)this.createOrGetExperience(compositeInteraction.getLabel());
 		experience.setInteraction(compositeInteraction);
 		return experience;	
 	}
