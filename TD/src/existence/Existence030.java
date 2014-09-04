@@ -51,17 +51,19 @@ public class Existence030 extends Existence020 {
 	}
 
 	/**
-	 * Compute the system's mood and
-	 * and choose the next experience based on the previous eacted interaction.
+	 * Compute the system's mood
+	 * and choose the next experience based on the previous enacted interaction.
 	 * @return The next experience.
 	 */
 	@Override
 	public Experience chooseExperience(){
 		
-		if (this.getEnactedInteraction().getValence() >= 0)
-			Trace.addEventElement("mood", "PLEASED");
-		else
-			Trace.addEventElement("mood", "PAINED");
+		if (this.getEnactedInteraction()!= null){
+			if (this.getEnactedInteraction().getValence() >= 0)
+				Trace.addEventElement("mood", "PLEASED");
+			else
+				Trace.addEventElement("mood", "PAINED");
+		}
 
 		learnCompositeInteraction();
 		List<Anticipation> anticipations = computeAnticipations();

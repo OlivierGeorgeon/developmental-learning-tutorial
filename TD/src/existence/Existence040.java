@@ -38,8 +38,16 @@ public class Existence040 extends Existence031 {
 	@Override
 	public String step() {
 		
-		Interaction040 intendedInteraction = chooseInteraction();
+		Experience040 experience = (Experience040)chooseExperience();
+		Interaction040 intendedInteraction = experience.getInteraction();
+
 		Interaction040 enactedInteraction = enact(intendedInteraction);
+		
+		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
+			Result failResult = createOrGetResult(enactedInteraction.getLabel());
+			int valence = enactedInteraction.getValence(); 
+			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
+		}
 		
 		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
 		this.setContextInteraction(this.getEnactedInteraction());
@@ -52,12 +60,13 @@ public class Existence040 extends Existence031 {
 	 * Learn composite interactions from 
 	 * the previous super interaction, the context interaction, and the enacted interaction
 	 */
+	@Override
 	public void learnCompositeInteraction(){
 		Interaction040 previousInteraction = this.getContextInteraction();
 		Interaction040 lastInteraction = this.getEnactedInteraction();
 		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
 		Interaction040 lastSuperIntearction = null;
-        // learn [previous current]
+        // learn [previous current] called the super interaction
 		if (previousInteraction != null)
 			lastSuperIntearction = addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
 		
@@ -116,30 +125,14 @@ public class Existence040 extends Existence031 {
 	}
 
 	/**
-	 * Compute the system's mood
-	 * and choose the next intended interaction 
-	 * @return The next intended interaction.
-	 */
-	public Interaction040 chooseInteraction(){
-		Interaction040 previousEnactedInteraction = this.getEnactedInteraction();
-		if (previousEnactedInteraction != null){
-			if (previousEnactedInteraction.getValence() >= 0)
-				Trace.addEventElement("mood", "PLEASED");
-			else
-				Trace.addEventElement("mood", "PAINED");
-		}
-		learnCompositeInteraction();
-		List<Anticipation> anticipations = computeAnticipations();
-		return selectInteraction(anticipations);
-	}
-	
-	/**
 	 * Get the list of activated interactions
-	 * from the enacted Interaction
+	 * from the enacted Interaction, the enacted interaction's post-interaction if any, 
+	 * and the last super interaction 
 	 * and the last super interaction
 	 * @param the enacted interaction
 	 * @return the list of anticipations
 	 */
+	@Override
 	public List<Interaction> getActivatedInteractions() {
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 		for (Interaction interaction : this.INTERACTIONS.values()){
@@ -166,16 +159,6 @@ public class Existence040 extends Existence031 {
 			}
 		}
 		return anticipations;
-	}
-
-	public Interaction040 selectInteraction(List<Anticipation> anticipations){
-		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
-		Collections.sort(anticipations);
-		for (Anticipation anticipation : anticipations)
-			System.out.println("propose " + anticipation.toString());
-		
-		Anticipation031 selectedAnticipation = (Anticipation031)anticipations.get(0);
-		return ((Experience040)selectedAnticipation.getExperience()).getInteraction();
 	}
 
 	public Interaction040 enact(Interaction030 intendedInteraction){
@@ -220,10 +203,11 @@ public class Existence040 extends Existence031 {
 	protected Experience040 createExperience(String label){
 		return new Experience040(label);
 	}
-
+	@Override
 	public Interaction040 getContextInteraction(){
 		return (Interaction040)super.getContextInteraction();
 	}
+	@Override
 	public Interaction040 getEnactedInteraction(){
 		return (Interaction040)super.getEnactedInteraction();
 	}
@@ -258,7 +242,7 @@ public class Existence040 extends Existence031 {
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 
-		if (this.penultimateExperience != experience &&
+		if (this.getPenultimateExperience() != experience &&
 			this.getPreviousExperience() == experience)
 			result =  this.createOrGetResult(this.LABEL_R2);
 		
