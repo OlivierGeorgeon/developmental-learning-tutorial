@@ -42,7 +42,7 @@ public class Anticipation031 implements Anticipation {
 	}
 	
 	public String toString(){
-		return this.experience.getLabel() + ", proclivity " + this.proclivity;
+		return this.experience.getLabel() + " proclivity " + this.proclivity;
 	}
 
 }

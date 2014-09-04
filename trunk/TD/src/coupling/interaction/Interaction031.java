@@ -22,7 +22,7 @@ public class Interaction031 extends Interaction030 {
 	}
 	
 	public int getWeight() {
-		return weight;
+		return this.weight;
 	}
 
 	public void incrementWeight() {
@@ -30,7 +30,7 @@ public class Interaction031 extends Interaction030 {
 	}
 	
 	public String toString(){
-		return this.getLabel() + "," + this.getValence() + "," + this.weight;
+		return this.getLabel() + " valence " + this.getValence() + " weight " + this.weight;
 	}	
 
 }

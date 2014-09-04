@@ -41,7 +41,7 @@ public class Main {
 		Existence existence = new Existence040();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
-		for(int i = 0 ; i < 50 ; i++){			
+		for(int i = 0 ; i < 26 ; i++){			
 			String stepTrace = existence.step();
 			System.out.println(i + ": " + stepTrace);
 		}

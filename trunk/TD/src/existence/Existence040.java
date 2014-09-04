@@ -44,7 +44,7 @@ public class Existence040 extends Existence031 {
 		Interaction040 enactedInteraction = enact(intendedInteraction);
 		
 		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
-			Result failResult = createOrGetResult(enactedInteraction.getLabel());
+			Result failResult = createOrGetResult(enactedInteraction.getLabel() + ">");
 			int valence = enactedInteraction.getValence(); 
 			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
 		}
@@ -53,7 +53,7 @@ public class Existence040 extends Existence031 {
 		this.setContextInteraction(this.getEnactedInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return enactedInteraction.toString();
+		return enactedInteraction.getLabel();
 	}
 	
 	/**
@@ -83,6 +83,11 @@ public class Existence040 extends Existence031 {
 	public Interaction040 addOrGetAndReinforceCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
 		Interaction040 compositeInteraction = addOrGetCompositeInteraction(preInteraction, postInteraction);
 		compositeInteraction.incrementWeight();
+		if (compositeInteraction.getWeight() == 1)
+			System.out.println("learn " + compositeInteraction.toString());
+		else
+			System.out.println("reinforce " + compositeInteraction.toString());
+
 		return compositeInteraction;
 	}
 
@@ -95,7 +100,7 @@ public class Existence040 extends Existence031 {
 	 */
 	@Override
 	public Interaction040 addOrGetCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction) {
-		String label = "(" + preInteraction.getLabel() + postInteraction.getLabel() + ")";
+		String label = "<" + preInteraction.getLabel() + postInteraction.getLabel() + ">";
         Interaction040 interaction = (Interaction040)getInteraction(label);
         if (interaction == null){
 			interaction = (Interaction040)addOrGetInteraction(label); 
@@ -104,13 +109,12 @@ public class Existence040 extends Existence031 {
 			interaction.setValence(preInteraction.getValence() + postInteraction.getValence());
 			Experience040 abstractExperience = this.addOrGetAbstractExperience(interaction);
 			interaction.setExperience(abstractExperience);
-			System.out.println("learn " + interaction.getLabel());
         }
     	return interaction;
 	}
 	
     public Experience040 addOrGetAbstractExperience(Interaction040 compositeInteraction) {
-        String label = compositeInteraction.getLabel();
+        String label = compositeInteraction.getLabel().replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experience040 abstractExperience =  new Experience040(label);
         	abstractExperience.setInteraction(compositeInteraction);
