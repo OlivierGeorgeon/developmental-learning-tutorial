@@ -3,7 +3,7 @@ package coupling.interaction;
 import coupling.Experience040;
 
 /**
- * An interaction040 is an Interaction031 that works with Experience040
+ * An interaction040 is an Interaction031 that works has an Experience040
  * Composite interactions now have an abstract experience.
  */
 public class Interaction040 extends Interaction031 {
@@ -12,6 +12,7 @@ public class Interaction040 extends Interaction031 {
 		super(label);
 	}
 	
+	@Override
 	public Experience040 getExperience() {
 		return (Experience040)super.getExperience(); 
 	}

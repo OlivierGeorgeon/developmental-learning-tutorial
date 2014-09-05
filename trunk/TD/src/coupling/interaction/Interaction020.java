@@ -19,6 +19,7 @@ public class Interaction020 extends Interaction010{
 		return this.valence;
 	}
 
+	@Override
 	public String toString(){
 		return this.getLabel() + "," + this.getValence();
 	}
