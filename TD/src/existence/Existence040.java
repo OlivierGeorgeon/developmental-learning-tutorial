@@ -1,9 +1,7 @@
 package existence;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import tracer.Trace;
 import agent.Anticipation;
 import agent.Anticipation031;
 import coupling.Experience;
@@ -14,7 +12,7 @@ import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction040;
 
 /** 
-* Existence040 is used to demonstrate an Existence capable of anticipating two steps to make a decision.
+* Existence040 implements two-step self-programming.
 */
 public class Existence040 extends Existence031 {
 
@@ -44,7 +42,7 @@ public class Existence040 extends Existence031 {
 		Interaction040 enactedInteraction = enact(intendedInteraction);
 		
 		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
-			Result failResult = createOrGetResult(enactedInteraction.getLabel() + ">");
+			Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
 			int valence = enactedInteraction.getValence(); 
 			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
 		}
@@ -53,7 +51,7 @@ public class Existence040 extends Existence031 {
 		this.setContextInteraction(this.getEnactedInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return enactedInteraction.getLabel();
+		return "Enacted " + enactedInteraction.getLabel() + " valence " +  enactedInteraction.getValence();
 	}
 	
 	/**
@@ -114,7 +112,7 @@ public class Existence040 extends Existence031 {
 	}
 	
     public Experience040 addOrGetAbstractExperience(Interaction040 compositeInteraction) {
-        String label = compositeInteraction.getLabel().replace('>', '|');
+        String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experience040 abstractExperience =  new Experience040(label);
         	abstractExperience.setInteraction(compositeInteraction);

@@ -29,6 +29,7 @@ public class Interaction031 extends Interaction030 {
 		this.weight++;
 	}
 	
+	@Override
 	public String toString(){
 		return this.getLabel() + " valence " + this.getValence() + " weight " + this.weight;
 	}	
