@@ -170,17 +170,12 @@ public class Existence040 extends Existence031 {
 		else {			
 			// Enact the pre-interaction
 			Interaction040 enactedPreInteraction = enact(intendedInteraction.getPreInteraction());
-			if (!enactedPreInteraction.equals(intendedInteraction.getPreInteraction())){
-				// TODO interrupt
+			if (!enactedPreInteraction.equals(intendedInteraction.getPreInteraction()))
+				// if the preInteraction failed then the enaction of the intendedInteraction is interrupted here.
 				return enactedPreInteraction;
-			}
-			else
-			{
+			else{
 				// Enact the post-interaction
 				Interaction040 enactedPostInteraction = enact(intendedInteraction.getPostInteraction());
-				if (!enactedPostInteraction.equals(intendedInteraction.getPostInteraction())){
-					// TODO interrupt
-				}
 				return (Interaction040)addOrGetCompositeInteraction(enactedPreInteraction, enactedPostInteraction);
 			}
 		}
