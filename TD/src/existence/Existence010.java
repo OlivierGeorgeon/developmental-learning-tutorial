@@ -80,7 +80,7 @@ public class Existence010 implements Existence {
 			
 		this.incSelfSatisfactionCounter();
 		
-		Interaction intendedInteraction = predict(previousExperience);
+		Interaction intendedInteraction = predict(nextExperience);
 		if (intendedInteraction != null)
 			this.setExpectedResult(intendedInteraction.getResult());
 		

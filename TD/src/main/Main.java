@@ -11,7 +11,7 @@ import existence.Existence031;
 import existence.Existence040;
 import existence.Existence050;
 
-import tracer.AbstractLiteTracer;
+//import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
 import tracer.Trace;
 import tracer.Tracer;
@@ -34,11 +34,11 @@ public class Main {
 		Trace.init(tracer);		
 
 		/** Change this line to run another existence: */
-		//Existence existence = new Existence010();
+		Existence existence = new Existence010();
 		//Existence existence = new Existence020();
 		//Existence existence = new Existence030();
 		//Existence existence = new Existence031();
-		Existence existence = new Existence040();
+		//Existence existence = new Existence040();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
 		for(int i = 0 ; i < 26 ; i++){			
