@@ -26,9 +26,9 @@ public class Existence040 extends Existence031 {
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		Interaction040 e11 = (Interaction040)addOrGetPrimitiveInteraction(e1, r1, -1);
-		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 1);
+		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 2);
 		Interaction040 e21 = (Interaction040)addOrGetPrimitiveInteraction(e2, r1, -1);
-		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 1);
+		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 2);
 		e1.setInteraction(e12); e1.resetAbstract();
 		e2.setInteraction(e22); e2.resetAbstract();
 	}
@@ -69,7 +69,9 @@ public class Existence040 extends Existence031 {
 			lastSuperIntearction = addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
 		
 		// Learn three-step higher-level interactions
-        if (previousSuperInteraction != null && previousInteraction.isPrimitive() && lastInteraction.isPrimitive()){	
+        if (previousSuperInteraction != null 
+        		//&& previousInteraction.isPrimitive() && lastInteraction.isPrimitive()
+        		){	
             // learn [penultimate [previous current]]
             this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction.getPreInteraction(), lastSuperIntearction);
             // learn [[penultimate previous] current]
@@ -192,7 +194,8 @@ public class Existence040 extends Existence031 {
 		//Result result = returnResult010(experience);
 		//Result result = returnResult030(experience);
 		//Result result = returnResult031(experience);
-		Result result = returnResult040(experience);
+		//Result result = returnResult040(experience);
+		Result result = returnResult041(experience);
 		return (Interaction040)this.addOrGetPrimitiveInteraction(experience, result);
 	}
 
@@ -243,6 +246,35 @@ public class Existence040 extends Existence031 {
 			this.getPreviousExperience() == experience)
 			result =  this.createOrGetResult(this.LABEL_R2);
 		
+		this.setPenultimateExperience(this.getPreviousExperience());
+		this.setPreviousExperience(experience);
+		
+		return result;
+	}
+	
+	/**
+	 * Environment041
+	 * The agent must alternate experiences e1 and e2 every third cycle to get one r2 result the third time:
+	 * e1->r1 e1->r1 e1->r2 e2->r1 e2->r1 e2->r2 etc. 
+	 */
+	protected Experience antepenultimateExperience;
+	protected void setAntePenultimateExperience(Experience antepenultimateExperience){
+		this.antepenultimateExperience = antepenultimateExperience;
+	}
+	protected Experience getAntePenultimateExperience(){
+		return this.antepenultimateExperience;
+	}
+
+	public Result returnResult041(Experience experience){
+		
+		Result result = this.createOrGetResult(this.LABEL_R1);
+
+		if (this.getAntePenultimateExperience() != experience &&
+			this.getPenultimateExperience() == experience &&
+			this.getPreviousExperience() == experience)
+			result =  this.createOrGetResult(this.LABEL_R2);
+		
+		this.setAntePenultimateExperience(this.getPenultimateExperience());
 		this.setPenultimateExperience(this.getPreviousExperience());
 		this.setPreviousExperience(experience);
 		
