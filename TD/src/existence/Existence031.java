@@ -58,8 +58,6 @@ public class Existence031 extends Existence030 {
 
 	/**
 	 * Computes the list of anticipations
-	 * from the enacted Interaction
-	 * @param the enacted interaction
 	 * @return the list of anticipations
 	 */
 	@Override
