@@ -68,7 +68,7 @@ public class Existence040 extends Existence031 {
 		if (previousInteraction != null)
 			lastSuperIntearction = addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
 		
-		// Learn three-step higher-level interactions
+		// Learn higher-level interactions
         if (previousSuperInteraction != null 
         		//&& previousInteraction.isPrimitive() && lastInteraction.isPrimitive()
         		){	
