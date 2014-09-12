@@ -25,10 +25,11 @@ public class Existence040 extends Existence031 {
 		Experience040 e2 = (Experience040)addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
+		/** Change the valence depending on the environment to obtain better behaviors */
 		Interaction040 e11 = (Interaction040)addOrGetPrimitiveInteraction(e1, r1, -1);
-		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 2);
+		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 2); // Use valence 1 for Environment040 and 2 for Environment041
 		Interaction040 e21 = (Interaction040)addOrGetPrimitiveInteraction(e2, r1, -1);
-		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 2);
+		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 2); // Use valence 1 for Environment040 and 2 for Environment041
 		e1.setIntendedInteraction(e12); e1.resetAbstract();
 		e2.setIntendedInteraction(e22); e2.resetAbstract();
 	}
@@ -190,7 +191,8 @@ public class Existence040 extends Existence031 {
 	 */
 	public Interaction040 enactPrimitiveIntearction(Interaction030 intendedPrimitiveInteraction){
 		Experience experience = intendedPrimitiveInteraction.getExperience();
-		/** Change the returnResult() to change the environment */		
+		/** Change the returnResult() to change the environment 
+		 *  Change the valence of primitive interactions to obtain better behaviors */		
 		//Result result = returnResult010(experience);
 		//Result result = returnResult030(experience);
 		//Result result = returnResult031(experience);

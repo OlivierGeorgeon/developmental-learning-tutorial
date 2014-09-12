@@ -28,10 +28,6 @@ public class Existence050 extends Existence040 {
 	@Override
 	protected void initExistence(){
 		this.environment = new Environment050(this);
-		addOrGetPrimitiveInteraction(LABEL_I11, -1);
-		addOrGetPrimitiveInteraction(LABEL_I12, 1);
-		addOrGetPrimitiveInteraction(LABEL_I21, -1);
-		addOrGetPrimitiveInteraction(LABEL_I22, 1);
 	}
 	
 	/**
