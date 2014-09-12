@@ -26,6 +26,12 @@ public class EnvironmentString extends Environment050{
 
 	public EnvironmentString(Existence050  existence){
 		super(existence);
+		existence.addOrGetPrimitiveInteraction(">t", 4);   // step_up
+		existence.addOrGetPrimitiveInteraction(">f", -10); // step_down
+		existence.addOrGetPrimitiveInteraction("-t", -4);  // feel_up
+		existence.addOrGetPrimitiveInteraction("-f", -4);  // feel_down
+		existence.addOrGetPrimitiveInteraction("it", 4);   // swap
+		existence.addOrGetPrimitiveInteraction("if", -10); // not_swp
 	}
 	
 	@Override
@@ -34,11 +40,14 @@ public class EnvironmentString extends Environment050{
 
 		Interaction040 enactedInteraction = null;
 		
-		if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction(">t",0))
+		if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction(">t",0) ||
+			intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction(">f",0)	)
 			enactedInteraction = step();
-		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("-t",0))
+		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("-t",0) ||
+				intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("-f",0))
 			enactedInteraction = feel();
-		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("it",0))
+		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("it",0) ||
+				intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("if",0))
 			enactedInteraction = swap();
 		
 		return enactedInteraction;
