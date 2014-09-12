@@ -30,7 +30,7 @@ public class Existence050 extends Existence040 {
 	 * @param label: This interaction's label.
 	 * @return The created interaction
 	 */
-	protected Interaction040 addOrGetPrimitiveInteraction(String label, int valence) {
+	public Interaction040 addOrGetPrimitiveInteraction(String label, int valence) {
 		Interaction040 interaction = (Interaction040)addOrGetInteraction(label); 
 		return interaction;
 	}
