@@ -24,7 +24,7 @@ public class Episode6 extends Intention4{
 	public Episode6(Coupling3 coupling, Experience experience){
 		super(coupling, experience);
 		if (!experience.isAbstract())
-			this.series = experience.getInteraction().getSeries();
+			this.series = experience.getIntendedInteraction().getSeries();
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class Episode6 extends Intention4{
 		valence += enactedPrimitiveInteraction.getValence();
 		
 		if (this.getExperience().isAbstract()){
-			this.setInteraction(enactedPrimitiveInteraction);
+			this.setIntendedInteraction(enactedPrimitiveInteraction);
 			this.setTerminated();
 		}
 		else{
@@ -68,10 +68,10 @@ public class Episode6 extends Intention4{
 					this.alternateInteraction = this.getCoupling().createOrGetInteraction(this.getExperience(), result, this.valence);
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
-						this.setInteraction(enactedPrimitiveInteraction);
+						this.setIntendedInteraction(enactedPrimitiveInteraction);
 					else
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setIntendedInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 						
 					this.setTerminated();
 				}
@@ -79,16 +79,16 @@ public class Episode6 extends Intention4{
 			}
 			else{
 				if (enactedPrimitiveInteraction.equals(intendedPrimitiveInteraction))
-					this.setInteraction(this.getExperience().getInteraction());
+					this.setIntendedInteraction(this.getExperience().getIntendedInteraction());
 				else{
 					this.getCoupling().createOrGetPrimitiveInteraction(this.getExperience(), result, this.valence);
 					this.alternateInteraction = this.getCoupling().getInteraction(this.getExperience().getLabel() + result.getLabel());
 					Trace.addEventElement("alternate_interaction", alternateInteraction.getLabel());
 					if (this.getStep() == 0)
-						this.setInteraction(enactedPrimitiveInteraction);
+						this.setIntendedInteraction(enactedPrimitiveInteraction);
 					else 
 						// TODO construct the whole composite enacted interaction
-						this.setInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
+						this.setIntendedInteraction(this.getCoupling().learnCompositeInteraction((Interaction031)this.series.get(this.getStep() - 1), enactedPrimitiveInteraction));
 				}
 				this.setTerminated();
 			}			

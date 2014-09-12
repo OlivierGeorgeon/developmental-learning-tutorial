@@ -29,15 +29,15 @@ public class Existence040 extends Existence031 {
 		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 2);
 		Interaction040 e21 = (Interaction040)addOrGetPrimitiveInteraction(e2, r1, -1);
 		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 2);
-		e1.setInteraction(e12); e1.resetAbstract();
-		e2.setInteraction(e22); e2.resetAbstract();
+		e1.setIntendedInteraction(e12); e1.resetAbstract();
+		e2.setIntendedInteraction(e22); e2.resetAbstract();
 	}
 	
 	@Override
 	public String step() {
 		
 		Experience040 experience = (Experience040)chooseExperience();
-		Interaction040 intendedInteraction = experience.getInteraction();
+		Interaction040 intendedInteraction = experience.getIntendedInteraction();
 
 		Interaction040 enactedInteraction = enact(intendedInteraction);
 		
@@ -117,7 +117,7 @@ public class Existence040 extends Existence031 {
         String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experience040 abstractExperience =  new Experience040(label);
-        	abstractExperience.setInteraction(compositeInteraction);
+        	abstractExperience.setIntendedInteraction(compositeInteraction);
             EXPERIENCES.put(label, abstractExperience);
         }
         return (Experience040)EXPERIENCES.get(label);

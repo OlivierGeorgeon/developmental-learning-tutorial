@@ -34,7 +34,7 @@ public class Decider5 {
 		
 		if (!this.slot1.isEmpty()){
 			// learn the new super-interaction [last current]
-			superInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getInteraction());
+			superInteraction = this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getIntendedInteraction());
 
 			if (episode.getAlternateInteraction() != null)
 				this.coupling.createOrReinforceCompositeInteraction(this.slot1.getInteraction(), episode.getAlternateInteraction());
@@ -46,12 +46,12 @@ public class Decider5 {
 					// learn [previous [last current]]
 					this.coupling.createOrReinforceCompositeInteraction((Interaction031)this.slot2.getInteraction().getPreInteraction(), superInteraction);
 					// learn [[previous last] current]
-					this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getInteraction());	
+					this.coupling.createOrReinforceCompositeInteraction(this.slot2.getInteraction(), episode.getIntendedInteraction());	
 				//}
 			}
 		}
 		
-		this.slot1.setInteraction(episode.getInteraction());
+		this.slot1.setIntendedInteraction(episode.getIntendedInteraction());
 		this.slot2.setInteraction(superInteraction);
 	}
 

@@ -38,7 +38,7 @@ public class Decider21 extends Decider2{
 	public Intention chooseIntention(Obtention obtention){
 
 		Interaction030 interaction = null;
-		if (obtention != null) interaction = (((Obtention2)obtention).getInteraction());
+		if (obtention != null) interaction = (((Obtention2)obtention).getIntendedInteraction());
 		
 		if (interaction != null){
 			if (interaction.getValence() >= 0)
