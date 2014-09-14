@@ -101,16 +101,34 @@ public class Existence050 extends Existence040 {
 	public List<Anticipation> computeAnticipations(){
 		List<Anticipation> anticipations = this.getDefaultPropositions(); 
 		
-		if (this.getEnactedInteraction() != null){
-			for (Interaction activatedInteraction : getActivatedInteractions()){
-				Anticipation031 proposition = new Anticipation031(((Interaction031)activatedInteraction).getPostInteraction().getExperience(), ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
+		List<Interaction> activatedInteractions = getActivatedInteractions(); 
+		
+		for (Interaction interaction : activatedInteractions){
+			Interaction031 activatedInteraction = (Interaction031)interaction; 
+			Experience050 proposedExperience = (Experience050)activatedInteraction.getPostInteraction().getExperience();
+			if (proposedExperience != null){
+				int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence();
+				Anticipation031 proposition = new Anticipation031(proposedExperience, proclivity);
 				int index = anticipations.indexOf(proposition);
 				if (index < 0)
 					anticipations.add(proposition);
 				else
-					((Anticipation031)anticipations.get(index)).addProclivity(((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
+					((Anticipation031)anticipations.get(index)).addProclivity(proclivity);
 			}
 		}
+		
+		for (Anticipation anticipation : anticipations){
+			Experience050 experience = (Experience050)((Anticipation031)anticipation).getExperience();
+			for (Interaction interaction : experience.getEnactedInteractions()){
+				for (Interaction activatedInteraction : activatedInteractions){
+					if (interaction == ((Interaction031)activatedInteraction).getPostInteraction()){
+						int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)interaction).getValence(); 
+						((Anticipation031)anticipation).addProclivity(proclivity);
+					}
+				}
+			}
+		}
+		
 		return anticipations;
 	}
 

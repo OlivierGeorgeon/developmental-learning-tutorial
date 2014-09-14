@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import coupling.interaction.Interaction;
 
 /**
- * An Experience050 is an Experience040 that have a list of enactedInteractions.
- * Interactions in the list of enactedInteractions are interaction that may end up being enacted
- * if the intendedInteraction fails.
+ * An Experience050 is an Experience040 that has a list of enactedInteractions.
+ * Enacted Interactions are interactions that may end up being enacted
+ * instead of the intended interaction when performing this experience.
  */
 public class Experience050 extends Experience040 {
 
