@@ -17,7 +17,6 @@ public class Environment050 implements Environment {
 	
 	@Override
 	public Interaction enact(Interaction intendedInteraction) {
-		// TODO Auto-generated method stub
-		return null;
+		return intendedInteraction;
 	}
 }
