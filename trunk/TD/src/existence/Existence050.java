@@ -56,10 +56,11 @@ public class Existence050 extends Existence040 {
 	/**
 	 * Create an interaction from its label.
 	 * @param label: This interaction's label.
+	 * @param valence: the interaction's valence.
 	 * @return The created interaction
 	 */
 	public Interaction040 addOrGetPrimitiveInteraction(String label, int valence) {
-		Interaction040 interaction = (Interaction040)addOrGetInteraction(label); 
+		Interaction040 interaction = (Interaction040)addOrGetInteraction(label, valence); 
 		return interaction;
 	}
 
@@ -141,10 +142,9 @@ public class Existence050 extends Existence040 {
 	@Override
 	protected List<Anticipation> getDefaultPropositions(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		for (Interaction interaction: this.INTERACTIONS.values()){
-			Interaction040 proposedInteraction = (Interaction040)interaction; 
-			if (proposedInteraction.isPrimitive() && proposedInteraction.getValence() >= 0){
-				Experience050 experience = this.addOrGetAbstractExperience(proposedInteraction);
+		for (Interaction proposedInteraction: this.INTERACTIONS.values()){
+			if (((Interaction040)proposedInteraction).isPrimitive() && ((Interaction040)proposedInteraction).getValence() >= 0){
+				Experience050 experience = this.addOrGetAbstractExperience((Interaction040)proposedInteraction);
 				Anticipation031 anticipation = new Anticipation031(experience, 0);
 				anticipations.add(anticipation);
 			}

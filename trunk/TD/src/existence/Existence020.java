@@ -3,6 +3,8 @@ package existence;
 import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
+import coupling.interaction.Interaction;
+import coupling.interaction.Interaction010;
 import coupling.interaction.Interaction020;
 
 /**
@@ -65,11 +67,20 @@ public class Existence020 extends Existence010 {
 	 * @return The created interaction
 	 */
 	protected Interaction020 addOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {
-		Interaction020 interaction = (Interaction020)addOrGetInteraction(experience.getLabel() + result.getLabel()); 
+		Interaction020 interaction = (Interaction020)addOrGetInteraction(experience.getLabel() + result.getLabel(), valence); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
 		interaction.setValence(valence);
 		return interaction;
+	}
+		
+	protected Interaction addOrGetInteraction(String label, int valence) {
+		if (!INTERACTIONS.containsKey(label)){
+			Interaction020 interaction = createInteraction(label);
+			interaction.setValence(valence);
+			INTERACTIONS.put(label, interaction);			
+		}
+		return INTERACTIONS.get(label);
 	}
 	
 	@Override
