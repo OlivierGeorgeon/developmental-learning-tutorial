@@ -16,10 +16,10 @@ import coupling.interaction.Interaction010;
  */
 public class Existence010 implements Existence {
 	
-	protected final String LABEL_E1 = "e1"; 
-	protected final String LABEL_E2 = "e2"; 
-	protected final String LABEL_R1 = "r1";
-	protected final String LABEL_R2 = "r2";
+	public final String LABEL_E1 = "e1"; 
+	public final String LABEL_E2 = "e2"; 
+	public final String LABEL_R1 = "r1";
+	public final String LABEL_R2 = "r2";
 
 	protected Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 	protected Map<String ,Result> RESULTS = new HashMap<String ,Result>();
