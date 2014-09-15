@@ -43,6 +43,7 @@ public class Existence050 extends Existence040 {
 		
 		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
 			//Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
+			System.out.println("Experiment " + experience.getLabel() + " enacted " + enactedInteraction.getLabel());
 			experience.addEnactedInteraction(enactedInteraction);
 		}
 		
@@ -132,6 +133,37 @@ public class Existence050 extends Existence040 {
 		
 		return anticipations;
 	}
+
+	@Override
+	public List<Interaction> getActivatedInteractions() {
+		
+		List<Interaction> contextInteractions = new ArrayList<Interaction>();
+		
+		if (this.getEnactedInteraction()!=null){
+			contextInteractions.add(this.getEnactedInteraction());
+			if (!this.getEnactedInteraction().isPrimitive()){
+				contextInteractions.add(this.getEnactedInteraction().getPostInteraction());
+//				if (!this.getEnactedInteraction().getPostInteraction().isPrimitive())
+//					contextInteractions.add(this.getEnactedInteraction().getPostInteraction().getPostInteraction());
+			}
+			if (this.getLastSuperInteraction() != null){
+				contextInteractions.add(this.getLastSuperInteraction());
+				if (!this.getLastSuperInteraction().getPreInteraction().isPrimitive()){
+					Interaction test = this.addOrGetCompositeInteraction(this.getLastSuperInteraction().getPreInteraction().getPostInteraction(), this.getLastSuperInteraction().getPostInteraction());
+					contextInteractions.add(test);				
+				}
+			}
+		}
+		
+		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
+		for (Interaction interaction : this.INTERACTIONS.values()){
+			Interaction040 activatedInteraction = (Interaction040)interaction;
+			if (!activatedInteraction.isPrimitive())
+				if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
+					activatedInteractions.add(activatedInteraction);
+		}
+		return activatedInteractions;
+	}	
 
 	/**
 	 * Experiences corresponding to 

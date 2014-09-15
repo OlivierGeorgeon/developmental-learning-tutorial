@@ -40,16 +40,16 @@ public class Environment050 implements Environment {
 		Interaction enactedInteraction = null;
 	
 		if (intendedInteraction.getLabel().contains(this.getExistence().LABEL_E1)){
-			if (this.getPenultimateInteraction() != null && this.getPreviousInteraction() != null &&
-					this.getPenultimateInteraction().getLabel().contains(this.getExistence().LABEL_E2) &&
+			if ( this.getPreviousInteraction() != null &&
+				(this.getPenultimateInteraction() == null || this.getPenultimateInteraction().getLabel().contains(this.getExistence().LABEL_E2)) &&
 					this.getPreviousInteraction().getLabel().contains(this.getExistence().LABEL_E1))
 				enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R2, 0);
 			else
 				enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R1, 0);
 		}
 		else{
-			if (this.getPenultimateInteraction() != null && this.getPreviousInteraction() != null &&
-					this.getPenultimateInteraction().getLabel().contains(this.getExistence().LABEL_E1) &&
+			if (this.getPreviousInteraction() != null &&
+				(this.getPenultimateInteraction() == null || this.getPenultimateInteraction().getLabel().contains(this.getExistence().LABEL_E1)) &&
 					this.getPreviousInteraction().getLabel().contains(this.getExistence().LABEL_E2))
 				enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R2, 0);
 			else

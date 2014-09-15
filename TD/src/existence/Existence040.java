@@ -27,9 +27,9 @@ public class Existence040 extends Existence031 {
 		Result r2 = createOrGetResult(LABEL_R2);
 		/** Change the valence depending on the environment to obtain better behaviors */
 		Interaction040 e11 = (Interaction040)addOrGetPrimitiveInteraction(e1, r1, -1);
-		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 2); // Use valence 1 for Environment040 and 2 for Environment041
+		Interaction040 e12 = (Interaction040)addOrGetPrimitiveInteraction(e1, r2, 1); // Use valence 1 for Environment040 and 2 for Environment041
 		Interaction040 e21 = (Interaction040)addOrGetPrimitiveInteraction(e2, r1, -1);
-		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 2); // Use valence 1 for Environment040 and 2 for Environment041
+		Interaction040 e22 = (Interaction040)addOrGetPrimitiveInteraction(e2, r2, 1); // Use valence 1 for Environment040 and 2 for Environment041
 		e1.setIntendedInteraction(e12); e1.resetAbstract();
 		e2.setIntendedInteraction(e22); e2.resetAbstract();
 	}
@@ -132,23 +132,29 @@ public class Existence040 extends Existence031 {
 	/**
 	 * Get the list of activated interactions
 	 * from the enacted Interaction, the enacted interaction's post-interaction if any, 
-	 * and the last super interaction 
 	 * and the last super interaction
 	 * @param the enacted interaction
 	 * @return the list of anticipations
 	 */
 	@Override
 	public List<Interaction> getActivatedInteractions() {
+		
+		List<Interaction> contextInteractions = new ArrayList<Interaction>();
+		
+		if (this.getEnactedInteraction()!=null){
+			contextInteractions.add(this.getEnactedInteraction());
+			if (!this.getEnactedInteraction().isPrimitive())
+				contextInteractions.add(this.getEnactedInteraction().getPostInteraction());
+			if (this.getLastSuperInteraction() != null)
+				contextInteractions.add(this.getLastSuperInteraction());
+		}
+		
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
 		for (Interaction interaction : this.INTERACTIONS.values()){
 			Interaction040 activatedInteraction = (Interaction040)interaction;
 			if (!activatedInteraction.isPrimitive())
-				if (activatedInteraction.getPreInteraction() == this.getEnactedInteraction() ||
-					activatedInteraction.getPreInteraction() == this.getLastSuperInteraction() ||
-					!this.getEnactedInteraction().isPrimitive() &&
-					activatedInteraction.getPreInteraction() == this.getEnactedInteraction().getPostInteraction()){
-				activatedInteractions.add(activatedInteraction);
-				}
+				if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
+					activatedInteractions.add(activatedInteraction);
 		}
 		return activatedInteractions;
 	}	
@@ -196,8 +202,8 @@ public class Existence040 extends Existence031 {
 		//Result result = returnResult010(experience);
 		//Result result = returnResult030(experience);
 		//Result result = returnResult031(experience);
-		//Result result = returnResult040(experience);
-		Result result = returnResult041(experience);
+		Result result = returnResult040(experience);
+		//Result result = returnResult041(experience);
 		return (Interaction040)this.addOrGetPrimitiveInteraction(experience, result);
 	}
 
