@@ -9,10 +9,14 @@ public class Environment050 implements Environment {
 
 	public Environment050(Existence050  existence){
 		this.existence = existence;
-		this.existence.addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R1, -1);
-		this.existence.addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R2, 1);
-		this.existence.addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R1, -1);
-		this.existence.addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R2, 1);
+		init();
+	}
+	
+	protected void init(){
+		this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R1, -1);
+		this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R2, 1);
+		this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R1, -1);
+		this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R2, 1);
 	}
 
 	protected Existence050 getExistence(){
