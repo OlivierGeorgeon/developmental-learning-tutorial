@@ -21,7 +21,7 @@ import coupling.interaction.Interaction030;
  * (when the valence of interaction are all set to 0, then only satisfaction/frustration/boredom drives Existence032's choices)
  * Existence032 illustrates the benefit of implementing different motivational dimensions.   
  */
-public class Existence032 extends Existence030 {
+public class Existence033 extends Existence030 {
 
 	@Override
 	protected void initExistence(){

@@ -3,7 +3,7 @@ package coupling.interaction;
 import coupling.Experience040;
 
 /**
- * An interaction040 is an Interaction031 that works has an Experience040
+ * An interaction040 is an Interaction031 that has an Experience040
  * Composite interactions now have an abstract experience.
  */
 public class Interaction040 extends Interaction031 {
