@@ -43,37 +43,41 @@ public class EnvironmentMaze extends Environment050
 
 	public EnvironmentMaze(Existence050  existence){
 		super(existence);
+	}
+
+	@Override
+	protected void init(){
 		
 		//Settings for a nice demo in the Simple Maze 
-		existence.addOrGetPrimitiveInteraction(">t",  5); // Move
-		existence.addOrGetPrimitiveInteraction(">f", -8); // Bump		
-		existence.addOrGetPrimitiveInteraction("^t", -2); // Left toward empty
-		existence.addOrGetPrimitiveInteraction("^f", -5); // Left toward wall		
-		existence.addOrGetPrimitiveInteraction("vt", -2); // Right toward empty
-		existence.addOrGetPrimitiveInteraction("vf", -5); // Right toward wall		
-		existence.addOrGetPrimitiveInteraction("-t", -1); // Touch wall
-		existence.addOrGetPrimitiveInteraction("-f", -1); // Touch empty
-		existence.addOrGetPrimitiveInteraction("\\t", -1); // Touch right wall
-		existence.addOrGetPrimitiveInteraction("\\f", -1); // Touch right empty
-		existence.addOrGetPrimitiveInteraction("/t", -1); // Touch left wall
-		existence.addOrGetPrimitiveInteraction("/f", -1); // Touch left empty
+		this.getExistence().addOrGetPrimitiveInteraction(">t",  5); // Move
+		this.getExistence().addOrGetPrimitiveInteraction(">f", -8); // Bump		
+		this.getExistence().addOrGetPrimitiveInteraction("^t", -2); // Left toward empty
+		this.getExistence().addOrGetPrimitiveInteraction("^f", -5); // Left toward wall		
+		this.getExistence().addOrGetPrimitiveInteraction("vt", -2); // Right toward empty
+		this.getExistence().addOrGetPrimitiveInteraction("vf", -5); // Right toward wall		
+		this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
+		this.getExistence().addOrGetPrimitiveInteraction("-f", -1); // Touch empty
+		this.getExistence().addOrGetPrimitiveInteraction("\\t", -1); // Touch right wall
+		this.getExistence().addOrGetPrimitiveInteraction("\\f", -1); // Touch right empty
+		this.getExistence().addOrGetPrimitiveInteraction("/t", -1); // Touch left wall
+		this.getExistence().addOrGetPrimitiveInteraction("/f", -1); // Touch left empty
 	}
-		
+
 	public Interaction enact(Interaction intendedInteraction) 
 	{
 		Interaction040 enactedInteraction = null;
 
-		if (intendedInteraction.getLabel().substring(1).equals(">"))
+		if (intendedInteraction.getLabel().substring(0,1).equals(">"))
 			enactedInteraction = move();
-		else if (intendedInteraction.getLabel().substring(1).equals("^"))
+		else if (intendedInteraction.getLabel().substring(0,1).equals("^"))
 			enactedInteraction = left();
-		else if (intendedInteraction.getLabel().substring(1).equals("v"))
+		else if (intendedInteraction.getLabel().substring(0,1).equals("v"))
 			enactedInteraction = right();
-		else if (intendedInteraction.getLabel().substring(1).equals("-"))
+		else if (intendedInteraction.getLabel().substring(0,1).equals("-"))
 			enactedInteraction = Touch();
-		else if (intendedInteraction.getLabel().substring(1).equals("\\"))
+		else if (intendedInteraction.getLabel().substring(0,1).equals("\\"))
 			enactedInteraction = TouchRight();
-		else if (intendedInteraction.getLabel().substring(1).equals("/"))
+		else if (intendedInteraction.getLabel().substring(0,1).equals("/"))
 			enactedInteraction = TouchLeft();
 		
 		// print the maze
@@ -130,7 +134,7 @@ public class EnvironmentMaze extends Environment050
 
 		if ((m_o == ORIENTATION_DOWN) && (m_y < HEIGHT) && (m_board[m_y + 1][m_x] == ' ' )){
 			m_y++; 
-			enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(">f",0);	
+			enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(">t",0);	
 		}
 
 		if ((m_o == ORIENTATION_RIGHT) && ( m_x < WIDTH ) && (m_board[m_y][m_x + 1] == ' ' )){
@@ -197,22 +201,4 @@ public class EnvironmentMaze extends Environment050
 
 		return enactedInteraction;
 	}
-
-//	public void initErnest(IErnest ernest) {
-//		//Settings for a nice demo in the Simple Maze Environment
-//		sms.addInteraction(">", "t",  5); // Move
-//		sms.addInteraction(">", "f", -8); // Bump		
-//		sms.addInteraction("^", "t", -2); // Left toward empty
-//		sms.addInteraction("^", "f", -5); // Left toward wall		
-//		sms.addInteraction("v", "t", -2); // Right toward empty
-//		sms.addInteraction("v", "f", -5); // Right toward wall		
-//		sms.addInteraction("-", "t", -1); // Touch wall
-//		sms.addInteraction("-", "f", -1); // Touch empty
-//		sms.addInteraction("\\", "t", -1); // Touch right wall
-//		sms.addInteraction("\\", "f", -1); // Touch right empty
-//		sms.addInteraction("/", "t", -1); // Touch left wall
-//		sms.addInteraction("/", "f", -1); // Touch left empty
-//
-//	}
-
 }

@@ -16,6 +16,7 @@ import coupling.interaction.Interaction031;
 import coupling.interaction.Interaction040;
 import environment.Environment;
 import environment.Environment050;
+import environment.EnvironmentMaze;
 
 /** 
 * Existence050 implements radical interactionism.
@@ -30,7 +31,8 @@ public class Existence050 extends Existence040 {
 	@Override
 	protected void initExistence(){
 		/** You can instanciate another environment here. */
-		this.environment = new Environment050(this);
+		//this.environment = new Environment050(this);
+		this.environment = new EnvironmentMaze(this);
 	}
 	
 	@Override
@@ -43,7 +45,7 @@ public class Existence050 extends Existence040 {
 		
 		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
 			//Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
-			System.out.println("Experiment " + experience.getLabel() + " enacted " + enactedInteraction.getLabel());
+			System.out.println("Experience " + experience.getLabel() + " enacted " + enactedInteraction.getLabel());
 			experience.addEnactedInteraction(enactedInteraction);
 		}
 		
@@ -86,7 +88,7 @@ public class Existence050 extends Existence040 {
 
 	@Override
     public Experience050 addOrGetAbstractExperience(Interaction040 compositeInteraction) {
-        String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
+        String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('*', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experience050 abstractExperience =  new Experience050(label);
         	abstractExperience.setIntendedInteraction(compositeInteraction);
