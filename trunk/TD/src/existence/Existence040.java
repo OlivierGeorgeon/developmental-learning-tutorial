@@ -160,7 +160,7 @@ public class Existence040 extends Existence031 {
 	}	
 
 	@Override
-	protected List<Anticipation> getDefaultPropositions(){
+	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Experience experience : this.EXPERIENCES.values()){
 			Experience040 defaultExperience = (Experience040)experience;

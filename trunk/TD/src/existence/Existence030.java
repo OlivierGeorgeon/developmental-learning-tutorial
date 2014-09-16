@@ -3,7 +3,6 @@ package existence;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import tracer.Trace;
 import agent.Anticipation;
 import agent.Anticipation030;
 import coupling.Experience;
@@ -19,7 +18,6 @@ import coupling.interaction.Interaction030;
  */
 public class Existence030 extends Existence020 {
 
-	private Interaction030 contextInteraction;
 	private Interaction030 enactedInteraction;
 
 	@Override
@@ -37,45 +35,34 @@ public class Existence030 extends Existence020 {
 	@Override
 	public String step() {
 		
-		Experience experience = chooseExperience();
+		List<Anticipation> anticipations = computeAnticipations();
+		Experience experience =  selectExperience(anticipations);
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
 		Result result = returnResult030(experience);
 	
 		Interaction030 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
-		this.setContextInteraction(this.getEnactedInteraction());
+		System.out.println("Enacted "+ enactedInteraction.toString());
+		
+		if (enactedInteraction.getValence() >= 0)
+			this.setMood(Mood.PLEASED);
+		else
+			this.setMood(Mood.PAINED);
+		
+		this.learnCompositeInteraction(enactedInteraction);
+		
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return enactedInteraction.toString();
+		return "" + this.getMood();
 	}
 
 	/**
-	 * Compute the system's mood
-	 * and choose the next experience based on the previous enacted interaction.
-	 * @return The next experience.
+	 * Learn the composite interaction from the previous enacted interaction and the current enacted interaction
 	 */
-	@Override
-	public Experience chooseExperience(){
-		
-		if (this.getEnactedInteraction()!= null){
-			if (this.getEnactedInteraction().getValence() >= 0)
-				Trace.addEventElement("mood", "PLEASED");
-			else
-				Trace.addEventElement("mood", "PAINED");
-		}
-
-		learnCompositeInteraction();
-		List<Anticipation> anticipations = computeAnticipations();
-		return selectExperience(anticipations);
-	}
-		
-	/**
-	 * Learn the composite interaction from the context interaction and the enacted interaction
-	 */
-	public void learnCompositeInteraction(){
-		Interaction030 preInteraction = this.getContextInteraction();
-		Interaction030 postInteraction = this.getEnactedInteraction();
+	public void learnCompositeInteraction(Interaction030 interaction){
+		Interaction030 preInteraction = this.getEnactedInteraction();
+		Interaction030 postInteraction = interaction;
 		if (preInteraction != null)
 			addOrGetCompositeInteraction(preInteraction, postInteraction);
 	}
@@ -135,15 +122,15 @@ public class Existence030 extends Existence020 {
 
 	/**
 	 * Get the list of activated interactions
-	 * from the enacted Interaction
-	 * @param the enacted interaction
+	 * An activated interaction is a composite interaction whose preInteraction matches the enactedInteraction
 	 * @return the list of anticipations
 	 */
 	public List<Interaction> getActivatedInteractions() {
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
-		for (Interaction activatedInteraction : this.INTERACTIONS.values())
-			if (((Interaction030)activatedInteraction).getPreInteraction() == this.getEnactedInteraction())
-				activatedInteractions.add((Interaction030)activatedInteraction);
+		if (this.getEnactedInteraction() != null)
+			for (Interaction activatedInteraction : this.INTERACTIONS.values())
+				if (((Interaction030)activatedInteraction).getPreInteraction() == this.getEnactedInteraction())
+					activatedInteractions.add((Interaction030)activatedInteraction);
 		return activatedInteractions;
 	}	
 
@@ -164,12 +151,6 @@ public class Existence030 extends Existence020 {
 		return otherInteraction;
 	}
 	
-	protected void setContextInteraction(Interaction030 contextInteraction){
-		this.contextInteraction = contextInteraction;
-	}
-	protected Interaction030 getContextInteraction(){
-		return this.contextInteraction;
-	}
 	protected void setEnactedInteraction(Interaction030 enactedInteraction){
 		this.enactedInteraction = enactedInteraction;
 	}
