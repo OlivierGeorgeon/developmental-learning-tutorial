@@ -1,6 +1,5 @@
 package agent;
 
-import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction032;
 
 public class Anticipation032 extends Anticipation030 {
