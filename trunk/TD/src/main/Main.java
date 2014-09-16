@@ -38,12 +38,12 @@ public class Main {
 		//Existence existence = new Existence020();
 		//Existence existence = new Existence030();
 		//Existence existence = new Existence031();
-		Existence existence = new Existence032();
-		//Existence existence = new Existence040();
+		//Existence existence = new Existence032();
+		Existence existence = new Existence040();
 		//Existence existence = new Existence050();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
-		for(int i = 0 ; i < 20 ; i++){			
+		for(int i = 0 ; i < 26 ; i++){			
 			String stepTrace = existence.step();
 			System.out.println(i + ": " + stepTrace);
 		}
