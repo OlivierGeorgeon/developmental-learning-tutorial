@@ -87,6 +87,10 @@ public class Existence031 extends Existence030 {
 		return anticipations;
 	}
 
+	/**
+	 * all experiences as proposed by default with a proclivity of 0
+	 * @return the list of anticipations
+	 */
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Experience experience : this.EXPERIENCES.values()){
