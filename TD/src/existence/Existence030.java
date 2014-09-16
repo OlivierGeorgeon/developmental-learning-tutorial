@@ -35,7 +35,7 @@ public class Existence030 extends Existence020 {
 	@Override
 	public String step() {
 		
-		List<Anticipation> anticipations = computeAnticipations();
+		List<Anticipation> anticipations = anticipate();
 		Experience experience =  selectInteraction(anticipations).getExperience();
 		
 		/** Change the call to the function returnResult to change the environment */
@@ -93,7 +93,7 @@ public class Existence030 extends Existence020 {
 	 * Computes the list of anticipations
 	 * @return the list of anticipations
 	 */
-	public List<Anticipation> computeAnticipations(){
+	public List<Anticipation> anticipate(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		if (this.getEnactedInteraction() != null){
 			for (Interaction activatedInteraction : this.getActivatedInteractions()){

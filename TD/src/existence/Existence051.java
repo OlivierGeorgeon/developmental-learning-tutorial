@@ -15,7 +15,7 @@ public class Existence051 extends Existence050 {
 	@Override
 	public String step() {
 		
-		List<Anticipation> anticipations = computeAnticipations();
+		List<Anticipation> anticipations = anticipate();
 		Experience050 experience =  (Experience050)selectExperience(anticipations);
 
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();
@@ -46,7 +46,7 @@ public class Existence051 extends Existence050 {
 	 * @return the list of anticipations
 	 */
 	@Override
-	public List<Anticipation> computeAnticipations(){
+	public List<Anticipation> anticipate(){
 
 		List<Anticipation> anticipations = getDefaultAnticipations();
 		List<Interaction> activatedInteractions =  this.getActivatedInteractions();
