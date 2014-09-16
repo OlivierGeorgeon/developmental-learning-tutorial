@@ -37,7 +37,7 @@ public class Existence040 extends Existence031 {
 	@Override
 	public String step() {
 		
-		List<Anticipation> anticipations = computeAnticipations();
+		List<Anticipation> anticipations = anticipate();
 		Experience040 experience =  (Experience040)selectExperience(anticipations);
 
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();

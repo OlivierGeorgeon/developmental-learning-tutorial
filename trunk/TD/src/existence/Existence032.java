@@ -19,7 +19,7 @@ public class Existence032 extends Existence031 {
 	@Override
 	public String step() {
 		
-		List<Anticipation> anticipations = computeAnticipations();
+		List<Anticipation> anticipations = anticipate();
 		Interaction032 intendedInteraction =  selectInteraction(anticipations);
 		Experience experience = intendedInteraction.getExperience();
 		
@@ -66,7 +66,7 @@ public class Existence032 extends Existence031 {
 	 * @return the list of anticipations
 	 */
 	@Override
-	public List<Anticipation> computeAnticipations(){
+	public List<Anticipation> anticipate(){
 
 		List<Anticipation> anticipations = getDefaultAnticipations();
 		List<Interaction> activatedInteractions =  this.getActivatedInteractions();

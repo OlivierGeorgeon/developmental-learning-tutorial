@@ -49,18 +49,22 @@ public class EnvironmentMaze extends Environment050
 	protected void init(){
 		
 		//Settings for a nice demo in the Simple Maze 
-		this.getExistence().addOrGetPrimitiveInteraction("^t", -3); // Left toward empty
-		this.getExistence().addOrGetPrimitiveInteraction("^f", -3); // Left toward wall		
-		this.getExistence().addOrGetPrimitiveInteraction("vt", -3); // Right toward empty
-		this.getExistence().addOrGetPrimitiveInteraction("vf", -3); // Right toward wall		
-		this.getExistence().addOrGetPrimitiveInteraction("\\t", -1); // Touch right wall
+		Interaction040 turnLeft = this.getExistence().addOrGetPrimitiveInteraction("^t", -3); // Left toward empty
+		Interaction040 turnRight = this.getExistence().addOrGetPrimitiveInteraction("vt", -3); // Right toward empty
+		Interaction040 touchRight = this.getExistence().addOrGetPrimitiveInteraction("\\t", -1); // Touch right wall
 		this.getExistence().addOrGetPrimitiveInteraction("\\f", -1); // Touch right empty
-		this.getExistence().addOrGetPrimitiveInteraction("/t", -1); // Touch left wall
+		Interaction040 touchLeft = this.getExistence().addOrGetPrimitiveInteraction("/t", -1); // Touch left wall
 		this.getExistence().addOrGetPrimitiveInteraction("/f", -1); // Touch left empty
-		this.getExistence().addOrGetPrimitiveInteraction(">t",  5); // Move
+		Interaction040 froward = this.getExistence().addOrGetPrimitiveInteraction(">t",  5); // Move
 		this.getExistence().addOrGetPrimitiveInteraction(">f", -10); // Bump		
-		this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
+		Interaction040 touchForward = this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
 		this.getExistence().addOrGetPrimitiveInteraction("-f", -1); // Touch empty
+		this.getExistence().addOrGetAbstractExperience(turnLeft);
+		this.getExistence().addOrGetAbstractExperience(turnRight);
+		this.getExistence().addOrGetAbstractExperience(touchRight);
+		this.getExistence().addOrGetAbstractExperience(touchLeft);
+		this.getExistence().addOrGetAbstractExperience(froward);
+		this.getExistence().addOrGetAbstractExperience(touchForward);
 	}
 
 	public Interaction enact(Interaction intendedInteraction) 
