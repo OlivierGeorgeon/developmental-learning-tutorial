@@ -1,15 +1,14 @@
 package existence;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import tracer.Trace;
 import agent.Anticipation;
-import agent.Anticipation030;
+import agent.Anticipation032;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
+import coupling.interaction.Interaction032;
 
 /**
  * Like Existence030, Existence032 can adapt to Environment010, Environment020, and Environment030.
@@ -21,122 +20,77 @@ import coupling.interaction.Interaction030;
  * (when the valence of interaction are all set to 0, then only satisfaction/frustration/boredom drives Existence032's choices)
  * Existence032 illustrates the benefit of implementing different motivational dimensions.   
  */
-public class Existence033 extends Existence030 {
+public class Existence033 extends Existence032 {
 
 	@Override
-	protected void initExistence(){
-		Experience e1 = addOrGetExperience(LABEL_E1);
-		Experience e2 = addOrGetExperience(LABEL_E2);
-		Result r1 = createOrGetResult(LABEL_R1);
-		Result r2 = createOrGetResult(LABEL_R2);
-		addOrGetPrimitiveInteraction(e1, r1, -1);
-		addOrGetPrimitiveInteraction(e1, r2, 1);
-		addOrGetPrimitiveInteraction(e2, r1, -1);
-		addOrGetPrimitiveInteraction(e2, r2, 1);
-	}
+	public String step() {
+		
+		List<Anticipation> anticipations = computeAnticipations();
+		Interaction032 intendedInteraction =  (Interaction032)selectInteraction(anticipations);
+		Experience experience = intendedInteraction.getExperience();
+		
+		/** Change the call to the function returnResult to change the environment */
+		//Result result = returnResult010(experience);
+		//Result result = returnResult030(experience);
+		Result result = returnResult031(experience);
 	
+		Interaction030 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
+		System.out.println("Enacted "+ enactedInteraction.toString());
+		
+		if (enactedInteraction != intendedInteraction){
+			intendedInteraction.addAlternateInteraction(enactedInteraction);
+			System.out.println("Alternate "+ enactedInteraction.getLabel());
+		}
+		
+		if (enactedInteraction.getValence() >= 0)
+			this.setMood(Mood.PLEASED);
+		else
+			this.setMood(Mood.PAINED);
+		if (enactedInteraction == intendedInteraction){
+			this.setMood(Mood.SELF_SATISFIED);
+			this.incSelfSatisfactionCounter();
+		}
+		else{
+			this.setMood(Mood.FRUSTRATED);
+			this.setSelfSatisfactionCounter(0);
+		}
+		
+		this.learnCompositeInteraction(enactedInteraction);
+
+		this.setEnactedInteraction(enactedInteraction);
+		
+		return "" + this.getMood();
+	}
+
+
 	/**
 	 * Compute the system's mood and
 	 * and choose the next experience based on the previous interaction
 	 * @return The next experience.
 	 */
 	@Override
-	public Experience chooseExperience(){
-		
-		Interaction030 previousEnactedInteraction = (Interaction030)this.getEnactedInteraction();
-		if (previousEnactedInteraction.getValence() >= 0)
-			Trace.addEventElement("mood", "PLEASED");
-		else
-			Trace.addEventElement("mood", "PAINED");
-		if (this.getExpectedResult() != null){
-			if (this.getExpectedResult().equals(previousEnactedInteraction.getResult())){			
-				Trace.addEventElement("mood", "SELF-SATISFIED");
-				this.incSelfSatisfactionCounter();
-			}
-			else{
-				Trace.addEventElement("mood", "FRUSTRATED");
-				this.setSelfSatisfactionCounter(0);
-			}
-		}
-		learnCompositeInteraction();
-
-		List<Anticipation> anticipations = computeAnticipations();
-		Interaction030 intendedInteraction = selectInteraction(anticipations);
-		this.setExpectedResult(intendedInteraction.getResult());
-		
-		return intendedInteraction.getExperience();
-	}
-		
-	/**
-	 * Records a composite interaction in memory
-	 * @param preInteraction: The composite interaction's pre-interaction
-	 * @param postInteraction: The composite interaction's post-interaction
-	 * @return the learned composite interaction
-	 */
-	public Interaction030 addOrGetCompositeInteraction(
-		Interaction030 preInteraction, Interaction030 postInteraction) {
-		int valence = preInteraction.getValence() + postInteraction.getValence();
-		Interaction030 interaction = (Interaction030)addOrGetInteraction(preInteraction.getLabel() + postInteraction.getLabel()); 
-		interaction.setPreInteraction(preInteraction);
-		interaction.setPostInteraction(postInteraction);
-		interaction.setValence(valence);
-		System.out.println("learn " + interaction.toString());
-		return interaction;
-	}
-
-	@Override
-	protected Interaction030 createInteraction(String label){
-		return new Interaction030(label);
-	}
-
-	public Interaction030 selectInteraction(List<Anticipation> anticipations){
+	public Interaction032 selectInteraction(List<Anticipation> anticipations){
 
 		Collections.sort(anticipations);
-		Interaction030 intendedInteraction = (Interaction030)this.getOtherInteraction(null);
+		Interaction032 intendedInteraction = (Interaction032)this.getOtherInteraction(null);
 		if (this.getSelfSatisfactionCounter() < this.BOREDOME_LEVEL){
 			if (anticipations.size() > 0){
-				Interaction030 proposedInteraction = ((Anticipation030)anticipations.get(0)).getInteraction();
+				Interaction032 proposedInteraction = (Interaction032)((Anticipation032)anticipations.get(0)).getInteraction();
 				if (proposedInteraction.getValence() >= 0)
 					intendedInteraction = proposedInteraction;
 				else
-					intendedInteraction = (Interaction030)this.getOtherInteraction(proposedInteraction);
+					intendedInteraction = (Interaction032)this.getOtherInteraction(proposedInteraction);
 			}
 		}
 		else{
 			Trace.addEventElement("mood", "BORED");
 			this.setSelfSatisfactionCounter(0);
 			if (anticipations.size() == 1)
-				intendedInteraction = (Interaction030)this.getOtherInteraction(((Anticipation030)anticipations.get(0)).getInteraction());
+				intendedInteraction = (Interaction032)this.getOtherInteraction(((Anticipation032)anticipations.get(0)).getInteraction());
 			else if (anticipations.size() > 1)
-				intendedInteraction = ((Anticipation030)anticipations.get(1)).getInteraction();
+				intendedInteraction = (Interaction032)((Anticipation032)anticipations.get(1)).getInteraction();
 		}
 		return intendedInteraction;
-	}
-
-	protected List<Interaction> getActivatedInteractions(Interaction interaction) {
-		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
-		for (Interaction activatedInteraction : this.INTERACTIONS.values())
-			if (interaction == ((Interaction030)activatedInteraction).getPreInteraction())
-				activatedInteractions.add((Interaction030)activatedInteraction);
-		return activatedInteractions;
-	}	
-
-	@Override
-	protected Interaction030 getInteraction(String label){
-		return (Interaction030)INTERACTIONS.get(label);
-	}
-
-	@Override
-	public Interaction getOtherInteraction(Interaction interaction) {
-		Interaction otherInteraction = (Interaction)INTERACTIONS.values().toArray()[0];
-		if (interaction != null)
-			for (Interaction e : INTERACTIONS.values()){
-				if (e.getExperience() != null && e.getExperience()!=interaction.getExperience()){
-					otherInteraction =  e;
-					break;
-				}
-			}		
-		return otherInteraction;
 	}
 
 }

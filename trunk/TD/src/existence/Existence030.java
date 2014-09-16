@@ -36,7 +36,7 @@ public class Existence030 extends Existence020 {
 	public String step() {
 		
 		List<Anticipation> anticipations = computeAnticipations();
-		Experience experience =  selectExperience(anticipations);
+		Experience experience =  selectInteraction(anticipations).getExperience();
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
@@ -105,7 +105,7 @@ public class Existence030 extends Existence020 {
 		return anticipations;
 	}
 	
-	public Experience selectExperience(List<Anticipation> anticipations){
+	protected Interaction030 selectInteraction(List<Anticipation> anticipations){
 		Collections.sort(anticipations);
 		Interaction intendedInteraction;
 		if (anticipations.size() > 0){
@@ -117,7 +117,7 @@ public class Existence030 extends Existence020 {
 		}
 		else 
 			intendedInteraction = this.getOtherInteraction(null);
-		return intendedInteraction.getExperience();
+		return (Interaction030)intendedInteraction;
 	}
 
 	/**
