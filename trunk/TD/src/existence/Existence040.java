@@ -117,17 +117,18 @@ public class Existence040 extends Existence031 {
 			interaction.setPreInteraction(preInteraction);
 			interaction.setPostInteraction(postInteraction);
 			interaction.setValence(preInteraction.getValence() + postInteraction.getValence());
-			Experience040 abstractExperience = this.addOrGetAbstractExperience(interaction);
-			interaction.setExperience(abstractExperience);
+			this.addOrGetAbstractExperience(interaction);
+			//interaction.setExperience(abstractExperience);
         }
     	return interaction;
 	}
 	
-    public Experience040 addOrGetAbstractExperience(Interaction040 compositeInteraction) {
-        String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
+    public Experience040 addOrGetAbstractExperience(Interaction040 interaction) {
+        String label = interaction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experience040 abstractExperience =  new Experience040(label);
-        	abstractExperience.setIntendedInteraction(compositeInteraction);
+        	abstractExperience.setIntendedInteraction(interaction);
+			interaction.setExperience(abstractExperience);
             EXPERIENCES.put(label, abstractExperience);
         }
         return (Experience040)EXPERIENCES.get(label);
@@ -162,8 +163,10 @@ public class Existence040 extends Existence031 {
 		for (Interaction interaction : this.INTERACTIONS.values()){
 			Interaction040 activatedInteraction = (Interaction040)interaction;
 			if (!activatedInteraction.isPrimitive())
-				if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
+				if (contextInteractions.contains(activatedInteraction.getPreInteraction())){
 					activatedInteractions.add(activatedInteraction);
+					System.out.println("activated " + activatedInteraction.toString());
+				}
 		}
 		return activatedInteractions;
 	}	

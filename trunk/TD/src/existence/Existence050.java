@@ -1,23 +1,14 @@
 package existence;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import agent.Anticipation;
-import agent.Anticipation030;
 import agent.Anticipation031;
-import agent.Anticipation032;
 import coupling.Experience;
 import coupling.Experience040;
-import coupling.Experience050;
 import coupling.Result;
-import coupling.interaction.Interaction;
-import coupling.interaction.Interaction010;
-import coupling.interaction.Interaction020;
 import coupling.interaction.Interaction030;
-import coupling.interaction.Interaction031;
-import coupling.interaction.Interaction032;
 import coupling.interaction.Interaction040;
 import environment.Environment;
 import environment.Environment050;
@@ -45,23 +36,33 @@ public class Existence050 extends Existence040 {
 	public String step() {
 		
 		List<Anticipation> anticipations = computeAnticipations();
-		Interaction040 intendedInteraction = (Interaction040)selectInteraction(anticipations); 
-			
+		Experience040 experience =  (Experience040)selectExperience(anticipations);
+
+		Interaction040 intendedInteraction = experience.getIntendedInteraction();
+		System.out.println("Intended "+ intendedInteraction.toString());
+
 		Interaction040 enactedInteraction = enact(intendedInteraction);
-		System.out.println("Enacted "+ enactedInteraction.toString());
 		
 		if (enactedInteraction != intendedInteraction){
-			intendedInteraction.addAlternateInteraction(enactedInteraction);
-			System.out.println("Alternate "+ enactedInteraction.getLabel());
+			Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
+			if (enactedInteraction.getExperience() == null){
+				enactedInteraction.setExperience(experience);
+				enactedInteraction.setResult(failResult);
+			}
+			else if (enactedInteraction.getExperience() != experience){
+				int valence = enactedInteraction.getValence(); 
+				enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
+			}
 		}
-
+		System.out.println("Enacted "+ enactedInteraction.toString());
+		
 		if (enactedInteraction.getValence() >= 0)
 			this.setMood(Mood.PLEASED);
 		else
 			this.setMood(Mood.PAINED);
-		
-		this.learnCompositeInteraction(enactedInteraction);
 
+		this.learnCompositeInteraction(enactedInteraction);
+		
 		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
@@ -85,6 +86,19 @@ public class Existence050 extends Existence040 {
 	}
 	
 	@Override
+	protected List<Anticipation> getDefaultAnticipations(){
+		List<Anticipation> anticipations = new ArrayList<Anticipation>();
+		for (Experience experience : this.EXPERIENCES.values()){
+			Experience040 defaultExperience = (Experience040)experience;
+			if (defaultExperience.getIntendedInteraction().isPrimitive()){
+				Anticipation031 anticipation = new Anticipation031(experience, 0);
+				anticipations.add(anticipation);
+			}
+		}
+		return anticipations;
+	}
+	
+	@Override
 	public Interaction040 enact(Interaction030 intendedInteraction){
 
 		if (intendedInteraction.isPrimitive())
@@ -102,66 +116,4 @@ public class Existence050 extends Existence040 {
 			}
 		}
 	}
-
-	@Override
-	protected Interaction032 selectInteraction(List<Anticipation> anticipations){
-		
-		Collections.sort(anticipations);
-		for (Anticipation anticipation : anticipations)
-			System.out.println("anticipate " + anticipation.toString());
-		
-		Anticipation030 selectedAnticipation = (Anticipation030)anticipations.get(0);
-		Interaction032 intendedInteraction = (Interaction032)selectedAnticipation.getInteraction();
-
-		return intendedInteraction;
-	}
-
-	/**
-	 * Computes the list of anticipations
-	 * @return the list of anticipations
-	 */
-	@Override
-	public List<Anticipation> computeAnticipations(){
-
-		List<Anticipation> anticipations = getDefaultAnticipations();
-		List<Interaction> activatedInteractions =  this.getActivatedInteractions();
-		
-		for (Interaction activatedInteraction : activatedInteractions){
-			Interaction032 proposedInteraction = (Interaction032)((Interaction032)activatedInteraction).getPostInteraction();
-			int proclivity = ((Interaction032)activatedInteraction).getWeight() * proposedInteraction.getValence();
-			Anticipation032 anticipation = new Anticipation032(proposedInteraction, proclivity);
-			int index = anticipations.indexOf(anticipation);
-			if (index < 0)
-				anticipations.add(anticipation);
-			else
-				((Anticipation032)anticipations.get(index)).addProclivity(proclivity);
-		}
-		
-		for (Anticipation anticipation : anticipations){
-			for (Interaction interaction : ((Interaction032)((Anticipation032)anticipation).getInteraction()).getAletnerateInteractions()){
-				for (Interaction activatedInteraction : activatedInteractions){
-					if (interaction == ((Interaction032)activatedInteraction).getPostInteraction()){
-						int proclivity = ((Interaction032)activatedInteraction).getWeight() * ((Interaction032)interaction).getValence(); 
-						((Anticipation032)anticipation).addProclivity(proclivity);
-					}
-				}
-			}
-		}
-
-		return anticipations;
-	}
-
-	@Override
-	protected List<Anticipation> getDefaultAnticipations(){
-		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		for (Interaction i : this.INTERACTIONS.values()){
-			Interaction032 interaction = (Interaction032)i;
-			if (interaction.isPrimitive()){
-				Anticipation032 anticipation = new Anticipation032(interaction, 0);
-				anticipations.add(anticipation);
-			}
-		}
-		return anticipations;
-	}
-
 }

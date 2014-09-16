@@ -10,6 +10,7 @@ import existence.Existence031;
 import existence.Existence032;
 import existence.Existence040;
 import existence.Existence050;
+import existence.Existence051;
 
 //import tracer.AbstractLiteTracer;
 import tracer.ConsoleTracer;
@@ -40,10 +41,11 @@ public class Main {
 		//Existence existence = new Existence031();
 		//Existence existence = new Existence032();
 		//Existence existence = new Existence040();
-		Existence existence = new Existence050();
+		//Existence existence = new Existence050();
+		Existence existence = new Existence051();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
-		for(int i = 0 ; i < 50 ; i++){			
+		for(int i = 0 ; i < 26 ; i++){			
 			String stepTrace = existence.step();
 			System.out.println(i + ": " + stepTrace);
 		}
