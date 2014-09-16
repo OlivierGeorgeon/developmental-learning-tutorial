@@ -10,7 +10,6 @@ import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction040;
-import existence.Existence010.Mood;
 
 /** 
 * Existence040 implements two-step self-programming.
@@ -19,7 +18,6 @@ public class Existence040 extends Existence031 {
 
 	private Interaction040 previousSuperInteraction;
 	private Interaction040 lastSuperInteraction;
-	//private Interaction040 contextInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -61,7 +59,6 @@ public class Existence040 extends Existence031 {
 		this.learnCompositeInteraction(enactedInteraction);
 		
 		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
-		//this.setContextInteraction(this.getEnactedInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
 		return "" + this.getMood();
@@ -71,9 +68,10 @@ public class Existence040 extends Existence031 {
 	 * Learn composite interactions from 
 	 * the previous super interaction, the context interaction, and the enacted interaction
 	 */
-	public void learnCompositeInteraction(Interaction040 enactedIntearction){
-		Interaction040 previousInteraction = this.getEnactedInteraction(); //this.getContextInteraction();
-		Interaction040 lastInteraction = enactedIntearction;//this.getEnactedInteraction();
+	@Override
+	public void learnCompositeInteraction(Interaction030 enactedIntearction){
+		Interaction040 previousInteraction = this.getEnactedInteraction(); 
+		Interaction040 lastInteraction = (Interaction040)enactedIntearction;
 		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
 		Interaction040 lastSuperIntearction = null;
         // learn [previous current] called the super interaction
@@ -223,13 +221,6 @@ public class Existence040 extends Existence031 {
 		return new Experience040(label);
 	}
 
-//	public void setContextInteraction(Interaction040 contextInteraction){
-//		this.contextInteraction = contextInteraction;
-//	}
-//	public Interaction040 getContextInteraction(){
-//		return this.contextInteraction;
-//	}
-	
 	@Override
 	public Interaction040 getEnactedInteraction(){
 		return (Interaction040)super.getEnactedInteraction();

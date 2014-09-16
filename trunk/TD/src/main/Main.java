@@ -33,17 +33,17 @@ public class Main {
 		//Tracer<Element> tracer = new AbstractLiteTracer("http://macbook-pro-de-olivier-2.local/alite/php/stream/","BGKGGBbdjxbYzYAlvXrjbVMjOwyXEA");
 		Trace.init(tracer);		
 
-		/** Change this line to run another existence: */
+		/** Change this line to instantiate another existence: */
 		//Existence existence = new Existence010();
 		//Existence existence = new Existence020();
 		//Existence existence = new Existence030();
 		//Existence existence = new Existence031();
 		//Existence existence = new Existence032();
-		Existence existence = new Existence040();
-		//Existence existence = new Existence050();
+		//Existence existence = new Existence040();
+		Existence existence = new Existence050();
 		
 		/** Change this line to adjust the number of cycles of the loop: */
-		for(int i = 0 ; i < 26 ; i++){			
+		for(int i = 0 ; i < 50 ; i++){			
 			String stepTrace = existence.step();
 			System.out.println(i + ": " + stepTrace);
 		}
