@@ -96,6 +96,10 @@ public class Existence032 extends Existence031 {
 		return anticipations;
 	}
 	
+	/**
+	 * all primitive interactions are proposed by default with a proclivity of 0
+	 * @return the list of anticipations
+	 */
 	@Override
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();

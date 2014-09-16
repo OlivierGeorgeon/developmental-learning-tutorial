@@ -37,8 +37,8 @@ public class Existence050 extends Existence040 {
 	@Override
 	protected void initExistence(){
 		/** You can instantiate another environment here. */
-		//this.environment = new Environment050(this);
-		this.environment = new EnvironmentMaze(this);
+		this.environment = new Environment050(this);
+		//this.environment = new EnvironmentMaze(this);
 	}
 	
 	@Override
@@ -140,8 +140,8 @@ public class Existence050 extends Existence040 {
 		for (Anticipation anticipation : anticipations){
 			for (Interaction interaction : ((Interaction032)((Anticipation032)anticipation).getInteraction()).getAletnerateInteractions()){
 				for (Interaction activatedInteraction : activatedInteractions){
-					if (interaction == ((Interaction031)activatedInteraction).getPostInteraction()){
-						int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)interaction).getValence(); 
+					if (interaction == ((Interaction032)activatedInteraction).getPostInteraction()){
+						int proclivity = ((Interaction032)activatedInteraction).getWeight() * ((Interaction032)interaction).getValence(); 
 						((Anticipation032)anticipation).addProclivity(proclivity);
 					}
 				}
@@ -163,106 +163,5 @@ public class Existence050 extends Existence040 {
 		}
 		return anticipations;
 	}
-
-	
-//	@Override
-//    public Experience050 addOrGetAbstractExperience(Interaction040 compositeInteraction) {
-//        String label = compositeInteraction.getLabel().replace('e', 'E').replace('r', 'R').replace('*', '|');
-//        if (!EXPERIENCES.containsKey(label)){
-//        	Experience050 abstractExperience =  new Experience050(label);
-//        	abstractExperience.setIntendedInteraction(compositeInteraction);
-//            EXPERIENCES.put(label, abstractExperience);
-//        }
-//        return (Experience050)EXPERIENCES.get(label);
-//    }
-
-//	/**
-//	 * Computes the list of anticipations
-//	 * @return the list of anticipations
-//	 */
-//	@Override
-//	public List<Anticipation> computeAnticipations(){
-//		List<Anticipation> anticipations = this.getDefaultAnticipations(); 
-//		
-//		List<Interaction> activatedInteractions = getActivatedInteractions(); 
-//		
-//		for (Interaction interaction : activatedInteractions){
-//			Interaction031 activatedInteraction = (Interaction031)interaction; 
-//			Experience050 proposedExperience = (Experience050)activatedInteraction.getPostInteraction().getExperience();
-//			if (proposedExperience != null){
-//				int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence();
-//				Anticipation031 proposition = new Anticipation031(proposedExperience, proclivity);
-//				int index = anticipations.indexOf(proposition);
-//				if (index < 0)
-//					anticipations.add(proposition);
-//				else
-//					((Anticipation031)anticipations.get(index)).addProclivity(proclivity);
-//			}
-//		}
-//		
-//		for (Anticipation anticipation : anticipations){
-//			Experience050 experience = (Experience050)((Anticipation031)anticipation).getExperience();
-//			for (Interaction interaction : experience.getEnactedInteractions()){
-//				for (Interaction activatedInteraction : activatedInteractions){
-//					if (interaction == ((Interaction031)activatedInteraction).getPostInteraction()){
-//						int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)interaction).getValence(); 
-//						((Anticipation031)anticipation).addProclivity(proclivity);
-//					}
-//				}
-//			}
-//		}
-//		
-//		return anticipations;
-//	}
-
-//	@Override
-//	public List<Interaction> getActivatedInteractions() {
-//		
-//		List<Interaction> contextInteractions = new ArrayList<Interaction>();
-//		
-//		if (this.getEnactedInteraction()!=null){
-//			contextInteractions.add(this.getEnactedInteraction());
-//			if (!this.getEnactedInteraction().isPrimitive()){
-//				contextInteractions.add(this.getEnactedInteraction().getPostInteraction());
-////				if (!this.getEnactedInteraction().getPostInteraction().isPrimitive())
-////					contextInteractions.add(this.getEnactedInteraction().getPostInteraction().getPostInteraction());
-//			}
-//			if (this.getLastSuperInteraction() != null){
-//				contextInteractions.add(this.getLastSuperInteraction());
-//				if (!this.getLastSuperInteraction().getPreInteraction().isPrimitive()){
-//					Interaction test = this.addOrGetCompositeInteraction(this.getLastSuperInteraction().getPreInteraction().getPostInteraction(), this.getLastSuperInteraction().getPostInteraction());
-//					contextInteractions.add(test);				
-//				}
-//			}
-//		}
-//		
-//		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
-//		for (Interaction interaction : this.INTERACTIONS.values()){
-//			Interaction040 activatedInteraction = (Interaction040)interaction;
-//			if (!activatedInteraction.isPrimitive())
-//				if (contextInteractions.contains(activatedInteraction.getPreInteraction()))
-//					activatedInteractions.add(activatedInteraction);
-//		}
-//		return activatedInteractions;
-//	}	
-
-//	/**
-//	 * Experiences corresponding to 
-//	 * primitive interactions that have a positive or null valence 
-//	 * are proposed by default
-//	 * @return the list of anticipations
-//	 */
-//	@Override
-//	protected List<Anticipation> getDefaultAnticipations(){
-//		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-//		for (Interaction proposedInteraction: this.INTERACTIONS.values()){
-//			if (((Interaction040)proposedInteraction).isPrimitive() && ((Interaction040)proposedInteraction).getValence() >= 0){
-//				Experience050 experience = this.addOrGetAbstractExperience((Interaction040)proposedInteraction);
-//				Anticipation031 anticipation = new Anticipation031(experience, 0);
-//				anticipations.add(anticipation);
-//			}
-//		}
-//		return anticipations;
-//	}
 
 }
