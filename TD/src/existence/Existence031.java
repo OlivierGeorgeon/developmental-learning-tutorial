@@ -96,7 +96,6 @@ public class Existence031 extends Existence030 {
 		return anticipations;
 	}
 
-	@Override
 	public Experience selectExperience(List<Anticipation> anticipations){
 		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
 		Collections.sort(anticipations);
