@@ -10,6 +10,7 @@ import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction040;
+import existence.Existence010.Mood;
 
 /** 
 * Existence040 implements two-step self-programming.
@@ -18,6 +19,7 @@ public class Existence040 extends Existence031 {
 
 	private Interaction040 previousSuperInteraction;
 	private Interaction040 lastSuperInteraction;
+	//private Interaction040 contextInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -37,10 +39,13 @@ public class Existence040 extends Existence031 {
 	@Override
 	public String step() {
 		
-		Experience040 experience = (Experience040)chooseExperience();
+		List<Anticipation> anticipations = computeAnticipations();
+		Experience040 experience =  (Experience040)selectExperience(anticipations);
+
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();
 
 		Interaction040 enactedInteraction = enact(intendedInteraction);
+		System.out.println("Enacted "+ enactedInteraction.toString());
 		
 		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
 			Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
@@ -48,21 +53,27 @@ public class Existence040 extends Existence031 {
 			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
 		}
 		
+		if (enactedInteraction.getValence() >= 0)
+			this.setMood(Mood.PLEASED);
+		else
+			this.setMood(Mood.PAINED);
+
+		this.learnCompositeInteraction(enactedInteraction);
+		
 		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
-		this.setContextInteraction(this.getEnactedInteraction());
+		//this.setContextInteraction(this.getEnactedInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return "Enacted " + enactedInteraction.getLabel() + " valence " +  enactedInteraction.getValence();
+		return "" + this.getMood();
 	}
 	
 	/**
 	 * Learn composite interactions from 
 	 * the previous super interaction, the context interaction, and the enacted interaction
 	 */
-	@Override
-	public void learnCompositeInteraction(){
-		Interaction040 previousInteraction = this.getContextInteraction();
-		Interaction040 lastInteraction = this.getEnactedInteraction();
+	public void learnCompositeInteraction(Interaction040 enactedIntearction){
+		Interaction040 previousInteraction = this.getEnactedInteraction(); //this.getContextInteraction();
+		Interaction040 lastInteraction = enactedIntearction;//this.getEnactedInteraction();
 		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
 		Interaction040 lastSuperIntearction = null;
         // learn [previous current] called the super interaction
@@ -211,10 +222,14 @@ public class Existence040 extends Existence031 {
 	protected Experience040 createExperience(String label){
 		return new Experience040(label);
 	}
-	@Override
-	public Interaction040 getContextInteraction(){
-		return (Interaction040)super.getContextInteraction();
-	}
+
+//	public void setContextInteraction(Interaction040 contextInteraction){
+//		this.contextInteraction = contextInteraction;
+//	}
+//	public Interaction040 getContextInteraction(){
+//		return this.contextInteraction;
+//	}
+	
 	@Override
 	public Interaction040 getEnactedInteraction(){
 		return (Interaction040)super.getEnactedInteraction();
