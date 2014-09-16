@@ -49,18 +49,18 @@ public class EnvironmentMaze extends Environment050
 	protected void init(){
 		
 		//Settings for a nice demo in the Simple Maze 
-		this.getExistence().addOrGetPrimitiveInteraction(">t",  5); // Move
-		this.getExistence().addOrGetPrimitiveInteraction(">f", -8); // Bump		
-		this.getExistence().addOrGetPrimitiveInteraction("^t", -2); // Left toward empty
-		this.getExistence().addOrGetPrimitiveInteraction("^f", -5); // Left toward wall		
-		this.getExistence().addOrGetPrimitiveInteraction("vt", -2); // Right toward empty
-		this.getExistence().addOrGetPrimitiveInteraction("vf", -5); // Right toward wall		
-		this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
-		this.getExistence().addOrGetPrimitiveInteraction("-f", -1); // Touch empty
+		this.getExistence().addOrGetPrimitiveInteraction("^t", -3); // Left toward empty
+		this.getExistence().addOrGetPrimitiveInteraction("^f", -3); // Left toward wall		
+		this.getExistence().addOrGetPrimitiveInteraction("vt", -3); // Right toward empty
+		this.getExistence().addOrGetPrimitiveInteraction("vf", -3); // Right toward wall		
 		this.getExistence().addOrGetPrimitiveInteraction("\\t", -1); // Touch right wall
 		this.getExistence().addOrGetPrimitiveInteraction("\\f", -1); // Touch right empty
 		this.getExistence().addOrGetPrimitiveInteraction("/t", -1); // Touch left wall
 		this.getExistence().addOrGetPrimitiveInteraction("/f", -1); // Touch left empty
+		this.getExistence().addOrGetPrimitiveInteraction(">t",  5); // Move
+		this.getExistence().addOrGetPrimitiveInteraction(">f", -10); // Bump		
+		this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
+		this.getExistence().addOrGetPrimitiveInteraction("-f", -1); // Touch empty
 	}
 
 	public Interaction enact(Interaction intendedInteraction) 
@@ -105,7 +105,7 @@ public class EnvironmentMaze extends Environment050
 		if (m_o > ORIENTATION_LEFT)
 			m_o = ORIENTATION_UP;
 
-		return this.getExistence().addOrGetPrimitiveInteraction("vf",0);
+		return this.getExistence().addOrGetPrimitiveInteraction("vt",0);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class EnvironmentMaze extends Environment050
 		if (m_o < 0)
 			m_o = ORIENTATION_LEFT;
 		
-		return this.getExistence().addOrGetPrimitiveInteraction("^f",0);
+		return this.getExistence().addOrGetPrimitiveInteraction("^t",0);
 	}
 	
 	/**
