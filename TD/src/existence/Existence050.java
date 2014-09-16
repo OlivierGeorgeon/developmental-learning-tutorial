@@ -103,7 +103,7 @@ public class Existence050 extends Existence040 {
 	 */
 	@Override
 	public List<Anticipation> computeAnticipations(){
-		List<Anticipation> anticipations = this.getDefaultPropositions(); 
+		List<Anticipation> anticipations = this.getDefaultAnticipations(); 
 		
 		List<Interaction> activatedInteractions = getActivatedInteractions(); 
 		
@@ -174,7 +174,7 @@ public class Existence050 extends Existence040 {
 	 * @return the list of anticipations
 	 */
 	@Override
-	protected List<Anticipation> getDefaultPropositions(){
+	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Interaction proposedInteraction: this.INTERACTIONS.values()){
 			if (((Interaction040)proposedInteraction).isPrimitive() && ((Interaction040)proposedInteraction).getValence() >= 0){

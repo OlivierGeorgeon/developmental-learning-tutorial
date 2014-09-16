@@ -2,7 +2,6 @@ package existence;
 
 import java.util.HashMap;
 import java.util.Map;
-import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
 import coupling.interaction.Interaction;
@@ -20,73 +19,59 @@ public class Existence010 implements Existence {
 	public final String LABEL_E2 = "e2"; 
 	public final String LABEL_R1 = "r1";
 	public final String LABEL_R2 = "r2";
+	public enum Mood {SELF_SATISFIED, FRUSTRATED, BORED, PAINED, PLEASED};
 
 	protected Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
 	protected Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 	protected Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 
-	protected final int BOREDOME_LEVEL = 5;
-	private int selfSatisfactionCounter = BOREDOME_LEVEL;
+	protected final int BOREDOME_LEVEL = 4;	
+	
+	private Mood mood;
+	private int selfSatisfactionCounter = 0;
 	private Experience previousExperience;
-	private Result previousResult;
-	private Result expectedResult;
 	
 	public Existence010(){
 		initExistence();
 	}	
 	
 	protected void initExistence(){
-		addOrGetExperience(LABEL_E1);
+		Experience e1 = addOrGetExperience(LABEL_E1);
 		addOrGetExperience(LABEL_E2);
+		this.setPreviousExperience(e1);
 	}
 
 	@Override
 	public String step() {
 		
-		Experience experience = chooseExperience();
-		Result result = returnResult010(experience);
-	
-		this.setPreviousExperience(experience);
-		this.setPreviousResult(result);
-		
-		return experience.getLabel() + result.getLabel();
-	}
-
-	/**
-	 * Compute the system's mood and
-	 * and choose the next experience based on the previous result
-	 * @return The next experience.
-	 */
-	protected Experience chooseExperience(){
-
-		Experience previousExperience = this.getPreviousExperience();
-		Result previousResult = this.getPreviousResult();
-		Experience nextExperience = null;
-		if (this.getExpectedResult() != null && this.getExpectedResult().equals(previousResult))
-			Trace.addEventElement("mood", "SELF-SATISFIED");
-		else
-			Trace.addEventElement("mood", "FRUSTRATED");
-		
-		if (this.getPreviousExperience() != null && previousResult != null)
-			addOrGetPrimitiveInteraction(previousExperience, previousResult);
-
-		if (this.getSelfSatisfactionCounter() >= BOREDOME_LEVEL){
-			Trace.addEventElement("mood", "BORED");
-			nextExperience = getOtherExperience(previousExperience);		
+		Experience experience = this.getPreviousExperience();
+		if (this.getMood() == Mood.BORED){
+			experience = getOtherExperience(experience);		
 			this.setSelfSatisfactionCounter(0);
 		}
-		else
-			nextExperience = previousExperience;		
-			
-		this.incSelfSatisfactionCounter();
 		
-		Interaction intendedInteraction = predict(nextExperience);
-		if (intendedInteraction != null)
-			this.setExpectedResult(intendedInteraction.getResult());
+		Result anticipatedResult = predict(experience);
 		
-		return nextExperience;
-	}
+		Result result = returnResult010(experience);
 	
+		this.addOrGetPrimitiveInteraction(experience, result);
+		
+		if (result == anticipatedResult){
+			this.setMood(Mood.SELF_SATISFIED);
+			this.incSelfSatisfactionCounter();
+		}
+		else{
+			this.setMood(Mood.FRUSTRATED);
+			this.setSelfSatisfactionCounter(0);
+		}
+		if (this.getSelfSatisfactionCounter() >= BOREDOME_LEVEL)
+			this.setMood(Mood.BORED);
+		
+		this.setPreviousExperience(experience);
+		
+		return experience.getLabel() + result.getLabel() + " " + this.getMood();
+	}
+
 	/**
 	 * Create an interaction as a tuple <experience, result>.
 	 * @param experience: The experience.
@@ -128,14 +113,18 @@ public class Existence010 implements Existence {
 	 * Finds an interaction from its experience
 	 * @return The interaction.
 	 */
-	protected Interaction predict(Experience experience){
+	protected Result predict(Experience experience){
 		Interaction interaction = null;
+		Result anticipatedResult = null;
 		
 		for (Interaction i : INTERACTIONS.values())
 			if (i.getExperience().equals(experience))
 				interaction = i;
 		
-		return interaction;
+		if (interaction != null)
+			anticipatedResult = interaction.getResult();
+		
+		return anticipatedResult;
 	}
 
 	/**
@@ -180,18 +169,18 @@ public class Existence010 implements Existence {
 		return RESULTS.get(label);
 	}	
 	
+	public Mood getMood() {
+		return mood;
+	}
+	public void setMood(Mood mood) {
+		this.mood = mood;
+	}
+
 	public Experience getPreviousExperience() {
 		return previousExperience;
 	}
 	public void setPreviousExperience(Experience previousExperience) {
 		this.previousExperience = previousExperience;
-	}
-
-	public Result getPreviousResult() {
-		return previousResult;
-	}
-	public void setPreviousResult(Result previousResult) {
-		this.previousResult = previousResult;
 	}
 
 	public int getSelfSatisfactionCounter() {
@@ -202,13 +191,6 @@ public class Existence010 implements Existence {
 	}
 	public void incSelfSatisfactionCounter(){
 		this.selfSatisfactionCounter++;
-	}
-
-	public Result getExpectedResult() {
-		return expectedResult;
-	}
-	public void setExpectedResult(Result expectedResult) {
-		this.expectedResult = expectedResult;
 	}
 
 	/**
@@ -223,4 +205,5 @@ public class Existence010 implements Existence {
 		else
 			return createOrGetResult(LABEL_R2);
 	}
+
 }

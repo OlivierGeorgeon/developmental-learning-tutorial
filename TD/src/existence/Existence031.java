@@ -11,6 +11,7 @@ import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction031;
+import existence.Existence010.Mood;
 
 /**
  * Existence031 can adapt to Environment010 020 030 031.
@@ -23,18 +24,27 @@ public class Existence031 extends Existence030 {
 	@Override
 	public String step() {
 		
-		Experience experience = chooseExperience();
+		List<Anticipation> anticipations = computeAnticipations();
+		Experience experience =  selectExperience(anticipations);
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
 		//Result result = returnResult030(experience);
 		Result result = returnResult031(experience);
 	
-		Interaction030 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
-		this.setContextInteraction(this.getEnactedInteraction());
+		Interaction031 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
+		System.out.println("Enacted "+ enactedInteraction.toString());
+
+		if (enactedInteraction.getValence() >= 0)
+			this.setMood(Mood.PLEASED);
+		else
+			this.setMood(Mood.PAINED);
+		
+		this.learnCompositeInteraction(enactedInteraction);
+		
 		this.setEnactedInteraction(enactedInteraction);
 		
-		return enactedInteraction.getLabel();
+		return "" + this.getMood();
 	}
 
 	/**
@@ -42,9 +52,9 @@ public class Existence031 extends Existence030 {
 	 * Increment its weight.
 	 */
 	@Override
-	public void learnCompositeInteraction(){
-		Interaction030 preInteraction = this.getContextInteraction();
-		Interaction030 postInteraction = this.getEnactedInteraction();
+	public void learnCompositeInteraction(Interaction030 enactedInteraction){
+		Interaction030 preInteraction = this.getEnactedInteraction();
+		Interaction030 postInteraction = enactedInteraction;
 		if (preInteraction != null){
 			Interaction031 interaction = (Interaction031)addOrGetCompositeInteraction(preInteraction, postInteraction);
 			interaction.incrementWeight();
@@ -62,7 +72,7 @@ public class Existence031 extends Existence030 {
 	 */
 	@Override
 	public List<Anticipation> computeAnticipations(){
-		List<Anticipation> anticipations = this.getDefaultPropositions(); 
+		List<Anticipation> anticipations = this.getDefaultAnticipations(); 
 		
 		if (this.getEnactedInteraction() != null){
 			for (Interaction activatedInteraction : getActivatedInteractions()){
@@ -77,7 +87,7 @@ public class Existence031 extends Existence030 {
 		return anticipations;
 	}
 
-	protected List<Anticipation> getDefaultPropositions(){
+	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Experience experience : this.EXPERIENCES.values()){
 			Anticipation031 anticipation = new Anticipation031(experience, 0);
@@ -85,7 +95,6 @@ public class Existence031 extends Existence030 {
 		}
 		return anticipations;
 	}
-	
 
 	@Override
 	public Experience selectExperience(List<Anticipation> anticipations){
@@ -98,6 +107,11 @@ public class Existence031 extends Existence030 {
 		return selectedAnticipation.getExperience();
 	}
 	
+	@Override
+	protected Interaction031 getInteraction(String label){
+		return (Interaction031)INTERACTIONS.get(label);
+	}
+
 	@Override
 	public Interaction031 getEnactedInteraction(){
 		return (Interaction031)super.getEnactedInteraction();

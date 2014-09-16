@@ -126,6 +126,7 @@ public class Existence033 extends Existence030 {
 		return (Interaction030)INTERACTIONS.get(label);
 	}
 
+	@Override
 	public Interaction getOtherInteraction(Interaction interaction) {
 		Interaction otherInteraction = (Interaction)INTERACTIONS.values().toArray()[0];
 		if (interaction != null)
@@ -138,22 +139,4 @@ public class Existence033 extends Existence030 {
 		return otherInteraction;
 	}
 
-	/**
-	 * Environment030
-	 * Results in R1 when the current experience equals the previous experience
-	 * and in R2 when the current experience differs from the previous experience.
-	 */
-	private Experience previousExperience;
-
-	public Result returnResult030(Experience experience){
-		Result result = null;
-		if (previousExperience == experience)
-			result =  this.createOrGetResult(this.LABEL_R1);
-		else
-			result =  this.createOrGetResult(this.LABEL_R2);
-		previousExperience = experience;
-
-		return result;
-	}
-	
 }

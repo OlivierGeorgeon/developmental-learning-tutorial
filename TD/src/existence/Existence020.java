@@ -1,10 +1,7 @@
 package existence;
 
-import tracer.Trace;
 import coupling.Experience;
 import coupling.Result;
-import coupling.interaction.Interaction;
-import coupling.interaction.Interaction010;
 import coupling.interaction.Interaction020;
 
 /**
@@ -30,33 +27,28 @@ public class Existence020 extends Existence010 {
 		addOrGetPrimitiveInteraction(e1, r2, 1);
 		addOrGetPrimitiveInteraction(e2, r1, -1);
 		addOrGetPrimitiveInteraction(e2, r2, 1);		
+		this.setPreviousExperience(e1);
 	}
 	
-	/**
-	 * Compute the system's mood and
-	 * and choose the next experience based on the previous interaction
-	 * @return The next experience.
-	 */
 	@Override
-	public Experience chooseExperience(){
+	public String step() {
 		
-		Experience previousExperience = this.getPreviousExperience();
-		Result previousResult = this.getPreviousResult();
-		Experience nextExperience = null;
-		if (previousExperience == null)
-			nextExperience = this.getOtherExperience(null);
-		else{ 
-			int mood = getInteraction(previousExperience.getLabel() + previousResult.getLabel()).getValence();
-			if (mood >= 0){
-				Trace.addEventElement("mood", "PLEASED");
-				nextExperience = previousExperience;
-			}
-			else{
-				Trace.addEventElement("mood", "PAINED");
-				nextExperience = this.getOtherExperience(previousExperience);
-			}
-		}
-		return nextExperience;
+		Experience experience = this.getPreviousExperience();
+		if (this.getMood() == Mood.PAINED)
+			experience = getOtherExperience(experience);		
+		
+		Result result = returnResult010(experience);
+	
+		Interaction020 enactedInteraction = (Interaction020)this.addOrGetPrimitiveInteraction(experience, result);
+		
+		if (enactedInteraction.getValence() >= 0)
+			this.setMood(Mood.PLEASED);
+		else
+			this.setMood(Mood.PAINED);
+
+		this.setPreviousExperience(experience);
+		
+		return experience.getLabel() + result.getLabel() + " " + this.getMood();
 	}
 	
 	/**
@@ -67,22 +59,18 @@ public class Existence020 extends Existence010 {
 	 * @return The created interaction
 	 */
 	protected Interaction020 addOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {
-		Interaction020 interaction = (Interaction020)addOrGetInteraction(experience.getLabel() + result.getLabel(), valence); 
-		interaction.setExperience(experience);
-		interaction.setResult(result);
-		interaction.setValence(valence);
-		return interaction;
-	}
-		
-	protected Interaction addOrGetInteraction(String label, int valence) {
+		String label = experience.getLabel() + result.getLabel();
 		if (!INTERACTIONS.containsKey(label)){
 			Interaction020 interaction = createInteraction(label);
+			interaction.setExperience(experience);
+			interaction.setResult(result);
 			interaction.setValence(valence);
 			INTERACTIONS.put(label, interaction);			
 		}
-		return INTERACTIONS.get(label);
+		Interaction020 interaction = (Interaction020)INTERACTIONS.get(label);
+		return interaction;
 	}
-	
+		
 	@Override
 	protected Interaction020 createInteraction(String label){
 		return new Interaction020(label);
