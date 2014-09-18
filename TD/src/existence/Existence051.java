@@ -54,10 +54,10 @@ public class Existence051 extends Existence050 {
 		if (this.getEnactedInteraction() != null){
 			for (Interaction activatedInteraction : activatedInteractions){
 				if (((Interaction031)activatedInteraction).getPostInteraction().getExperience() != null){
-					Anticipation031 proposition = new Anticipation031(((Interaction031)activatedInteraction).getPostInteraction().getExperience(), ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
-					int index = anticipations.indexOf(proposition);
+					Anticipation031 anticipation = new Anticipation031(((Interaction031)activatedInteraction).getPostInteraction().getExperience(), ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
+					int index = anticipations.indexOf(anticipation);
 					if (index < 0)
-						anticipations.add(proposition);
+						anticipations.add(anticipation);
 					else
 						((Anticipation031)anticipations.get(index)).addProclivity(((Interaction031)activatedInteraction).getWeight() * ((Interaction031)activatedInteraction).getPostInteraction().getValence());
 				}
