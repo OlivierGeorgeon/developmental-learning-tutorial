@@ -5,7 +5,7 @@ import tracer.Trace;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction040;
 import existence.Existence0501;
-import existence.Existence052;
+import existence.Existence050;
 
 /**
  * This class implements the String Environment 
@@ -25,7 +25,7 @@ public class EnvironmentString extends Environment050{
 	private int[] board = {6, 3, 5, 4, 7, 3, 5, 3, 1, 5, 6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
 	//private int[] board = {6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
 
-	public EnvironmentString(Existence052  existence){
+	public EnvironmentString(Existence050  existence){
 		super(existence);
 		existence.addOrGetPrimitiveInteraction(">t", 4);   // step_up
 		existence.addOrGetPrimitiveInteraction(">f", -10); // step_down
