@@ -10,7 +10,7 @@ import coupling.interaction.Interaction031;
 import coupling.interaction.Interaction032;
 import coupling.interaction.Interaction040;
 
-public class Existence051 extends Existence050 {
+public class Existence051 extends Existence0501 {
 
 	@Override
 	public String step() {
