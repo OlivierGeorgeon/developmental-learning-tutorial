@@ -3,7 +3,7 @@ package environment;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction040;
 import existence.Existence0501;
-import existence.Existence052;
+import existence.Existence050;
 
 /**
  * This class implements the Small Loop Environment
@@ -42,7 +42,7 @@ public class EnvironmentMaze extends Environment050
 	private char[] m_agent = 
 	{ '^', '>', 'v', '<' };
 
-	public EnvironmentMaze(Existence052  existence){
+	public EnvironmentMaze(Existence050  existence){
 		super(existence);
 	}
 

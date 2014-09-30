@@ -3,13 +3,13 @@ package environment;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction040;
 import existence.Existence0501;
-import existence.Existence052;
+import existence.Existence050;
 
 public class Environment050 implements Environment {
 
-	private Existence052 existence;
+	private Existence050 existence;
 
-	public Environment050(Existence052  existence){
+	public Environment050(Existence050  existence){
 		this.existence = existence;
 		init();
 	}
@@ -23,7 +23,7 @@ public class Environment050 implements Environment {
 		this.getExistence().addOrGetAbstractExperience(i22);
 	}
 
-	protected Existence052 getExistence(){
+	protected Existence050 getExistence(){
 		return this.existence;
 	}
 	
