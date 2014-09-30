@@ -5,7 +5,7 @@ import java.util.List;
 import agent.Anticipation;
 import agent.Anticipation031;
 import coupling.Experiment;
-import coupling.Experience040;
+import coupling.Experiment040;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
@@ -21,8 +21,8 @@ public class Existence040 extends Existence031 {
 
 	@Override
 	protected void initExistence(){
-		Experience040 e1 = (Experience040)addOrGetExperience(LABEL_E1);
-		Experience040 e2 = (Experience040)addOrGetExperience(LABEL_E2);
+		Experiment040 e1 = (Experiment040)addOrGetExperience(LABEL_E1);
+		Experiment040 e2 = (Experiment040)addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		/** Change the valence depending on the environment to obtain better behaviors */
@@ -38,7 +38,7 @@ public class Existence040 extends Existence031 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experience040 experience =  (Experience040)selectExperience(anticipations);
+		Experiment040 experience =  (Experiment040)selectExperience(anticipations);
 
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();
 
@@ -123,15 +123,15 @@ public class Existence040 extends Existence031 {
     	return interaction;
 	}
 	
-    public Experience040 addOrGetAbstractExperience(Interaction040 interaction) {
+    public Experiment040 addOrGetAbstractExperience(Interaction040 interaction) {
         String label = interaction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
-        	Experience040 abstractExperience =  new Experience040(label);
+        	Experiment040 abstractExperience =  new Experiment040(label);
         	abstractExperience.setIntendedInteraction(interaction);
 			interaction.setExperience(abstractExperience);
             EXPERIENCES.put(label, abstractExperience);
         }
-        return (Experience040)EXPERIENCES.get(label);
+        return (Experiment040)EXPERIENCES.get(label);
     }
 
 	@Override
@@ -175,7 +175,7 @@ public class Existence040 extends Existence031 {
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Experiment experience : this.EXPERIENCES.values()){
-			Experience040 defaultExperience = (Experience040)experience;
+			Experiment040 defaultExperience = (Experiment040)experience;
 			if (!defaultExperience.isAbstract()){
 				Anticipation031 anticipation = new Anticipation031(experience, 0);
 				anticipations.add(anticipation);
@@ -220,8 +220,8 @@ public class Existence040 extends Existence031 {
 	}
 
 	@Override
-	protected Experience040 createExperience(String label){
-		return new Experience040(label);
+	protected Experiment040 createExperience(String label){
+		return new Experiment040(label);
 	}
 
 	@Override
