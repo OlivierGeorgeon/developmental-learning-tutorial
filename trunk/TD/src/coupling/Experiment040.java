@@ -3,9 +3,9 @@ package coupling;
 import coupling.interaction.Interaction040;
 
 /**
- * An Experience040 is an Experience that can be primitive or abstract.
- * An abstract Experience has an intendedInteraction 
- * which is the sensorimotor pattern to try to enact if this experience is selected.
+ * An Experiment040 is an Experiment that can be primitive or abstract.
+ * An abstract Experiment has an intendedInteraction 
+ * which is the sensorimotor pattern to try to enact if this experiment is selected.
  */
 public class Experiment040 extends Experiment {
 

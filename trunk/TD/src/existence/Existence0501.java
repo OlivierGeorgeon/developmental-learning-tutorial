@@ -18,7 +18,7 @@ import existence.Existence010.Mood;
 /** 
 * Existence050 implements radical interactionism.
 */
-public class Existence050 extends Existence040 {
+public class Existence0501 extends Existence040 {
 
 	private Environment environment;
 	protected Environment getEnvironment(){

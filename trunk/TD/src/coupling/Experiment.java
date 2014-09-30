@@ -1,7 +1,7 @@
 package coupling;
 
 /**
- * An experience (aka experiment) that can be performed by the system.
+ * An experiment that can be chosen by the agent.
  */
 public class Experiment {
 	
