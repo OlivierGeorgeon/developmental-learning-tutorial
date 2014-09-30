@@ -1,6 +1,6 @@
 package agent;
 
-import coupling.Experience;
+import coupling.Experiment;
 
 /**
  * An Anticipation031 is created for each experience.
@@ -9,10 +9,10 @@ import coupling.Experience;
  */
 public class Anticipation031 implements Anticipation {
 	
-	Experience experience;
+	Experiment experience;
 	int proclivity;
 	
-	public Anticipation031(Experience experience, int proclivity){
+	public Anticipation031(Experiment experience, int proclivity){
 		this.experience = experience;
 		this.proclivity = proclivity;
 	}
@@ -25,11 +25,11 @@ public class Anticipation031 implements Anticipation {
 		return ((Anticipation031)otherProposition).getExperience() == this.experience;
 	}
 	
-	public Experience getExperience() {
+	public Experiment getExperience() {
 		return this.experience;
 	}
 
-	public void setExperience(Experience experience) {
+	public void setExperience(Experiment experience) {
 		this.experience = experience;
 	}
 

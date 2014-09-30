@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import agent.Anticipation;
 import agent.Anticipation030;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
@@ -22,8 +22,8 @@ public class Existence030 extends Existence020 {
 
 	@Override
 	protected void initExistence(){
-		Experience e1 = addOrGetExperience(LABEL_E1);
-		Experience e2 = addOrGetExperience(LABEL_E2);
+		Experiment e1 = addOrGetExperience(LABEL_E1);
+		Experiment e2 = addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		addOrGetPrimitiveInteraction(e1, r1, -1);
@@ -36,7 +36,7 @@ public class Existence030 extends Existence020 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experience experience =  selectInteraction(anticipations).getExperience();
+		Experiment experience =  selectInteraction(anticipations).getExperience();
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
@@ -163,7 +163,7 @@ public class Existence030 extends Existence020 {
 	 * Results in R1 when the current experience equals the previous experience
 	 * and in R2 when the current experience differs from the previous experience.
 	 */
-	protected Result returnResult030(Experience experience){
+	protected Result returnResult030(Experiment experience){
 		Result result = null;
 		if (this.getPreviousExperience() == experience)
 			result =  this.createOrGetResult(this.LABEL_R1);

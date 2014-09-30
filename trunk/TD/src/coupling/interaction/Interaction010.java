@@ -1,6 +1,6 @@
 package coupling.interaction;
 
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 
 /**
@@ -9,7 +9,7 @@ import coupling.Result;
 public class Interaction010 implements Interaction{
 	
 	private String label;
-	protected Experience experience;
+	protected Experiment experience;
 	protected Result result;
 	
 	public Interaction010(String label){
@@ -20,11 +20,11 @@ public class Interaction010 implements Interaction{
 		return this.label;
 	}
 	
-	public Experience getExperience() {
+	public Experiment getExperience() {
 		return experience;
 	}
 
-	public void setExperience(Experience experience) {
+	public void setExperience(Experiment experience) {
 		this.experience = experience;
 	}
 

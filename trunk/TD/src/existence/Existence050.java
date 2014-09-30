@@ -5,7 +5,7 @@ import java.util.List;
 
 import agent.Anticipation;
 import agent.Anticipation031;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Experience040;
 import coupling.Result;
 import coupling.interaction.Interaction030;
@@ -88,7 +88,7 @@ public class Existence050 extends Existence040 {
 	@Override
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		for (Experience experience : this.EXPERIENCES.values()){
+		for (Experiment experience : this.EXPERIENCES.values()){
 			Experience040 defaultExperience = (Experience040)experience;
 			if (defaultExperience.getIntendedInteraction().isPrimitive()){
 				Anticipation031 anticipation = new Anticipation031(experience, 0);
