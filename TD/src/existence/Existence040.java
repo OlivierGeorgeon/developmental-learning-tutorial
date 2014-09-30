@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import agent.Anticipation;
 import agent.Anticipation031;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Experience040;
 import coupling.Result;
 import coupling.interaction.Interaction;
@@ -174,7 +174,7 @@ public class Existence040 extends Existence031 {
 	@Override
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		for (Experience experience : this.EXPERIENCES.values()){
+		for (Experiment experience : this.EXPERIENCES.values()){
 			Experience040 defaultExperience = (Experience040)experience;
 			if (!defaultExperience.isAbstract()){
 				Anticipation031 anticipation = new Anticipation031(experience, 0);
@@ -208,7 +208,7 @@ public class Existence040 extends Existence031 {
 	 * @param The actually enacted primitive interaction.
 	 */
 	public Interaction040 enactPrimitiveIntearction(Interaction030 intendedPrimitiveInteraction){
-		Experience experience = intendedPrimitiveInteraction.getExperience();
+		Experiment experience = intendedPrimitiveInteraction.getExperience();
 		/** Change the returnResult() to change the environment 
 		 *  Change the valence of primitive interactions to obtain better behaviors */		
 		//Result result = returnResult010(experience);
@@ -247,15 +247,15 @@ public class Existence040 extends Existence031 {
 	 * and in R1 otherwise.
 	 * e1->r1 e1->r2 e2->r1 e2->r2 etc. 
 	 */
-	private Experience penultimateExperience;
-	protected void setPenultimateExperience(Experience penultimateExperience){
+	private Experiment penultimateExperience;
+	protected void setPenultimateExperience(Experiment penultimateExperience){
 		this.penultimateExperience = penultimateExperience;
 	}
-	protected Experience getPenultimateExperience(){
+	protected Experiment getPenultimateExperience(){
 		return this.penultimateExperience;
 	}
 
-	public Result returnResult040(Experience experience){
+	public Result returnResult040(Experiment experience){
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 
@@ -274,15 +274,15 @@ public class Existence040 extends Existence031 {
 	 * The agent must alternate experiences e1 and e2 every third cycle to get one r2 result the third time:
 	 * e1->r1 e1->r1 e1->r2 e2->r1 e2->r1 e2->r2 etc. 
 	 */
-	protected Experience antepenultimateExperience;
-	protected void setAntePenultimateExperience(Experience antepenultimateExperience){
+	protected Experiment antepenultimateExperience;
+	protected void setAntePenultimateExperience(Experiment antepenultimateExperience){
 		this.antepenultimateExperience = antepenultimateExperience;
 	}
-	protected Experience getAntePenultimateExperience(){
+	protected Experiment getAntePenultimateExperience(){
 		return this.antepenultimateExperience;
 	}
 
-	public Result returnResult041(Experience experience){
+	public Result returnResult041(Experiment experience){
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 

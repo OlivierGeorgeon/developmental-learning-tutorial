@@ -1,6 +1,6 @@
 package existence;
 
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 import coupling.interaction.Interaction020;
 
@@ -18,8 +18,8 @@ public class Existence020 extends Existence010 {
 
 	@Override
 	protected void initExistence(){
-		Experience e1 = addOrGetExperience(LABEL_E1);
-		Experience e2 = addOrGetExperience(LABEL_E2);
+		Experiment e1 = addOrGetExperience(LABEL_E1);
+		Experiment e2 = addOrGetExperience(LABEL_E2);
 		Result r1 = createOrGetResult(LABEL_R1);
 		Result r2 = createOrGetResult(LABEL_R2);
 		/** Change the valence of interactions to change the agent's motivation */
@@ -33,7 +33,7 @@ public class Existence020 extends Existence010 {
 	@Override
 	public String step() {
 		
-		Experience experience = this.getPreviousExperience();
+		Experiment experience = this.getPreviousExperience();
 		if (this.getMood() == Mood.PAINED)
 			experience = getOtherExperience(experience);		
 		
@@ -58,7 +58,7 @@ public class Existence020 extends Existence010 {
 	 * @param valence: the interaction's valence
 	 * @return The created interaction
 	 */
-	protected Interaction020 addOrGetPrimitiveInteraction(Experience experience, Result result, int valence) {
+	protected Interaction020 addOrGetPrimitiveInteraction(Experiment experience, Result result, int valence) {
 		String label = experience.getLabel() + result.getLabel();
 		if (!INTERACTIONS.containsKey(label)){
 			Interaction020 interaction = createInteraction(label);

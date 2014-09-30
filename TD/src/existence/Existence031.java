@@ -6,7 +6,7 @@ import java.util.List;
 
 import agent.Anticipation;
 import agent.Anticipation031;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
@@ -25,12 +25,12 @@ public class Existence031 extends Existence030 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experience experience =  selectExperience(anticipations);
+		Experiment experience =  selectExperience(anticipations);
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
-		//Result result = returnResult030(experience);
-		Result result = returnResult031(experience);
+		Result result = returnResult030(experience);
+		//Result result = returnResult031(experience);
 	
 		Interaction031 enactedInteraction = getInteraction(experience.getLabel() + result.getLabel());
 		System.out.println("Enacted "+ enactedInteraction.toString());
@@ -93,14 +93,14 @@ public class Existence031 extends Existence030 {
 	 */
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
-		for (Experience experience : this.EXPERIENCES.values()){
+		for (Experiment experience : this.EXPERIENCES.values()){
 			Anticipation031 anticipation = new Anticipation031(experience, 0);
 			anticipations.add(anticipation);
 		}
 		return anticipations;
 	}
 
-	public Experience selectExperience(List<Anticipation> anticipations){
+	public Experiment selectExperience(List<Anticipation> anticipations){
 		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
 		Collections.sort(anticipations);
 		for (Anticipation anticipation : anticipations)
@@ -135,7 +135,7 @@ public class Existence031 extends Existence030 {
 		this.clock++;
 	}
 
-	public Result returnResult031(Experience experience){
+	public Result returnResult031(Experiment experience){
 
 		Result result = null;
 

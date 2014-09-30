@@ -7,7 +7,7 @@ import java.util.List;
 import agent.Anticipation;
 import agent.Anticipation030;
 import agent.Anticipation032;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
@@ -21,7 +21,7 @@ public class Existence032 extends Existence031 {
 		
 		List<Anticipation> anticipations = anticipate();
 		Interaction032 intendedInteraction =  selectInteraction(anticipations);
-		Experience experience = intendedInteraction.getExperience();
+		Experiment experience = intendedInteraction.getExperience();
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);

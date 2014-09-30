@@ -1,6 +1,6 @@
 package coupling.interaction;
 
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 
 public interface Interaction{
@@ -13,7 +13,7 @@ public interface Interaction{
 	/**
 	 * @return The interaction's experience
 	 */
-	public Experience getExperience();
+	public Experiment getExperience();
 
 	/**
 	 * @return The interaction's result
@@ -23,7 +23,7 @@ public interface Interaction{
 	/**
 	 * @param experience: The interaction's experience.
 	 */
-	public void setExperience(Experience experience) ;
+	public void setExperience(Experiment experience) ;
 
 	/**
 	 * @param result: The interaction's result.

@@ -2,7 +2,7 @@ package existence;
 
 import java.util.HashMap;
 import java.util.Map;
-import coupling.Experience;
+import coupling.Experiment;
 import coupling.Result;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction010;
@@ -21,7 +21,7 @@ public class Existence010 implements Existence {
 	public final String LABEL_R2 = "r2";
 	public enum Mood {SELF_SATISFIED, FRUSTRATED, BORED, PAINED, PLEASED};
 
-	protected Map<String ,Experience> EXPERIENCES = new HashMap<String ,Experience>();
+	protected Map<String ,Experiment> EXPERIENCES = new HashMap<String ,Experiment>();
 	protected Map<String ,Result> RESULTS = new HashMap<String ,Result>();
 	protected Map<String , Interaction> INTERACTIONS = new HashMap<String , Interaction>() ;
 
@@ -29,14 +29,14 @@ public class Existence010 implements Existence {
 	
 	private Mood mood;
 	private int selfSatisfactionCounter = 0;
-	private Experience previousExperience;
+	private Experiment previousExperience;
 	
 	public Existence010(){
 		initExistence();
 	}	
 	
 	protected void initExistence(){
-		Experience e1 = addOrGetExperience(LABEL_E1);
+		Experiment e1 = addOrGetExperience(LABEL_E1);
 		addOrGetExperience(LABEL_E2);
 		this.setPreviousExperience(e1);
 	}
@@ -44,7 +44,7 @@ public class Existence010 implements Existence {
 	@Override
 	public String step() {
 		
-		Experience experience = this.getPreviousExperience();
+		Experiment experience = this.getPreviousExperience();
 		if (this.getMood() == Mood.BORED){
 			experience = getOtherExperience(experience);		
 			this.setSelfSatisfactionCounter(0);
@@ -78,7 +78,7 @@ public class Existence010 implements Existence {
 	 * @param result: The result.
 	 * @return The created interaction
 	 */
-	protected Interaction addOrGetPrimitiveInteraction(Experience experience, Result result) {
+	protected Interaction addOrGetPrimitiveInteraction(Experiment experience, Result result) {
 		Interaction interaction = addOrGetInteraction(experience.getLabel() + result.getLabel()); 
 		interaction.setExperience(experience);
 		interaction.setResult(result);
@@ -113,7 +113,7 @@ public class Existence010 implements Existence {
 	 * Finds an interaction from its experience
 	 * @return The interaction.
 	 */
-	protected Result predict(Experience experience){
+	protected Result predict(Experiment experience){
 		Interaction interaction = null;
 		Result anticipatedResult = null;
 		
@@ -132,14 +132,14 @@ public class Existence010 implements Existence {
 	 * @param label: The experience's label
 	 * @return The experience.
 	 */
-	protected Experience addOrGetExperience(String label) {
+	protected Experiment addOrGetExperience(String label) {
 		if (!EXPERIENCES.containsKey(label))
 			EXPERIENCES.put(label, createExperience(label));			
 		return EXPERIENCES.get(label);
 	}
 	
-	protected Experience createExperience(String label){
-		return new Experience(label);
+	protected Experiment createExperience(String label){
+		return new Experiment(label);
 	}
 
 	/**
@@ -147,9 +147,9 @@ public class Existence010 implements Existence {
 	 * @param experience: The experience that we don't want
 	 * @return The other experience.
 	 */
-	protected Experience getOtherExperience(Experience experience) {
-		Experience otherExperience = null;
-		for (Experience e : EXPERIENCES.values()){
+	protected Experiment getOtherExperience(Experiment experience) {
+		Experiment otherExperience = null;
+		for (Experiment e : EXPERIENCES.values()){
 			if (e!=experience){
 				otherExperience =  e;
 				break;
@@ -176,10 +176,10 @@ public class Existence010 implements Existence {
 		this.mood = mood;
 	}
 
-	public Experience getPreviousExperience() {
+	public Experiment getPreviousExperience() {
 		return previousExperience;
 	}
-	public void setPreviousExperience(Experience previousExperience) {
+	public void setPreviousExperience(Experiment previousExperience) {
 		this.previousExperience = previousExperience;
 	}
 
@@ -199,7 +199,7 @@ public class Existence010 implements Existence {
 	 * @param experience: The current experience.
 	 * @return The result of this experience.
 	 */
-	public Result returnResult010(Experience experience){
+	public Result returnResult010(Experiment experience){
 		if (experience.equals(addOrGetExperience(LABEL_E1)))
 			return createOrGetResult(LABEL_R1);
 		else

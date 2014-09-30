@@ -7,7 +7,7 @@ import coupling.interaction.Interaction040;
  * An abstract Experience has an intendedInteraction 
  * which is the sensorimotor pattern to try to enact if this experience is selected.
  */
-public class Experience040 extends Experience {
+public class Experience040 extends Experiment {
 
 	/**
 	 * The experience's interaction.

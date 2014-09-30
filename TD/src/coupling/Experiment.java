@@ -3,14 +3,14 @@ package coupling;
 /**
  * An experience (aka experiment) that can be performed by the system.
  */
-public class Experience {
+public class Experiment {
 	
 	/**
 	 * The experience's label.
 	 */
 	private String label;
 
-	public Experience(String label){
+	public Experiment(String label){
 		this.label = label;
 	}
 	
