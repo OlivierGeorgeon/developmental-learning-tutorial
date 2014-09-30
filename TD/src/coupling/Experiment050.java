@@ -9,11 +9,11 @@ import coupling.interaction.Interaction;
  * Enacted Interactions are interactions that may end up being enacted
  * instead of the intended interaction when performing this experience.
  */
-public class Experience050 extends Experience040 {
+public class Experiment050 extends Experiment040 {
 
 	private List<Interaction> enactedInteractions = new ArrayList<Interaction>();
 	
-	public Experience050(String label){
+	public Experiment050(String label){
 		super(label);
 	}
 

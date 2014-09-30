@@ -4,7 +4,7 @@ import java.util.List;
 
 import agent.Anticipation;
 import agent.Anticipation031;
-import coupling.Experience050;
+import coupling.Experiment050;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction031;
 import coupling.interaction.Interaction032;
@@ -16,7 +16,7 @@ public class Existence051 extends Existence050 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experience050 experience =  (Experience050)selectExperience(anticipations);
+		Experiment050 experience =  (Experiment050)selectExperience(anticipations);
 
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();
 		System.out.println("Intended "+ intendedInteraction.toString());
@@ -65,7 +65,7 @@ public class Existence051 extends Existence050 {
 		}
 		
 		for (Anticipation anticipation : anticipations){
-			for (Interaction interaction : ((Experience050)((Anticipation031)anticipation).getExperience()).getEnactedInteractions()){
+			for (Interaction interaction : ((Experiment050)((Anticipation031)anticipation).getExperience()).getEnactedInteractions()){
 				for (Interaction activatedInteraction : activatedInteractions){
 					if (interaction == ((Interaction032)activatedInteraction).getPostInteraction()){
 						int proclivity = ((Interaction032)activatedInteraction).getWeight() * ((Interaction032)interaction).getValence(); 
@@ -79,15 +79,15 @@ public class Existence051 extends Existence050 {
 	}
 
 	@Override
-    public Experience050 addOrGetAbstractExperience(Interaction040 interaction) {
+    public Experiment050 addOrGetAbstractExperience(Interaction040 interaction) {
         String label = interaction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
-        	Experience050 abstractExperience =  new Experience050(label);
+        	Experiment050 abstractExperience =  new Experiment050(label);
         	abstractExperience.setIntendedInteraction(interaction);
 			interaction.setExperience(abstractExperience);
             EXPERIENCES.put(label, abstractExperience);
         }
-        return (Experience050)EXPERIENCES.get(label);
+        return (Experiment050)EXPERIENCES.get(label);
     }
 
 }

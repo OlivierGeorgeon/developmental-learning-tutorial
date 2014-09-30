@@ -6,7 +6,7 @@ import java.util.List;
 import agent.Anticipation;
 import agent.Anticipation031;
 import coupling.Experiment;
-import coupling.Experience040;
+import coupling.Experiment040;
 import coupling.Result;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction040;
@@ -36,7 +36,7 @@ public class Existence050 extends Existence040 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experience040 experience =  (Experience040)selectExperience(anticipations);
+		Experiment040 experience =  (Experiment040)selectExperience(anticipations);
 
 		Interaction040 intendedInteraction = experience.getIntendedInteraction();
 		System.out.println("Intended "+ intendedInteraction.toString());
@@ -89,7 +89,7 @@ public class Existence050 extends Existence040 {
 	protected List<Anticipation> getDefaultAnticipations(){
 		List<Anticipation> anticipations = new ArrayList<Anticipation>();
 		for (Experiment experience : this.EXPERIENCES.values()){
-			Experience040 defaultExperience = (Experience040)experience;
+			Experiment040 defaultExperience = (Experiment040)experience;
 			if (defaultExperience.getIntendedInteraction().isPrimitive()){
 				Anticipation031 anticipation = new Anticipation031(experience, 0);
 				anticipations.add(anticipation);

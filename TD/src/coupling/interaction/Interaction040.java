@@ -1,6 +1,6 @@
 package coupling.interaction;
 
-import coupling.Experience040;
+import coupling.Experiment040;
 
 /**
  * An interaction040 is an Interaction031 that has an Experience040
@@ -13,7 +13,7 @@ public class Interaction040 extends Interaction032 {
 	}
 	
 	@Override
-	public Experience040 getExperience() {
-		return (Experience040)super.getExperience(); 
+	public Experiment040 getExperience() {
+		return (Experiment040)super.getExperience(); 
 	}
 }
