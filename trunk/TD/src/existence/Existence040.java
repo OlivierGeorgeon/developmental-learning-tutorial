@@ -69,9 +69,9 @@ public class Existence040 extends Existence031 {
 	 * the previous super interaction, the context interaction, and the enacted interaction
 	 */
 	@Override
-	public void learnCompositeInteraction(Interaction030 enactedIntearction){
+	public void learnCompositeInteraction(Interaction030 enactedInteraction){
 		Interaction040 previousInteraction = this.getEnactedInteraction(); 
-		Interaction040 lastInteraction = (Interaction040)enactedIntearction;
+		Interaction040 lastInteraction = (Interaction040)enactedInteraction;
 		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
 		Interaction040 lastSuperIntearction = null;
         // learn [previous current] called the super interaction
@@ -247,24 +247,24 @@ public class Existence040 extends Existence031 {
 	 * and in R1 otherwise.
 	 * e1->r1 e1->r2 e2->r1 e2->r2 etc. 
 	 */
-	private Experiment penultimateExperience;
-	protected void setPenultimateExperience(Experiment penultimateExperience){
-		this.penultimateExperience = penultimateExperience;
+	private Experiment penultimateExperiment;
+	protected void setPenultimateExperiment(Experiment penultimateExperiment){
+		this.penultimateExperiment = penultimateExperiment;
 	}
-	protected Experiment getPenultimateExperience(){
-		return this.penultimateExperience;
+	protected Experiment getPenultimateExperiment(){
+		return this.penultimateExperiment;
 	}
 
 	public Result returnResult040(Experiment experience){
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 
-		if (this.getPenultimateExperience() != experience &&
-			this.getPreviousExperience() == experience)
+		if (this.getPenultimateExperiment() != experience &&
+			this.getPreviousExperiment() == experience)
 			result =  this.createOrGetResult(this.LABEL_R2);
 		
-		this.setPenultimateExperience(this.getPreviousExperience());
-		this.setPreviousExperience(experience);
+		this.setPenultimateExperiment(this.getPreviousExperiment());
+		this.setPreviousExperiment(experience);
 		
 		return result;
 	}
@@ -274,26 +274,26 @@ public class Existence040 extends Existence031 {
 	 * The agent must alternate experiences e1 and e2 every third cycle to get one r2 result the third time:
 	 * e1->r1 e1->r1 e1->r2 e2->r1 e2->r1 e2->r2 etc. 
 	 */
-	protected Experiment antepenultimateExperience;
-	protected void setAntePenultimateExperience(Experiment antepenultimateExperience){
-		this.antepenultimateExperience = antepenultimateExperience;
+	protected Experiment antepenultimateExperiment;
+	protected void setAntePenultimateExperiment(Experiment antepenultimateExperiment){
+		this.antepenultimateExperiment = antepenultimateExperiment;
 	}
-	protected Experiment getAntePenultimateExperience(){
-		return this.antepenultimateExperience;
+	protected Experiment getAntePenultimateExperiment(){
+		return this.antepenultimateExperiment;
 	}
 
-	public Result returnResult041(Experiment experience){
+	public Result returnResult041(Experiment experiment){
 		
 		Result result = this.createOrGetResult(this.LABEL_R1);
 
-		if (this.getAntePenultimateExperience() != experience &&
-			this.getPenultimateExperience() == experience &&
-			this.getPreviousExperience() == experience)
+		if (this.getAntePenultimateExperiment() != experiment &&
+			this.getPenultimateExperiment() == experiment &&
+			this.getPreviousExperiment() == experiment)
 			result =  this.createOrGetResult(this.LABEL_R2);
 		
-		this.setAntePenultimateExperience(this.getPenultimateExperience());
-		this.setPenultimateExperience(this.getPreviousExperience());
-		this.setPreviousExperience(experience);
+		this.setAntePenultimateExperiment(this.getPenultimateExperiment());
+		this.setPenultimateExperiment(this.getPreviousExperiment());
+		this.setPreviousExperiment(experiment);
 		
 		return result;
 	}

@@ -27,13 +27,13 @@ public class Existence020 extends Existence010 {
 		addOrGetPrimitiveInteraction(e1, r2, 1);
 		addOrGetPrimitiveInteraction(e2, r1, -1);
 		addOrGetPrimitiveInteraction(e2, r2, 1);		
-		this.setPreviousExperience(e1);
+		this.setPreviousExperiment(e1);
 	}
 	
 	@Override
 	public String step() {
 		
-		Experiment experience = this.getPreviousExperience();
+		Experiment experience = this.getPreviousExperiment();
 		if (this.getMood() == Mood.PAINED)
 			experience = getOtherExperience(experience);		
 		
@@ -46,7 +46,7 @@ public class Existence020 extends Existence010 {
 		else
 			this.setMood(Mood.PAINED);
 
-		this.setPreviousExperience(experience);
+		this.setPreviousExperiment(experience);
 		
 		return experience.getLabel() + result.getLabel() + " " + this.getMood();
 	}

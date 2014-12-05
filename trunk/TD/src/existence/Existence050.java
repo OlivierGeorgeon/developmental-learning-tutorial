@@ -15,6 +15,7 @@ import coupling.interaction.Interaction032;
 import coupling.interaction.Interaction040;
 import environment.Environment;
 import environment.Environment050;
+import environment.EnvironmentMaze;
 
 public class Existence050 extends Existence040{
 
@@ -27,7 +28,7 @@ public class Existence050 extends Existence040{
 	protected void initExistence(){
 		/** You can instantiate another environment here. */
 		this.environment = new Environment050(this);
-		//this.environment = new EnvironmentMaze(this);
+		this.environment = new EnvironmentMaze(this);
 	}
 	
 	@Override
