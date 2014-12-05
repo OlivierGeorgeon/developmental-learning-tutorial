@@ -29,7 +29,7 @@ public class Existence010 implements Existence {
 	
 	private Mood mood;
 	private int selfSatisfactionCounter = 0;
-	private Experiment previousExperience;
+	private Experiment previousExperiment;
 	
 	public Existence010(){
 		initExistence();
@@ -38,13 +38,13 @@ public class Existence010 implements Existence {
 	protected void initExistence(){
 		Experiment e1 = addOrGetExperience(LABEL_E1);
 		addOrGetExperience(LABEL_E2);
-		this.setPreviousExperience(e1);
+		this.setPreviousExperiment(e1);
 	}
 
 	@Override
 	public String step() {
 		
-		Experiment experience = this.getPreviousExperience();
+		Experiment experience = this.getPreviousExperiment();
 		if (this.getMood() == Mood.BORED){
 			experience = getOtherExperience(experience);		
 			this.setSelfSatisfactionCounter(0);
@@ -67,7 +67,7 @@ public class Existence010 implements Existence {
 		if (this.getSelfSatisfactionCounter() >= BOREDOME_LEVEL)
 			this.setMood(Mood.BORED);
 		
-		this.setPreviousExperience(experience);
+		this.setPreviousExperiment(experience);
 		
 		return experience.getLabel() + result.getLabel() + " " + this.getMood();
 	}
@@ -176,11 +176,11 @@ public class Existence010 implements Existence {
 		this.mood = mood;
 	}
 
-	public Experiment getPreviousExperience() {
-		return previousExperience;
+	public Experiment getPreviousExperiment() {
+		return previousExperiment;
 	}
-	public void setPreviousExperience(Experiment previousExperience) {
-		this.previousExperience = previousExperience;
+	public void setPreviousExperiment(Experiment previousExperience) {
+		this.previousExperiment = previousExperience;
 	}
 
 	public int getSelfSatisfactionCounter() {
@@ -196,11 +196,11 @@ public class Existence010 implements Existence {
 	/**
 	 * The Environment010
 	 * E1 results in R1. E2 results in R2.
-	 * @param experience: The current experience.
-	 * @return The result of this experience.
+	 * @param experiment: The current experiment.
+	 * @return The result of this experiment.
 	 */
-	public Result returnResult010(Experiment experience){
-		if (experience.equals(addOrGetExperience(LABEL_E1)))
+	public Result returnResult010(Experiment experiment){
+		if (experiment.equals(addOrGetExperience(LABEL_E1)))
 			return createOrGetResult(LABEL_R1);
 		else
 			return createOrGetResult(LABEL_R2);

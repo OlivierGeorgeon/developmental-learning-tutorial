@@ -2,12 +2,15 @@ package main;
 
 import existence.Existence;
 import existence.Existence010;
-import existence.Existence020;
-import existence.Existence030;
-import existence.Existence031;
-import existence.Existence032;
-import existence.Existence040;
-import existence.Existence050;
+
+/** Uncomment these lines to instantiate other existences: */
+
+//import existence.Existence020;
+//import existence.Existence030;
+//import existence.Existence031;
+//import existence.Existence032;
+//import existence.Existence040;
+//import existence.Existence050;
 
 /**
  * The Main Class instantiates an Existence.  

@@ -160,16 +160,16 @@ public class Existence030 extends Existence020 {
 
 	/**
 	 * Environment030
-	 * Results in R1 when the current experience equals the previous experience
-	 * and in R2 when the current experience differs from the previous experience.
+	 * Results in R1 when the current experiment equals the previous experiment
+	 * and in R2 when the current experiment differs from the previous experiment.
 	 */
-	protected Result returnResult030(Experiment experience){
+	protected Result returnResult030(Experiment experiment){
 		Result result = null;
-		if (this.getPreviousExperience() == experience)
+		if (this.getPreviousExperiment() == experiment)
 			result =  this.createOrGetResult(this.LABEL_R1);
 		else
 			result =  this.createOrGetResult(this.LABEL_R2);
-		this.setPreviousExperience(experience);
+		this.setPreviousExperiment(experiment);
 
 		return result;
 	}	

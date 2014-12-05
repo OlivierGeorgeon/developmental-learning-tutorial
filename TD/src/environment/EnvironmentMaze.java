@@ -2,7 +2,6 @@ package environment;
 
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction040;
-import existence.Existence0501;
 import existence.Existence050;
 
 /**
