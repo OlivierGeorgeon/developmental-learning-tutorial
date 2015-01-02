@@ -11,7 +11,6 @@ import coupling.Experiment050;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction031;
-import coupling.interaction.Interaction032;
 import coupling.interaction.Interaction040;
 import environment.Environment;
 import environment.Environment050;
@@ -23,12 +22,16 @@ public class Existence050 extends Existence040{
 	protected Environment getEnvironment(){
 		return this.environment;
 	}
+	
+	protected void setEnvironment(Environment environment){
+		this.environment = environment;
+	}
 
 	@Override
 	protected void initExistence(){
 		/** You can instantiate another environment here. */
-		this.environment = new Environment050(this);
-		this.environment = new EnvironmentMaze(this);
+		this.setEnvironment(new Environment050(this));
+		//this.setEnvironment(new EnvironmentMaze(this));
 	}
 	
 	@Override
@@ -54,7 +57,7 @@ public class Existence050 extends Existence040{
 
 		this.learnCompositeInteraction(enactedInteraction);
 		
-		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
+		//this.setPreviousSuperInteraction(this.getLastSuperInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
 		return "" + this.getMood();
@@ -86,8 +89,8 @@ public class Existence050 extends Existence040{
 		for (Anticipation anticipation : anticipations){
 			for (Interaction interaction : ((Experiment050)((Anticipation031)anticipation).getExperience()).getEnactedInteractions()){
 				for (Interaction activatedInteraction : activatedInteractions){
-					if (interaction == ((Interaction032)activatedInteraction).getPostInteraction()){
-						int proclivity = ((Interaction032)activatedInteraction).getWeight() * ((Interaction032)interaction).getValence(); 
+					if (interaction == ((Interaction031)activatedInteraction).getPostInteraction()){
+						int proclivity = ((Interaction031)activatedInteraction).getWeight() * ((Interaction031)interaction).getValence(); 
 						((Anticipation031)anticipation).addProclivity(proclivity);
 					}
 				}
