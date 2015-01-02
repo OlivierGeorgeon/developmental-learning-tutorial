@@ -17,7 +17,7 @@ import coupling.interaction.Interaction040;
 public class Existence040 extends Existence031 {
 
 	private Interaction040 previousSuperInteraction;
-	private Interaction040 lastSuperInteraction;
+	//private Interaction040 lastSuperInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -58,7 +58,7 @@ public class Existence040 extends Existence031 {
 
 		this.learnCompositeInteraction(enactedInteraction);
 		
-		this.setPreviousSuperInteraction(this.getLastSuperInteraction());
+		//this.setPreviousSuperInteraction(this.getLastSuperInteraction());
 		this.setEnactedInteraction(enactedInteraction);
 		
 		return "" + this.getMood();
@@ -73,21 +73,22 @@ public class Existence040 extends Existence031 {
 		Interaction040 previousInteraction = this.getEnactedInteraction(); 
 		Interaction040 lastInteraction = (Interaction040)enactedInteraction;
 		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
-		Interaction040 lastSuperIntearction = null;
+		Interaction040 lastSuperInteraction = null;
         // learn [previous current] called the super interaction
 		if (previousInteraction != null)
-			lastSuperIntearction = addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
+			lastSuperInteraction = addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
 		
 		// Learn higher-level interactions
         if (previousSuperInteraction != null 
         		//&& previousInteraction.isPrimitive() && lastInteraction.isPrimitive()
         		){	
             // learn [penultimate [previous current]]
-            this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction.getPreInteraction(), lastSuperIntearction);
+            this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction.getPreInteraction(), lastSuperInteraction);
             // learn [[penultimate previous] current]
             this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction, lastInteraction);
         }
-        this.setLastSuperInteraction(lastSuperIntearction);
+        //this.setLastSuperInteraction(lastSuperInteraction);
+        this.setPreviousSuperInteraction(lastSuperInteraction);
 	}
 	
 	public Interaction040 addOrGetAndReinforceCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
@@ -155,8 +156,10 @@ public class Existence040 extends Existence031 {
 			contextInteractions.add(this.getEnactedInteraction());
 			if (!this.getEnactedInteraction().isPrimitive())
 				contextInteractions.add(this.getEnactedInteraction().getPostInteraction());
-			if (this.getLastSuperInteraction() != null)
-				contextInteractions.add(this.getLastSuperInteraction());
+//			if (this.getLastSuperInteraction() != null)
+//				contextInteractions.add(this.getLastSuperInteraction());
+			if (this.getPreviousSuperInteraction() != null)
+				contextInteractions.add(this.getPreviousSuperInteraction());
 		}
 		
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
@@ -234,12 +237,12 @@ public class Existence040 extends Existence031 {
 	public void setPreviousSuperInteraction(Interaction040 previousSuperInteraction) {
 		this.previousSuperInteraction = previousSuperInteraction;
 	}
-	public Interaction040 getLastSuperInteraction() {
-		return lastSuperInteraction;
-	}
-	public void setLastSuperInteraction(Interaction040 lastSuperInteraction) {
-		this.lastSuperInteraction = lastSuperInteraction;
-	}
+//	public Interaction040 getLastSuperInteraction() {
+//		return lastSuperInteraction;
+//	}
+//	public void setLastSuperInteraction(Interaction040 lastSuperInteraction) {
+//		this.lastSuperInteraction = lastSuperInteraction;
+//	}
 
 	/**
 	 * Environment040

@@ -19,7 +19,11 @@ public class Trace {
 	
 	public static void startNewEvent(){
 		if (tracer != null)
-			tracer.startNewEvent(time++);
+			tracer.startNewEvent(time); // ++
+	}
+	
+	public static void incTimeCode(){
+		time++;
 	}
 
 	public static Element addEventElement(String name){

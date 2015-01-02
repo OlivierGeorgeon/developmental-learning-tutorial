@@ -2,9 +2,10 @@ package environment;
 
 import org.w3c.dom.*;
 import tracer.Trace;
+import coupling.Experiment050;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction040;
-import existence.Existence050;
+import existence.Existence060;
 
 /**
  * This class implements the String Environment 
@@ -12,57 +13,74 @@ import existence.Existence050;
  */
 public class EnvironmentString extends Environment050{
 	
-	public final String LABEL_STEP = ">";
-	public final String LABEL_FEEL = "-";
-	public final String LABEL_SWAP = "i";
-	public final String LABEL_TRUE = "t";
-	public final String LABEL_FALSE = "f";
+	private Interaction040 stepUp; 
+	private Interaction040 feelUp; 
+	private Interaction040 swapUp; 
+	private Interaction040 stepDown; 
+	private Interaction040 feelDown; 
+	private Interaction040 swapDown; 
+	private Experiment050 step;
+	private Experiment050 feel;
+	private Experiment050 swap;
 
 	private static final int WIDTH = 20;	
 	private int position = 0;
 	
-	private int[] board = {6, 3, 5, 4, 7, 3, 5, 3, 1, 5, 6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
+	private int clock = 0;
+	
+	private int[] board = {2, 1, 5, 4, 1, 3, 5, 3, 1, 5, 6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
+	//private int[] board = {6, 3, 5, 4, 7, 3, 5, 3, 1, 5, 6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
 	//private int[] board = {6, 3, 5, 4, 7, 3, 5, 3, 9, 5};	
 
-	public EnvironmentString(Existence050  existence){
+	public EnvironmentString(Existence060  existence){
 		super(existence);
-		existence.addOrGetPrimitiveInteraction(">t", 4);   // step_up
-		existence.addOrGetPrimitiveInteraction(">f", -10); // step_down
-		existence.addOrGetPrimitiveInteraction("-t", -4);  // feel_up
-		existence.addOrGetPrimitiveInteraction("-f", -4);  // feel_down
-		existence.addOrGetPrimitiveInteraction("it", 4);   // swap
-		existence.addOrGetPrimitiveInteraction("if", -10); // not_swp
 	}
 	
 	@Override
+	protected void init(){
+		
+		this.stepUp = this.getExistence().addOrGetPrimitiveInteraction(">t", 5); 
+		this.feelUp = this.getExistence().addOrGetPrimitiveInteraction("-t", -1);
+		this.swapUp = this.getExistence().addOrGetPrimitiveInteraction("it", -3); 
+		this.stepDown = this.getExistence().addOrGetPrimitiveInteraction(">f", -10);
+		this.feelDown = this.getExistence().addOrGetPrimitiveInteraction("-f", -1); 
+		this.swapDown = this.getExistence().addOrGetPrimitiveInteraction("if", -3);		
+		this.step = this.getExistence().addOrGetAbstractExperience(stepUp);
+		this.feel = this.getExistence().addOrGetAbstractExperience(feelUp);
+		this.swap = this.getExistence().addOrGetAbstractExperience(swapUp);
+	}
+
+	@Override
 	public Interaction enact(Interaction intendedInteraction){
-		traceEnv();
 
 		Interaction040 enactedInteraction = null;
 		
-		if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction(">t",0) ||
-			intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction(">f",0)	)
+		if (intendedInteraction == this.stepUp || intendedInteraction == this.stepDown)
 			enactedInteraction = step();
-		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("-t",0) ||
-				intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("-f",0))
+		else if (intendedInteraction == this.feelUp || intendedInteraction == this.feelDown)
 			enactedInteraction = feel();
-		else if (intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("it",0) ||
-				intendedInteraction == this.getExistence().addOrGetPrimitiveInteraction("if",0))
+		else if (intendedInteraction == this.swapUp || intendedInteraction == this.swapDown)
 			enactedInteraction = swap();
+		
+		Trace.startNewEvent();
+		traceEnv();
+		Trace.addEventElement("enacted_interaction", enactedInteraction.getLabel());
+		Trace.addEventElement("satisfaction", enactedInteraction.getValence() + "");
+		Trace.incTimeCode();
 		
 		return enactedInteraction;
 	
 	}	
 	/**
 	 * Step forward
-	 * @return true if the agent went up
+	 * @return stepUp if the next digit is greater or equal than the current digit, stepDown otherwise.
 	 */
 	private Interaction040 step(){
-		Interaction040 enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(">f",0);
+		Interaction040 enactedInteraction = this.stepDown;
 
 		if (position < WIDTH -1){
 			if (board[position] <= board[position + 1])
-				enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(">t",0);
+				enactedInteraction = this.stepUp;
 			position++;
 		}else 
 			position = 0;
@@ -71,29 +89,31 @@ public class EnvironmentString extends Environment050{
 	}
 	
 	/**
-	 * @return true if the next item is greater than the current item
+	 * Feel front
+	 * @return feelUp if the next digit is greater or equal than the current digit, feelDown otherwise.
 	 */
 	private Interaction040 feel(){
-		Interaction040 enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction("-f",0);
+		Interaction040 enactedInteraction = this.feelDown;
 		
 		if ((position < WIDTH -1) && (board[position] <= board[position +1]))
-			enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction(">t",0);
+			enactedInteraction = this.feelUp;
 
 		return enactedInteraction;		
 	}
 	
 	/**
 	 * Invert the next item and the current item
-	 * @return true if the next item is greater than the current item
+	 * @return swapUp if the current digit is smaller than the current digit, swapDown otherwise.
 	 */
 	private Interaction040 swap(){
-		Interaction040 enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction("if",0);
+		Interaction040 enactedInteraction = this.swapDown;
 
-		int temp = board[position];
-		if ((position < WIDTH -1) && (board[position] > board[position +1])){
-				board[position] = board[position + 1];
-				board[position + 1] = temp;
-				enactedInteraction = this.getExistence().addOrGetPrimitiveInteraction("it",0);
+		if ((position < WIDTH -1) ){// && (board[position] > board[position +1])){
+			int temp = board[position];
+			board[position] = board[position + 1];
+			board[position + 1] = temp;
+			if (board[position] <= board[position +1])
+				enactedInteraction = this.swapUp;
 		}
 
 		return enactedInteraction;		
@@ -101,6 +121,9 @@ public class EnvironmentString extends Environment050{
 	
 	private void traceEnv(){
 		
+		Trace.addEventElement("clock", this.clock + "");
+		this.clock++;
+
 		Element e = Trace.addEventElement("environment");
 
 		// print the board
