@@ -17,7 +17,6 @@ import coupling.interaction.Interaction040;
 public class Existence040 extends Existence031 {
 
 	private Interaction040 previousSuperInteraction;
-	//private Interaction040 lastSuperInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -38,17 +37,17 @@ public class Existence040 extends Existence031 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experiment040 experience =  (Experiment040)selectExperience(anticipations);
+		Experiment040 experiment =  (Experiment040)selectExperiment(anticipations);
 
-		Interaction040 intendedInteraction = experience.getIntendedInteraction();
+		Interaction040 intendedInteraction = experiment.getIntendedInteraction();
 
 		Interaction040 enactedInteraction = enact(intendedInteraction);
 		System.out.println("Enacted "+ enactedInteraction.toString());
 		
-		if (enactedInteraction != intendedInteraction && experience.isAbstract()){
+		if (enactedInteraction != intendedInteraction && experiment.isAbstract()){
 			Result failResult = createOrGetResult(enactedInteraction.getLabel().replace('e', 'E').replace('r', 'R') + ">");
 			int valence = enactedInteraction.getValence(); 
-			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experience, failResult, valence);
+			enactedInteraction = (Interaction040)addOrGetPrimitiveInteraction(experiment, failResult, valence);
 		}
 		
 		if (enactedInteraction.getValence() >= 0)
@@ -237,12 +236,6 @@ public class Existence040 extends Existence031 {
 	public void setPreviousSuperInteraction(Interaction040 previousSuperInteraction) {
 		this.previousSuperInteraction = previousSuperInteraction;
 	}
-//	public Interaction040 getLastSuperInteraction() {
-//		return lastSuperInteraction;
-//	}
-//	public void setLastSuperInteraction(Interaction040 lastSuperInteraction) {
-//		this.lastSuperInteraction = lastSuperInteraction;
-//	}
 
 	/**
 	 * Environment040

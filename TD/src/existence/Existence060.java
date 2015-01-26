@@ -32,6 +32,10 @@ public class Existence060 extends Existence050 {
 	
 	private Phenomenon060 phenomenon;
 	
+	private final int BASE_AROUSAL = 1; 
+	private final int TOP_AROUSAL = 5;
+	private int arousal = BASE_AROUSAL;
+	
 	@Override
 	protected void initExistence(){
 		// trace to local Abstract lite login: roesch, password: roesch
@@ -45,22 +49,34 @@ public class Existence060 extends Existence050 {
 	@Override
 	public String step() {
 		
+		Interaction060 intendedInteraction;
+		Experiment050 experiment;
+		
 		Trace.startNewEvent();
 
-		List<Anticipation> anticipations = anticipate();
-		Experiment050 experience =  (Experiment050)selectExperience(anticipations);
-
-		Interaction060 intendedInteraction = (Interaction060)experience.getIntendedInteraction();
+		// IF excited then keep trying the same interaction to confirm that it is persistent
+		if (this.getArousal() > this.BASE_AROUSAL && this.getArousal() < this.TOP_AROUSAL){
+			intendedInteraction = this.getPhenomenon().getPersistentInteraction();
+			experiment = this.addOrGetAbstractExperience(intendedInteraction);
+		}
+		// If not excited then choose another experiment.
+		else{
+			List<Anticipation> anticipations = anticipate();
+			experiment =  (Experiment050)selectExperiment(anticipations);
+			intendedInteraction = (Interaction060)experiment.getIntendedInteraction();
+		}
+		
 		System.out.println("Intended "+ intendedInteraction.toString());
 
 		Trace.addEventElement("intended_interaction", intendedInteraction.getLabel());
 		Trace.addEventElement("length", intendedInteraction.getLength() + "");
+		Trace.addEventElement("arousal", this.getArousal() + "");
 
 		Interaction040 enactedInteraction = this.enact(intendedInteraction);
 		
 		Trace.addEventElement("top_level", intendedInteraction.getLength() + "");
 		if (enactedInteraction != intendedInteraction){
-			experience.addEnactedInteraction(enactedInteraction);
+			experiment.addEnactedInteraction(enactedInteraction);
 			Trace.addEventElement("alternate_interaction", enactedInteraction.getLabel());
 		}
 
@@ -74,13 +90,18 @@ public class Existence060 extends Existence050 {
 		this.learnCompositeInteraction(enactedInteraction);
 		this.setEnactedInteraction(enactedInteraction);
 		
-		this.learnPhenomenon(intendedInteraction);		
+		if (this.getArousal() > this.BASE_AROUSAL){
+			if (enactedInteraction != intendedInteraction)
+				this.getPhenomenon().setConsistent(false);
+		}
+		else
+			this.learnPhenomenon(intendedInteraction);		
 		
 		return "" + this.getMood();
 	}
 	
 	@Override
-	public Experiment selectExperience(List<Anticipation> anticipations){
+	public Experiment selectExperiment(List<Anticipation> anticipations){
 		
 		Phenomenon060 phenomenon = this.getPhenomenon();
 		Experiment050 playExperiment = null;
@@ -116,34 +137,29 @@ public class Existence060 extends Existence050 {
 	 */
 	protected void learnPhenomenon(Interaction060 intendedInteraction){
 		
-		Interaction060 enactedInteraction = (Interaction060)this.getEnactedInteraction();
-		
-		if (this.getPhenomenon() != null){
-			if (enactedInteraction != this.getPhenomenon().getPersistentInteraction()){
-				if (intendedInteraction == this.getPhenomenon().getPersistentInteraction())
-					this.getPhenomenon().setConsistent(false);
-			}
-		}
-		
+		Interaction060 enactedInteraction = (Interaction060)this.getEnactedInteraction();		
 		Interaction060 superInteraction = (Interaction060)this.getPreviousSuperInteraction();
 		
 		if (superInteraction != null){
 			Interaction060 preInteraction = (Interaction060)superInteraction.getPreInteraction();
 			Interaction060 postInteraction = (Interaction060)superInteraction.getPostInteraction();
 			if (this.PHENOMENA.containsKey(preInteraction.getLabel())){
+				// Add post-interaction
 				Phenomenon060 phenomenon = (Phenomenon060)this.PHENOMENA.get(preInteraction.getLabel());
 				phenomenon.addPostInteraction(postInteraction);
 				phenomenon.trace();
 			}
 			else if (this.PHENOMENA.containsKey(postInteraction.getLabel())){
+				// Add pre-interaction
 				Phenomenon060 phenomenon = (Phenomenon060)this.PHENOMENA.get(postInteraction.getLabel());
 				phenomenon.addPreInteraction(preInteraction);
 				phenomenon.trace();
 			}
 			else if (preInteraction == postInteraction){
-					Phenomenon060 phenomenon = createPhenomenon(preInteraction); 
-					PHENOMENA.put(preInteraction.getLabel(), phenomenon);
-					phenomenon.trace();
+				// Create phenomenon
+				Phenomenon060 phenomenon = createPhenomenon(preInteraction); 
+				PHENOMENA.put(preInteraction.getLabel(), phenomenon);
+				phenomenon.trace();
 			}
 		}		
 
@@ -152,17 +168,19 @@ public class Existence060 extends Existence050 {
 		if (phenomenon != null && phenomenon.isConsistent()){
 			this.setPhenomenon(phenomenon);
 			Trace.addEventElement("current_phenomenon", phenomenon.getLabel());
+			this.setArousal(this.getArousal() + 1);
 		}
 		else{
 			if (this.getPhenomenon() != null){
 				this.setPhenomenon(null);
 				Trace.addEventElement("current_phenomenon", "n");
+				this.setArousal(BASE_AROUSAL);
 			}
 		}
 	}
 	
 	/**
-	 * Creates a new phenomenon type from its presistent interaction.
+	 * Creates a new phenomenon type from its persistent interaction.
 	 * @param persistentInteraction: The persistent interaction.
 	 * @return The phenomenon.
 	 */
@@ -189,4 +207,13 @@ public class Existence060 extends Existence050 {
 		}
 		return null;		
 	}
+	
+	public void setArousal(int arousal){
+		this.arousal = arousal;
+	}
+
+	public int getArousal(){
+		return this.arousal;
+	}
+
 }
