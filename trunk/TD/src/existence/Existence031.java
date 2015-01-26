@@ -25,7 +25,7 @@ public class Existence031 extends Existence030 {
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experiment experience =  selectExperience(anticipations);
+		Experiment experience =  selectExperiment(anticipations);
 		
 		/** Change the call to the function returnResult to change the environment */
 		//Result result = returnResult010(experience);
@@ -100,7 +100,7 @@ public class Existence031 extends Existence030 {
 		return anticipations;
 	}
 
-	public Experiment selectExperience(List<Anticipation> anticipations){
+	public Experiment selectExperiment(List<Anticipation> anticipations){
 		// The list of anticipations is never empty because all the experiences are proposed by default with a proclivity of 0
 		Collections.sort(anticipations);
 		for (Anticipation anticipation : anticipations)

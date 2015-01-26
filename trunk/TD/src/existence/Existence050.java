@@ -38,15 +38,15 @@ public class Existence050 extends Existence040{
 	public String step() {
 		
 		List<Anticipation> anticipations = anticipate();
-		Experiment050 experience =  (Experiment050)selectExperience(anticipations);
+		Experiment050 experiment =  (Experiment050)selectExperiment(anticipations);
 
-		Interaction040 intendedInteraction = experience.getIntendedInteraction();
+		Interaction040 intendedInteraction = experiment.getIntendedInteraction();
 		System.out.println("Intended "+ intendedInteraction.toString());
 
 		Interaction040 enactedInteraction = enact(intendedInteraction);
 		
 		if (enactedInteraction != intendedInteraction)
-			experience.addEnactedInteraction(enactedInteraction);
+			experiment.addEnactedInteraction(enactedInteraction);
 
 		System.out.println("Enacted "+ enactedInteraction.toString());
 		
