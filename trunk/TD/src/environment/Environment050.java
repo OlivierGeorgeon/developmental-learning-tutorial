@@ -18,8 +18,8 @@ public class Environment050 implements Environment {
 		Interaction040 i12 = this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E1 + this.getExistence().LABEL_R2, 1);
 		this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R1, -1);
 		Interaction040 i22 = this.getExistence().addOrGetPrimitiveInteraction(this.getExistence().LABEL_E2 + this.getExistence().LABEL_R2, 1);
-		this.getExistence().addOrGetAbstractExperience(i12);
-		this.getExistence().addOrGetAbstractExperience(i22);
+		this.getExistence().addOrGetAbstractExperiment(i12);
+		this.getExistence().addOrGetAbstractExperiment(i22);
 	}
 
 	protected Existence050 getExistence(){

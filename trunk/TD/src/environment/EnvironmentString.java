@@ -45,10 +45,10 @@ public class EnvironmentString extends Environment050{
 		this.stepDown = this.getExistence().addOrGetPrimitiveInteraction(">f", -10);
 		this.feelDown = this.getExistence().addOrGetPrimitiveInteraction("-f", -1); 
 		this.swapDown = this.getExistence().addOrGetPrimitiveInteraction("if", -3);		
-		this.step = this.getExistence().addOrGetAbstractExperience(stepUp);
+		this.step = this.getExistence().addOrGetAbstractExperiment(stepUp);
 		//this.stepDown.setExperience(step);
-		this.feel = this.getExistence().addOrGetAbstractExperience(feelUp);
-		this.swap = this.getExistence().addOrGetAbstractExperience(swapUp);
+		this.feel = this.getExistence().addOrGetAbstractExperiment(feelUp);
+		this.swap = this.getExistence().addOrGetAbstractExperiment(swapUp);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import agent.Phenomenon060;
 import coupling.Experiment;
 import coupling.Experiment050;
 import coupling.interaction.Interaction;
+import coupling.interaction.Interaction030;
 import coupling.interaction.Interaction040;
 import coupling.interaction.Interaction060;
 
@@ -30,11 +31,13 @@ public class Existence060 extends Existence050 {
 
 	private Map<String,Phenomenon> PHENOMENA = new HashMap<String ,Phenomenon>();
 	
-	private Phenomenon060 phenomenon;
+	private static Phenomenon060 UNKNWOWN_PHENOMENON = new Phenomenon060("n");
 	
-	private final int BASE_AROUSAL = 1; 
-	private final int TOP_AROUSAL = 5;
-	private int arousal = BASE_AROUSAL;
+	private Phenomenon060 phenomenon = UNKNWOWN_PHENOMENON;
+	
+	private static final int BASE_EXCITEMENT = 1; 
+	private static final int TOP_EXCITEMENT = 5;
+	private int excitement = BASE_EXCITEMENT;
 	
 	@Override
 	protected void initExistence(){
@@ -44,6 +47,11 @@ public class Existence060 extends Existence050 {
 		
 		/** You can instantiate another environment here. */
 		this.setEnvironment(new EnvironmentString(this));
+		
+		for (Interaction i : INTERACTIONS.values()){
+			UNKNWOWN_PHENOMENON.addPostInteraction((Interaction060)i);
+		}
+		
 	}
 	
 	@Override
@@ -53,11 +61,15 @@ public class Existence060 extends Existence050 {
 		Experiment050 experiment;
 		
 		Trace.startNewEvent();
+		
+		if (this.getExcitement() >= TOP_EXCITEMENT)
+			this.setExcitement(BASE_EXCITEMENT);
 
 		// IF excited then keep trying the same interaction to confirm that it is persistent
-		if (this.getArousal() > this.BASE_AROUSAL && this.getArousal() < this.TOP_AROUSAL){
+		if (this.getExcitement() > BASE_EXCITEMENT){
 			intendedInteraction = this.getPhenomenon().getPersistentInteraction();
-			experiment = this.addOrGetAbstractExperience(intendedInteraction);
+			experiment = this.addOrGetAbstractExperiment(intendedInteraction);
+			this.setExcitement(this.getExcitement()+1);
 		}
 		// If not excited then choose another experiment.
 		else{
@@ -67,10 +79,9 @@ public class Existence060 extends Existence050 {
 		}
 		
 		System.out.println("Intended "+ intendedInteraction.toString());
-
 		Trace.addEventElement("intended_interaction", intendedInteraction.getLabel());
 		Trace.addEventElement("length", intendedInteraction.getLength() + "");
-		Trace.addEventElement("arousal", this.getArousal() + "");
+		Trace.addEventElement("arousal", this.getExcitement() + "");
 
 		Interaction040 enactedInteraction = this.enact(intendedInteraction);
 		
@@ -90,12 +101,7 @@ public class Existence060 extends Existence050 {
 		this.learnCompositeInteraction(enactedInteraction);
 		this.setEnactedInteraction(enactedInteraction);
 		
-		if (this.getArousal() > this.BASE_AROUSAL){
-			if (enactedInteraction != intendedInteraction)
-				this.getPhenomenon().setConsistent(false);
-		}
-		else
-			this.learnPhenomenon(intendedInteraction);		
+		this.learnPhenomenon(intendedInteraction);		
 		
 		return "" + this.getMood();
 	}
@@ -137,46 +143,83 @@ public class Existence060 extends Existence050 {
 	 */
 	protected void learnPhenomenon(Interaction060 intendedInteraction){
 		
-		Interaction060 enactedInteraction = (Interaction060)this.getEnactedInteraction();		
-		Interaction060 superInteraction = (Interaction060)this.getPreviousSuperInteraction();
+		boolean phenomenonChange = false;
 		
-		if (superInteraction != null){
-			Interaction060 preInteraction = (Interaction060)superInteraction.getPreInteraction();
-			Interaction060 postInteraction = (Interaction060)superInteraction.getPostInteraction();
-			if (this.PHENOMENA.containsKey(preInteraction.getLabel())){
-				// Add post-interaction
-				Phenomenon060 phenomenon = (Phenomenon060)this.PHENOMENA.get(preInteraction.getLabel());
-				phenomenon.addPostInteraction(postInteraction);
-				phenomenon.trace();
+		Interaction060 enactedInteraction = (Interaction060)this.getEnactedInteraction();		
+		Interaction060 superInteraction = (Interaction060)this.getSuperInteraction();
+		
+		Phenomenon060 phenomenon = this.getPhenomenon();
+		
+		// if the intended interaction was the persistent interaction 
+		// but the enacted interaction is different then the phenomenon is invalid
+		if (phenomenon != UNKNWOWN_PHENOMENON && intendedInteraction == phenomenon.getPersistentInteraction())
+			if (enactedInteraction != intendedInteraction){
+				this.getPhenomenon().setConsistent(false);
+				this.setExcitement(BASE_EXCITEMENT);
+				this.getPhenomenon().trace();
+				this.setPhenomenon(UNKNWOWN_PHENOMENON);
+				phenomenonChange = true;
 			}
-			else if (this.PHENOMENA.containsKey(postInteraction.getLabel())){
-				// Add pre-interaction
-				Phenomenon060 phenomenon = (Phenomenon060)this.PHENOMENA.get(postInteraction.getLabel());
-				phenomenon.addPreInteraction(preInteraction);
+		
+		// If there is a current phenomenon and the enacted interaction is not persistent
+		// then the enacted interaction belong to this phenomenon's post-interactions
+		if (phenomenon != UNKNWOWN_PHENOMENON){
+			if (enactedInteraction != phenomenon.getPersistentInteraction()){
+				phenomenon.addPostInteraction(enactedInteraction);
 				phenomenon.trace();
+				this.setPhenomenon(UNKNWOWN_PHENOMENON);
+				phenomenonChange = true;
+				this.setExcitement(BASE_EXCITEMENT);
 			}
-			else if (preInteraction == postInteraction){
-				// Create phenomenon
-				Phenomenon060 phenomenon = createPhenomenon(preInteraction); 
-				PHENOMENA.put(preInteraction.getLabel(), phenomenon);
-				phenomenon.trace();
-			}
-		}		
+		}
 
-		// Current phenomenon
-		Phenomenon060 phenomenon = (Phenomenon060)this.PHENOMENA.get(enactedInteraction.getLabel());
-		if (phenomenon != null && phenomenon.isConsistent()){
-			this.setPhenomenon(phenomenon);
-			Trace.addEventElement("current_phenomenon", phenomenon.getLabel());
-			this.setArousal(this.getArousal() + 1);
-		}
-		else{
-			if (this.getPhenomenon() != null){
-				this.setPhenomenon(null);
-				Trace.addEventElement("current_phenomenon", "n");
-				this.setArousal(BASE_AROUSAL);
+		// If there is no current phenomenon
+		// and the persistent interaction of an existing phenomenon is enacted 
+		// Then the previous interaction is added to its pre-interactions.
+		else if (superInteraction !=null)
+			if (this.PHENOMENA.containsKey(enactedInteraction.getLabel())){
+				phenomenon = (Phenomenon060)this.PHENOMENA.get(enactedInteraction.getLabel());
+				if (phenomenon.isConsistent()){
+					this.setPhenomenon(phenomenon);
+					phenomenonChange = true;
+					//phenomenon.addPreInteraction((Interaction060)superInteraction.getPreInteraction());
+					phenomenon.trace();				
+				}
 			}
+
+		// If the a pre-interaction of an existing phenomenon is enacted
+		// then this phenomenon becomes active
+		Phenomenon060 evokedPhenomenon = this.getPhenomenonByPreInteraction(enactedInteraction);
+		if (evokedPhenomenon !=null){
+			this.setPhenomenon(evokedPhenomenon);
+			phenomenonChange = true;
+			Trace.addEventElement("evoked_phenomenon", evokedPhenomenon.getLabel());
 		}
+		
+		// If an interaction is enacted twice in a row then there is a suspected persistence
+		// create a phenomenon if it does not yet exist
+		if (superInteraction !=null){
+			Interaction060 preInteraction = (Interaction060)superInteraction.getPreInteraction();
+			if (preInteraction == enactedInteraction){
+				if (!this.PHENOMENA.containsKey(enactedInteraction.getLabel())){
+					Phenomenon060 newPhenomenon = createPhenomenon(enactedInteraction); 
+					PHENOMENA.put(enactedInteraction.getLabel(), newPhenomenon);
+					newPhenomenon.trace();
+					this.setPhenomenon(newPhenomenon);
+					phenomenonChange = true;
+					Trace.addEventElement("new_phenomenon", newPhenomenon.getLabel());
+					this.setExcitement(BASE_EXCITEMENT + 1);
+				}
+			}			
+		}
+		
+		if (phenomenonChange){
+//			if (this.getPhenomenon() == null)
+//				Trace.addEventElement("current_phenomenon", "n");
+//			else 
+				Trace.addEventElement("current_phenomenon", this.getPhenomenon().getLabel());				
+		}
+		
 	}
 	
 	/**
@@ -208,12 +251,50 @@ public class Existence060 extends Existence050 {
 		return null;		
 	}
 	
-	public void setArousal(int arousal){
-		this.arousal = arousal;
+	public void setExcitement(int excitement){
+		this.excitement = excitement;
 	}
 
-	public int getArousal(){
-		return this.arousal;
+	public int getExcitement(){
+		return this.excitement;
 	}
+	
+	public Phenomenon060 getPhenomenonByPreInteraction(Interaction060 preinteraction){
+		Phenomenon060 phenomenon = null;
+		
+		for(Phenomenon p : this.PHENOMENA.values()){
+			if (p.isConsistent())
+				if (p.getPreInteractions().contains(preinteraction))
+					phenomenon = (Phenomenon060)p;
+		}
+		return phenomenon;
+	}
+	
+	/**
+	 * Learn composite interactions from 
+	 * the previous super interaction, the context interaction, and the enacted interaction
+	 * limited to the thrid level
+	 */
+	@Override
+	public void learnCompositeInteraction(Interaction030 enactedInteraction){
+		Interaction060 previousInteraction = (Interaction060)this.getEnactedInteraction(); 
+		Interaction060 lastInteraction = (Interaction060)enactedInteraction;
+		Interaction060 previousSuperInteraction = (Interaction060)this.getSuperInteraction();
+		Interaction060 superInteraction = null;
+        // learn [previous current] called the super interaction
+		if (previousInteraction != null)
+			superInteraction = (Interaction060)addOrGetAndReinforceCompositeInteraction(previousInteraction, lastInteraction);
+		
+		// Learn higher-level interactions
+        if (previousSuperInteraction != null  && superInteraction.getLength() < 5
+        		){	
+            // learn [penultimate [previous current]]
+            this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction.getPreInteraction(), superInteraction);
+            // learn [[penultimate previous] current]
+            this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction, lastInteraction);
+        }
+        this.setSuperInteraction(superInteraction);
+	}
+
 
 }
