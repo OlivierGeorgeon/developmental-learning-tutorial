@@ -101,7 +101,7 @@ public class Existence050 extends Existence040{
 	}
 
 	@Override
-    public Experiment050 addOrGetAbstractExperience(Interaction040 interaction) {
+    public Experiment050 addOrGetAbstractExperiment(Interaction040 interaction) {
         String label = interaction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experiment050 abstractExperience =  new Experiment050(label);

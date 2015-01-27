@@ -16,7 +16,7 @@ import coupling.interaction.Interaction040;
 */
 public class Existence040 extends Existence031 {
 
-	private Interaction040 previousSuperInteraction;
+	private Interaction040 superInteraction;
 
 	@Override
 	protected void initExistence(){
@@ -71,7 +71,7 @@ public class Existence040 extends Existence031 {
 	public void learnCompositeInteraction(Interaction030 enactedInteraction){
 		Interaction040 previousInteraction = this.getEnactedInteraction(); 
 		Interaction040 lastInteraction = (Interaction040)enactedInteraction;
-		Interaction040 previousSuperInteraction = this.getPreviousSuperInteraction();
+		Interaction040 previousSuperInteraction = this.getSuperInteraction();
 		Interaction040 lastSuperInteraction = null;
         // learn [previous current] called the super interaction
 		if (previousInteraction != null)
@@ -86,8 +86,7 @@ public class Existence040 extends Existence031 {
             // learn [[penultimate previous] current]
             this.addOrGetAndReinforceCompositeInteraction(previousSuperInteraction, lastInteraction);
         }
-        //this.setLastSuperInteraction(lastSuperInteraction);
-        this.setPreviousSuperInteraction(lastSuperInteraction);
+        this.setSuperInteraction(lastSuperInteraction);
 	}
 	
 	public Interaction040 addOrGetAndReinforceCompositeInteraction(Interaction030 preInteraction, Interaction030 postInteraction){
@@ -117,13 +116,13 @@ public class Existence040 extends Existence031 {
 			interaction.setPreInteraction(preInteraction);
 			interaction.setPostInteraction(postInteraction);
 			interaction.setValence(preInteraction.getValence() + postInteraction.getValence());
-			this.addOrGetAbstractExperience(interaction);
+			this.addOrGetAbstractExperiment(interaction);
 			//interaction.setExperience(abstractExperience);
         }
     	return interaction;
 	}
 	
-    public Experiment040 addOrGetAbstractExperience(Interaction040 interaction) {
+    public Experiment040 addOrGetAbstractExperiment(Interaction040 interaction) {
         String label = interaction.getLabel().replace('e', 'E').replace('r', 'R').replace('>', '|');
         if (!EXPERIENCES.containsKey(label)){
         	Experiment040 abstractExperience =  new Experiment040(label);
@@ -157,8 +156,8 @@ public class Existence040 extends Existence031 {
 				contextInteractions.add(this.getEnactedInteraction().getPostInteraction());
 //			if (this.getLastSuperInteraction() != null)
 //				contextInteractions.add(this.getLastSuperInteraction());
-			if (this.getPreviousSuperInteraction() != null)
-				contextInteractions.add(this.getPreviousSuperInteraction());
+			if (this.getSuperInteraction() != null)
+				contextInteractions.add(this.getSuperInteraction());
 		}
 		
 		List<Interaction> activatedInteractions = new ArrayList<Interaction>();
@@ -230,11 +229,11 @@ public class Existence040 extends Existence031 {
 	public Interaction040 getEnactedInteraction(){
 		return (Interaction040)super.getEnactedInteraction();
 	}
-	public Interaction040 getPreviousSuperInteraction() {
-		return previousSuperInteraction;
+	public Interaction040 getSuperInteraction() {
+		return superInteraction;
 	}
-	public void setPreviousSuperInteraction(Interaction040 previousSuperInteraction) {
-		this.previousSuperInteraction = previousSuperInteraction;
+	public void setSuperInteraction(Interaction040 previousSuperInteraction) {
+		this.superInteraction = previousSuperInteraction;
 	}
 
 	/**

@@ -59,12 +59,12 @@ public class EnvironmentMaze extends Environment050
 		this.getExistence().addOrGetPrimitiveInteraction(">f", -10); // Bump		
 		Interaction040 touchForward = this.getExistence().addOrGetPrimitiveInteraction("-t", -1); // Touch wall
 		this.getExistence().addOrGetPrimitiveInteraction("-f", -1); // Touch empty
-		this.getExistence().addOrGetAbstractExperience(turnLeft);
-		this.getExistence().addOrGetAbstractExperience(turnRight);
-		this.getExistence().addOrGetAbstractExperience(touchRight);
-		this.getExistence().addOrGetAbstractExperience(touchLeft);
-		this.getExistence().addOrGetAbstractExperience(froward);
-		this.getExistence().addOrGetAbstractExperience(touchForward);
+		this.getExistence().addOrGetAbstractExperiment(turnLeft);
+		this.getExistence().addOrGetAbstractExperiment(turnRight);
+		this.getExistence().addOrGetAbstractExperiment(touchRight);
+		this.getExistence().addOrGetAbstractExperiment(touchLeft);
+		this.getExistence().addOrGetAbstractExperiment(froward);
+		this.getExistence().addOrGetAbstractExperiment(touchForward);
 	}
 
 	public Interaction enact(Interaction intendedInteraction) 

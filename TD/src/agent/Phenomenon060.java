@@ -24,6 +24,10 @@ public class Phenomenon060 implements Phenomenon {
 		this.persistentInteraction = interaction;
 	}
 	
+	public Phenomenon060(String label){
+		this.label = label;
+	}
+	
 	@Override
 	public String getLabel(){
 		return this.label;
@@ -60,6 +64,10 @@ public class Phenomenon060 implements Phenomenon {
 	public void trace(){
 		Element e = Trace.addEventElement("phenomenon");
 		Trace.addSubelement(e,"label", this.getLabel());
+		
+		for (Interaction interaction : this.getPreInteractions()){
+			Trace.addSubelement(e,"pre_interaction", interaction.getLabel());
+		}
 		
 		for (Interaction interaction : this.getPostInteractions()){
 			Trace.addSubelement(e,"post_interaction", interaction.getLabel());
