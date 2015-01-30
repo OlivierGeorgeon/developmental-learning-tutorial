@@ -29,5 +29,7 @@ public interface Phenomenon {
 	
 	public boolean isAlreadyTried(Experiment050 experiment);
 	
+	public Experiment050 getPlayExperiment();
+	
 	public void trace();
 }

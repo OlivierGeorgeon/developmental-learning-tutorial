@@ -36,9 +36,9 @@ public class Existence060 extends Existence050 {
 	private Phenomenon060 phenomenon = UNKNWOWN_PHENOMENON;
 	
 	public static final int UNPERSISTENT = -1;
-	private static final int BASE_EXCITEMENT = 1; 
-	private static final int TOP_EXCITEMENT = 4;
-	private int excitement = BASE_EXCITEMENT;
+	public static final int BASE_EXCITEMENT = 1; 
+	public static final int TOP_EXCITEMENT = 4;
+	public int excitement = BASE_EXCITEMENT;
 	
 	@Override
 	protected void initExistence(){
@@ -58,6 +58,7 @@ public class Existence060 extends Existence050 {
 	@Override
 	public String step() {
 		
+		Interaction060 previousEnactedInteraction = (Interaction060)this.getEnactedInteraction();
 		Interaction060 intendedInteraction;
 		Experiment050 experiment;
 		
@@ -65,7 +66,7 @@ public class Existence060 extends Existence050 {
 		
 		// If excited then keep trying the same interaction to see if it is persistent
 		if (this.getExcitement() > BASE_EXCITEMENT){
-			intendedInteraction = (Interaction060)this.getEnactedInteraction();
+			intendedInteraction = previousEnactedInteraction;
 			experiment = this.addOrGetAbstractExperiment(intendedInteraction);
 		}
 		// If not excited then choose another experiment.
@@ -75,22 +76,31 @@ public class Existence060 extends Existence050 {
 			intendedInteraction = (Interaction060)experiment.getIntendedInteraction();
 		}
 		
+		this.getPhenomenon().addPostExperiment(experiment);
+		
 		System.out.println("Intended "+ intendedInteraction.toString());
 		Trace.addEventElement("intended_interaction", intendedInteraction.getLabel());
 		Trace.addEventElement("length", intendedInteraction.getLength() + "");
-		Trace.addEventElement("arousal", this.getExcitement() + "");
 
 		Interaction060 enactedInteraction = (Interaction060)this.enact(intendedInteraction);
 		
 		Trace.addEventElement("top_level", intendedInteraction.getLength() + "");
-		if (enactedInteraction != intendedInteraction){
-			intendedInteraction.setPersistency(UNPERSISTENT);
+		
+		if (previousEnactedInteraction != null && enactedInteraction != previousEnactedInteraction){
+			previousEnactedInteraction.setPersistency(UNPERSISTENT);
 			this.setExcitement(BASE_EXCITEMENT);
+		}
+		if (enactedInteraction != intendedInteraction){
 			experiment.addEnactedInteraction(enactedInteraction);
-			Trace.addEventElement("alternate_interaction", enactedInteraction.getLabel());
+			Trace.addEventElement("alternate_interaction", enactedInteraction.getLabel());			
 		}
 
 		System.out.println("Enacted "+ enactedInteraction.toString());
+		
+		this.learnCompositeInteraction(enactedInteraction);
+		this.setEnactedInteraction(enactedInteraction);
+		
+		this.learnPhenomenon(intendedInteraction);		
 		
 		if (enactedInteraction.getValence() >= 0)
 			this.setMood(Mood.PLEASED);
@@ -98,18 +108,17 @@ public class Existence060 extends Existence050 {
 			this.setMood(Mood.PAINED);
 
 		// If the enacted interactions has not been tested for persistency yet then get excited
-		if (enactedInteraction.getPersistency() < TOP_EXCITEMENT - 1){
+		if (enactedInteraction.getPersistency() < TOP_EXCITEMENT ){
 			if (enactedInteraction.getPersistency() > UNPERSISTENT)
 				this.setExcitement(this.getExcitement() + 1);
 		}
 		else
 			this.setExcitement(BASE_EXCITEMENT);
+		Trace.addEventElement("arousal", this.getExcitement() + "");
+		
+		//if (this.getExcitement() > TOP_EXCITEMENT + 2)
+		//	this.setExcitement(BASE_EXCITEMENT);
 
-		this.learnCompositeInteraction(enactedInteraction);
-		this.setEnactedInteraction(enactedInteraction);
-		
-		this.learnPhenomenon(intendedInteraction);		
-		
 		return "" + this.getMood();
 	}
 	
@@ -118,6 +127,8 @@ public class Existence060 extends Existence050 {
 		
 		// Look if there is still an experiment to play with from the current phenomenon
 		Experiment050 playExperiment = this.getPlayExperiment();
+		if (playExperiment == null)
+			playExperiment = this.getPhenomenon().getPlayExperiment();
 			
 		if (playExperiment == null){
 		
@@ -156,14 +167,14 @@ public class Existence060 extends Existence050 {
 		
 		// If a phenomenon is based on an unpersistent interaction then mark it inconsistent
 		if (intendedInteraction == phenomenon.getPersistentInteraction()){
-			if (enactedInteraction != intendedInteraction){
-				this.getPhenomenon().setConsistent(false);
-				intendedInteraction.setPersistency(UNPERSISTENT);
-				this.setExcitement(BASE_EXCITEMENT);
-				this.getPhenomenon().trace();
-				newPhenomenon = UNKNWOWN_PHENOMENON;
-				this.setPhenomenon(newPhenomenon);
-			}
+//			if (enactedInteraction != intendedInteraction){
+//				this.getPhenomenon().setConsistent(false);
+//				intendedInteraction.setPersistency(UNPERSISTENT);
+//				this.setExcitement(BASE_EXCITEMENT);
+//				this.getPhenomenon().trace();
+//				newPhenomenon = UNKNWOWN_PHENOMENON;
+//				this.setPhenomenon(newPhenomenon);
+//			}
 		}
 		// If the intended interaction was not the persistent interaction 
 		// then the enacted interaction belong to this phenomenon's post-interactions
