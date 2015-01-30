@@ -1,6 +1,7 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -10,12 +11,18 @@ import tracer.Trace;
 import coupling.Experiment050;
 import coupling.interaction.Interaction;
 import coupling.interaction.Interaction060;
+import existence.Existence060;
 
 public class Phenomenon060 implements Phenomenon {
+	
+	public static final int TOP_PLAY = 3; 
 
 	private Interaction060 persistentInteraction;
 	private List<Interaction> preInteractions = new ArrayList<Interaction>();
 	private List<Interaction> postInteractions = new ArrayList<Interaction>();
+	
+	private List<Record060> postRecords = new ArrayList<Record060>();
+	
 	private String label;
 	private boolean consistent = true;
 	
@@ -54,6 +61,24 @@ public class Phenomenon060 implements Phenomenon {
 		if (!this.postInteractions.contains(interaction))
 			this.postInteractions.add(interaction);
 	}
+	
+	public void addPostExperiment(Experiment050 experiment){
+		Record060 record = new Record060(experiment, 1);
+		int i = this.postRecords.indexOf(record);
+		if (i < 0)
+			this.postRecords.add(record);
+		else
+			this.postRecords.get(i).addCount(1); 
+	}
+	
+//	public int getPostExperimentCount(Experiment050 experiment){
+//		Record060 record = new Record060(experiment, 0);
+//		int i = this.postRecords.indexOf(record);
+//		if (i < 0)
+//			return 0;
+//		else
+//			return this.postRecords.get(i).getCount(); 		
+//	}
 
 	@Override
 	public List<Interaction> getPostInteractions() {
@@ -101,6 +126,18 @@ public class Phenomenon060 implements Phenomenon {
 					return true;
 			return false;
 		}
+	}
+	
+	@Override
+	public Experiment050 getPlayExperiment(){
+		if (this.postRecords.size() > 0){
+			Collections.sort(this.postRecords);
+			if (this.postRecords.get(0).getCount() < Existence060.TOP_EXCITEMENT)
+				return this.postRecords.get(0).getExperiment();
+			else return null;
+		}
+		else 
+			return null;
 	}
 
 }

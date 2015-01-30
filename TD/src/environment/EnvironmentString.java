@@ -39,14 +39,13 @@ public class EnvironmentString extends Environment050{
 	@Override
 	protected void init(){
 		
-		this.stepUp = this.getExistence().addOrGetPrimitiveInteraction(">t", 5); 
-		this.feelUp = this.getExistence().addOrGetPrimitiveInteraction("-t", -1);
-		this.swapUp = this.getExistence().addOrGetPrimitiveInteraction("it", -3); 
+		this.stepUp = this.getExistence().addOrGetPrimitiveInteraction(">t", 10); 
+		this.feelUp = this.getExistence().addOrGetPrimitiveInteraction("-t", 0);
+		this.swapUp = this.getExistence().addOrGetPrimitiveInteraction("it", 0); 
 		this.stepDown = this.getExistence().addOrGetPrimitiveInteraction(">f", -10);
-		this.feelDown = this.getExistence().addOrGetPrimitiveInteraction("-f", -1); 
-		this.swapDown = this.getExistence().addOrGetPrimitiveInteraction("if", -3);		
+		this.feelDown = this.getExistence().addOrGetPrimitiveInteraction("-f", 0); 
+		this.swapDown = this.getExistence().addOrGetPrimitiveInteraction("if", 0);		
 		this.step = this.getExistence().addOrGetAbstractExperiment(stepUp);
-		//this.stepDown.setExperience(step);
 		this.feel = this.getExistence().addOrGetAbstractExperiment(feelUp);
 		this.swap = this.getExistence().addOrGetAbstractExperiment(swapUp);
 	}
